@@ -15,21 +15,29 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://09-auth-murex-seven.vercel.app"),
+  metadataBase: new URL(
+    "https://wona-bride-git-main-andrii-mitkos-projects.vercel.app",
+  ),
 
-  title: "NoteHub",
-  description: "Simple and efficient note-taking application",
+  title: "WONA Bride — весільні сукні",
+  description:
+    "Елегантні весільні сукні WONA Bride. Створіть свій ідеальний образ нареченої.",
+
+  icons: {
+    icon: "/favicon.ico",
+  },
 
   openGraph: {
-    title: "NoteHub",
-    description: "Simple and efficient note-taking application",
-    url: "https://09-auth-murex-seven.vercel.app",
+    title: "WONA Bride — весільні сукні",
+    description:
+      "Елегантні весільні сукні WONA Bride. Створіть свій ідеальний образ нареченої.",
+    url: "https://wona-bride-git-main-andrii-mitkos-projects.vercel.app",
     images: [
       {
-        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+        url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "NoteHub",
+        alt: "WONA Bride",
       },
     ],
     type: "website",
