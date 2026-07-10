@@ -1,9 +1,10 @@
+import Image from "next/image";
 import css from "./About.module.css";
 
 export default function About() {
   return (
     <section className={css.about__section} id="about">
-      <div className={css.container + " " + css.about__container}>
+      <div className={`${css.container} ${css.about__container}`}>
         <div className={css.about__content}>
           <h2 className={css.about__title}>Про WONA</h2>
           <p className={css.about__text}>
@@ -18,34 +19,15 @@ export default function About() {
             яку ви мріяли.
           </p>
         </div>
-        <picture>
-          <source
-            media="(min-width: 1440px)"
-            srcSet="
-          ./images/about-section/about-desk.webp    1x,
-          ./images/about-section/about-desk@2x.webp 2x
-        "
-          />
-          <source
-            media="(min-width: 768px)"
-            srcSet="
-          ./images/about-section/about-tablet.webp    1x,
-          ./images/about-section/about-tablet@2x.webp 2x
-        "
-          />
-
-          <source
-            media="(max-width: 767px)"
-            srcSet="
-          ./images/about-section/about-mob.webp    1x,
-          ./images/about-section/about-mob@2x.webp 2x
-        "
-          />
-          <img
-            src="./images/about-section/about-mob.webp"
-            alt="Команда Меблерії"
-          />
-        </picture>
+        <Image
+          src="/images/about-section/about-desk.webp"
+          alt="Команда WONA"
+          width={644}
+          height={430}
+          sizes="(min-width: 1440px) 644px, (min-width: 768px) 704px, 100vw"
+          className={css.about__image}
+          priority
+        />
       </div>
     </section>
   );

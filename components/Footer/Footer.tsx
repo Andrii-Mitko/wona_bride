@@ -1,19 +1,23 @@
 import Link from "next/link";
 import css from "./Footer.module.css";
+import Image from "next/image";
 const Footer = () => {
   return (
     <footer className={css.footer} id="footer">
       <div className={css["footer__container"]}>
         <Link
           href="#top"
-          className={
-            css["footer__logo"] + " " + css.logo + " " + css["logo--light"]
-          }
+          className={`${css.footer__logo}  ${css.logo}  ${css["logo--light"]}`}
           aria-label="WONA — на головну"
         >
-          <svg className={css["footer__logo-icon"]} width="228" height="49">
-            <use href="./icons/icons.svg#icon-logo"></use>
-          </svg>
+          <Image
+            className={css.logo__img}
+            width={140}
+            height={64}
+            src="/images/logo.png"
+            alt="WONA"
+            priority
+          ></Image>
         </Link>
 
         <p className={css["footer__copy-desk"]}>

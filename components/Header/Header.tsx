@@ -11,8 +11,8 @@ const Header = () => {
           <Link href="#top" className={css.logo} aria-label="WONA — на головну">
             <Image
               className={css.logo__img}
-              width={110}
-              height={100}
+              width={140}
+              height={64}
               src="/images/logo.png"
               alt="WONA"
               priority
