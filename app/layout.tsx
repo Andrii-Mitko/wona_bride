@@ -15,7 +15,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://wona-bride.ua"),
+  metadataBase: new URL("https://wona-bride.vercel.app"),
 
   title: "WONA Bride — весільні сукні",
   description:
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     title: "WONA Bride — весільні сукні",
     description:
       "Елегантні весільні сукні WONA Bride. Створіть свій ідеальний образ нареченої.",
-    url: "https://wona-bride.ua",
+    url: "https://wona-bride.vercel.app",
     images: [
       {
         url: "/images/og-image.jpg",
