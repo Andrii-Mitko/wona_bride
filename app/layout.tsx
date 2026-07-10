@@ -15,23 +15,17 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    "https://wona-bride-git-main-andrii-mitkos-projects.vercel.app",
-  ),
+  metadataBase: new URL("https://wona-bride.ua"),
 
   title: "WONA Bride — весільні сукні",
   description:
     "Елегантні весільні сукні WONA Bride. Створіть свій ідеальний образ нареченої.",
 
-  icons: {
-    icon: "/favicon.ico",
-  },
-
   openGraph: {
     title: "WONA Bride — весільні сукні",
     description:
       "Елегантні весільні сукні WONA Bride. Створіть свій ідеальний образ нареченої.",
-    url: "https://wona-bride-git-main-andrii-mitkos-projects.vercel.app",
+    url: "https://wona-bride.ua",
     images: [
       {
         url: "/images/og-image.jpg",
