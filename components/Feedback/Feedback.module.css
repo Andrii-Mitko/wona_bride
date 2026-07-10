@@ -1,0 +1,159 @@
+.feedback__section {
+  padding: 16px 0;
+  background-color: #fff;
+}
+
+.container {
+  width: 100%;
+  max-width: 375px;
+  padding: 0 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.feedback__title {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: #080c09;
+  margin-bottom: 24px;
+}
+
+.feedback__description {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #080c09;
+  margin-bottom: 80px;
+}
+
+.feedback__list {
+  margin-bottom: 48px;
+  align-items: stretch;
+}
+
+.feedback__item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.feedback__stars {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 24px;
+}
+
+.feedback__star {
+  width: 20px;
+  height: 20px;
+}
+
+.feedback__comment {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.6;
+  color: #080c09;
+  margin-bottom: 24px;
+}
+
+.feedback__name {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #080c09;
+  margin-top: auto;
+}
+
+.feedback__control_panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.feedback__pagination {
+  display: flex;
+  align-items: center;
+}
+
+/* Swiper */
+:global(.swiper-pagination-bullet) {
+  background-color: #080c09;
+  opacity: 0.2;
+  width: 8px;
+  height: 8px;
+}
+
+:global(.swiper-pagination-bullet-active) {
+  opacity: 1;
+}
+
+.feedback__arrows {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.feedback__arrow {
+  border: 1px solid rgba(8, 12, 9, 0.15);
+  border-radius: 100px;
+  width: 48px;
+  height: 48px;
+  background-color: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feedback__arrow__icon {
+  width: 24px;
+  height: 24px;
+  fill: #080c09;
+}
+
+.feedback__arrow:hover,
+.feedback__arrow:focus {
+  background-color: #975052;
+}
+
+.feedback__arrow:hover .feedback__arrow__icon,
+.feedback__arrow:focus .feedback__arrow__icon {
+  fill: #fff;
+}
+
+.feedback__arrow:active {
+  background-color: #6b0609;
+}
+
+@media only screen and (min-width: 768px) {
+  .feedback__section {
+    padding: 32px 0;
+  }
+
+  .container {
+    max-width: 768px;
+    padding: 0 32px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .feedback__section {
+    padding: 64px 0;
+  }
+
+  .feedback__title {
+    font-size: 48px;
+  }
+
+  .container {
+    max-width: 1440px;
+    padding: 0 64px;
+  }
+}

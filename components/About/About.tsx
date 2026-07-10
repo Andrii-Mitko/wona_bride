@@ -26,7 +26,10 @@ export default function About() {
           height={430}
           sizes="(min-width: 1440px) 644px, (min-width: 768px) 704px, 100vw"
           className={css.about__image}
-          style={{ height: "auto" }}
+          style={{
+            width: "100%",
+            height: "auto",
+          }}
           priority
         />
       </div>

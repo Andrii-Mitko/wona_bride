@@ -30,7 +30,6 @@
 
 .about__image {
   width: 100%;
-  height: auto;
   border-radius: 8px;
   transition: transform 0.3s;
 }
