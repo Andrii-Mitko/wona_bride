@@ -1,8 +1,144 @@
+:root {
+  --color-neutral-darkest: #030a06;
+  --color-neutral-lighter: #d9dad9;
+  --color-white: #fff;
+  --color-neutral-lightest: #f2f2f2;
+  --color-neutral-light: #b3b5b4;
+  --color-neutral: #818482;
+  --color-neutral-dark: #4e5350;
+  --color-neutral-darker: #1c221e;
+  --color-emerald-lightest: #ebf8ed;
+  --color-emerald-lighter: #d7f2db;
+  --color-emerald-light: #75d281;
+  --color-emerald: #3ac04c;
+  --color-emerald-dark: #2e993c;
+  --color-emerald-darker: #174c1e;
+  --color-emerald-darkest: #113916;
+  --color-error-red: #d64040;
+  --opacity-transparent: rgba(255, 255, 255, 0);
+  --opacity-neutral-darkest-5: rgba(8, 12, 9, 0.05);
+  --color-text: #1f1f1f;
+  --color-muted: #6f6f6f;
+  --color-bg: #fcfaf7;
+  --color-surface: #ffffff;
+  --color-border: #e8dfd7;
+  --color-accent: #6b0609;
+  --color-accent-dark: #733926;
+  --color-dark: #241b17;
+  --container-width: 1440px;
+  --container-padding: 64px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-s: 8px;
+  --radius-full: 999px;
+
+  --shadow-sm: 0 10px 30px rgba(36, 27, 23, 0.08);
+  --transition: 250ms ease;
+  --font-family: "Raleway", sans-serif;
+  --second-family: "IBM Plex Sans", sans-serif;
+
+  /* Глобальні стилі для тега body  */
+  --font-base: 16px;
+  --text-main: #080c09;
+  --bg-body: #fff;
+
+  --font-primary: var(--font-family);
+
+  --transition-main: var(--transition);
+  --color-background: var(--color-bg);
+  --color-scheme-2-text: var(--color-text);
+  --anchor-offset: 65px;
+}
+#furniture,
+#about,
+#popular,
+#faq,
+#feedback,
+#footer {
+  scroll-margin-top: var(--anchor-offset);
+}
 body {
-  font-family: var(--font-roboto), sans-serif;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  font-family: var(--font-primary);
+  font-size: var(--font-base);
+  color: var(--text-main);
+  background-color: var(--bg-body);
   margin: 0;
-  background-color: #f8f9fa;
+  padding: 0;
+  min-height: 100vh;
+  min-width: 320px;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+Image {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+body.is-locked {
+  overflow: hidden;
+}
+
+.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
