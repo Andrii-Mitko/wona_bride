@@ -1,3 +1,8 @@
+.furniture__section {
+  background-color: #f0e6e6;
+  padding: 64px 20px;
+  margin: 0 auto;
+}
 .categories {
   display: flex;
   gap: 12px;
@@ -460,7 +465,9 @@
   .furniture__list {
     grid-template-columns: repeat(2, 1fr);
   }
-
+  .furniture__section {
+    padding: 32px;
+  }
   .btn__furniture {
     width: 340px;
   }
@@ -485,7 +492,9 @@
     gap: 20px;
     align-items: stretch;
   }
-
+  .furniture__section {
+    padding: 64px;
+  }
   .furniture {
     padding: 80px 0;
   }

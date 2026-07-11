@@ -1,0 +1,151 @@
+.sectionPopular {
+  padding: 16px 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 375px;
+  padding: 0 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.popularTitle {
+  margin-bottom: 32px;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: #080c09;
+}
+
+.popularSwiperUp {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 48px;
+}
+
+.swiperPaginationDotsPopular,
+.swiperPrevButtonPopular,
+.swiperNextButtonPopular {
+  display: none;
+}
+
+.swiperPaginationDotsPopular {
+  display: flex;
+  align-items: center;
+  width: auto;
+  padding: 20px 0;
+}
+
+.popularArrows {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+  fill: #080c09;
+}
+
+.swiperPrevButtonPopular,
+.swiperNextButtonPopular {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  border: 1px solid rgba(8, 12, 9, 0.15);
+  border-radius: 50%;
+  background-color: #f2f2f2;
+  cursor: pointer;
+  transition:
+    background-color 250ms ease,
+    border-color 250ms ease;
+}
+
+.swiperPrevButtonPopular:hover,
+.swiperPrevButtonPopular:focus,
+.swiperNextButtonPopular:hover,
+.swiperNextButtonPopular:focus {
+  background-color: #975052;
+}
+
+.swiperPrevButtonPopular:hover .leftArrow,
+.swiperPrevButtonPopular:focus .leftArrow,
+.swiperNextButtonPopular:hover .rightArrow,
+.swiperNextButtonPopular:focus .rightArrow {
+  fill: #fff;
+}
+
+.swiperPrevButtonPopular:active,
+.swiperNextButtonPopular:active {
+  background-color: #6b0609;
+}
+
+.swiperPrevButtonPopular:active .leftArrow,
+.swiperNextButtonPopular:active .rightArrow {
+  fill: #fff;
+}
+
+.swiperButtonDisabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.leftArrow,
+.rightArrow {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+@media (max-width: 767px) {
+  .popularSwiperUp {
+    gap: 12px;
+  }
+
+  .popularArrows {
+    gap: 12px;
+  }
+
+  .swiperPrevButtonPopular,
+  .swiperNextButtonPopular {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+  }
+
+  .leftArrow,
+  .rightArrow {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .sectionPopular {
+    padding: 32px 0;
+  }
+
+  .container {
+    max-width: 768px;
+    padding: 0 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .sectionPopular {
+    padding: 64px 0;
+  }
+
+  .container {
+    max-width: 1440px;
+    padding: 0 64px;
+  }
+
+  .popularTitle {
+    font-size: 48px;
+  }
+}

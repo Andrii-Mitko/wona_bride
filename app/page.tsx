@@ -4,6 +4,7 @@ import Faq from "@/components/Faq/Faq";
 import Feedback from "@/components/Feedback/Feedback";
 
 import Hero from "@/components/Hero/Hero";
+import Popular from "@/components/Popular/Popular";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Hero />
       <Dresses />
       <About />
+      <Popular />
       <Faq />
       <Feedback />
     </>
