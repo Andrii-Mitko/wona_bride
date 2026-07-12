@@ -1,53 +1,46 @@
-"use client";
-
-import { useRouter, useSearchParams } from "next/navigation";
-import ReactPaginate from "react-paginate";
+import Link from "next/link";
 
 import css from "./Pagination.module.css";
 
-type Props = {
-  page: number;
+type PaginationProps = {
   totalPages: number;
+  currentPage: number;
+  category?: string;
 };
 
-export default function Pagination({ page, totalPages }: Props) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  function handlePageChange(selected: number) {
-    const params = new URLSearchParams(searchParams);
-
-    if (selected === 1) {
-      params.delete("page");
-    } else {
-      params.set("page", selected.toString());
-    }
-
-    const query = params.toString();
-
-    router.push(`/catalog${query ? `?${query}` : ""}`);
+export default function Pagination({
+  totalPages,
+  currentPage,
+  category,
+}: PaginationProps) {
+  if (totalPages <= 1) {
+    return null;
   }
 
   return (
-    <ReactPaginate
-      className={css.pagination}
-      breakLabel="..."
-      previousLabel="‹"
-      nextLabel="›"
-      pageCount={totalPages}
-      forcePage={page - 1}
-      pageRangeDisplayed={5}
-      marginPagesDisplayed={1}
-      onPageChange={(event) => handlePageChange(event.selected + 1)}
-      activeClassName={css.active}
-      pageClassName={css.pageItem}
-      pageLinkClassName={css.pageLink}
-      previousClassName={css.pageItem}
-      nextClassName={css.pageItem}
-      previousLinkClassName={css.pageLink}
-      nextLinkClassName={css.pageLink}
-      breakClassName={css.pageItem}
-      breakLinkClassName={css.pageLink}
-    />
+    <ul className={css.pagination}>
+      {Array.from({ length: totalPages }, (_, index) => {
+        const page = index + 1;
+
+        const params = new URLSearchParams();
+
+        params.set("page", String(page));
+
+        if (category) {
+          params.set("category", category);
+        }
+
+        return (
+          <li key={page} className={page === currentPage ? css.active : ""}>
+            <Link
+              href={`/catalog?${params.toString()}`}
+              className={css.pageLink}
+            >
+              {page}
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
   );
 }

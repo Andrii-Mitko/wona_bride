@@ -1,13 +1,12 @@
 import DressCategories from "@/components/DressCategories/DressCategories";
 import DressGrid from "@/components/DressGrid/DressGrid";
-import Pagination from "@/components/Pagination/Pagination";
 
-import { getCategories } from "@/lib/api/categories";
 import { getDresses } from "@/lib/api/dresses";
 
-import { isDressCategory } from "@/lib/utils/dress";
-
 import css from "./catalog.module.css";
+import { isDressCategory } from "@/lib/utils/dress";
+import { getCategories } from "@/lib/api/categories";
+import Pagination from "@/components/Pagination/Pagination";
 
 type Props = {
   searchParams: Promise<{
@@ -23,37 +22,47 @@ export default async function CatalogPage({ searchParams }: Props) {
     params.category && isDressCategory(params.category)
       ? params.category
       : undefined;
-
-  const page = Number(params.page) || 1;
+  const currentPage = Number(params.page) || 1;
 
   const [categories, dressesResponse] = await Promise.all([
     getCategories(),
-
     getDresses({
       category: activeCategory,
-      page,
-      limit: 8,
+      page: currentPage,
     }),
   ]);
+
+  const dresses = dressesResponse.dresses;
+  const { totalPages, page } = dressesResponse;
+
+  const titles = {
+    all: "Колекція весільних суконь",
+    wedding: "Весільні сукні",
+    evening: "Вечірні сукні",
+    cocktail: "Коктейльні сукні",
+    holiday: "Святкові сукні",
+    graduation: "Випускні сукні",
+    kids: "Дитячі сукні",
+  };
+
+  const title = titles[activeCategory ?? "all"];
 
   return (
     <section className={css.section}>
       <div className={css.container}>
-        <h1 className={css.title}>Колекція весільних суконь</h1>
+        <h1 className={css.title}>{title}</h1>
 
         <DressCategories
           categories={categories}
           activeCategory={activeCategory ?? "all"}
         />
 
-        <DressGrid dresses={dressesResponse.dresses} />
-
-        {dressesResponse.totalPages > 1 && (
-          <Pagination
-            page={dressesResponse.page}
-            totalPages={dressesResponse.totalPages}
-          />
-        )}
+        <DressGrid dresses={dresses} />
+        <Pagination
+          totalPages={dressesResponse.totalPages}
+          currentPage={dressesResponse.page}
+          category={activeCategory}
+        />
       </div>
     </section>
   );
