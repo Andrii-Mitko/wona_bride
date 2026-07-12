@@ -1,0 +1,44 @@
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mainImage {
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.thumbnails {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.thumbnail {
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.25s;
+}
+
+.thumbnail:hover {
+  border-color: #975052;
+}
+
+.active {
+  border-color: #975052;
+}
+
+.thumbnail img {
+  display: block;
+}

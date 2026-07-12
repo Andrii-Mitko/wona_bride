@@ -1,8 +1,7 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { getDressBySlug } from "@/lib/api/dresses";
-
+import DressGallery from "@/components/DressGallery/DressGallery";
 import css from "./page.module.css";
 
 type Props = {
@@ -23,15 +22,7 @@ export default async function DressPage({ params }: Props) {
   return (
     <section className={css.section}>
       <div className={css.container}>
-        <div className={css.imageWrapper}>
-          <Image
-            src={dress.images[0]}
-            alt={dress.name}
-            width={600}
-            height={800}
-            className={css.image}
-          />
-        </div>
+        <DressGallery name={dress.name} images={dress.images} />
 
         <div className={css.content}>
           <h1 className={css.title}>{dress.name}</h1>
