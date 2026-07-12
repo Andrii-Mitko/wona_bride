@@ -5,7 +5,6 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer/Footer";
-// import AuthProvider from "@/components/AuthProvider/AuthProvider";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -40,25 +39,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  modal,
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="uk">
       <body className={`${roboto.variable} ${css.body}`}>
         <TanStackProvider>
-          {/* <AuthProvider> */}
-          {/* <-- додаємо провайдер */}
           <Header />
-          <main className={css.main}>
-            {children}
-            {modal}
-          </main>
+
+          <main className={css.main}>{children}</main>
+
           <Footer />
-          {/* </AuthProvider>{" "} */}
-          {/* <-- додаємо провайдер */}
         </TanStackProvider>
       </body>
     </html>

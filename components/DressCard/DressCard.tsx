@@ -20,7 +20,7 @@ const DressCard = ({ dress, priority = false }: Props) => {
           width={400}
           height={550}
           className={css.image}
-          priority
+          priority={priority}
         />
       </Link>
 
