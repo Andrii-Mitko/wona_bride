@@ -1,78 +1,77 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import css from "./Header.module.css";
-const Header = () => {
+
+export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const closeMenu = () => setIsOpen(false);
+
   return (
-    <header className={css.header} id="top">
-      {" "}
-      <div className={css.header__container}>
-        {" "}
-        <Link href="/" className={css.logo} aria-label="WONA — на головну">
-          {" "}
+    <header className={css.header}>
+      <div className={css.container}>
+        <Link href="/" className={css.logo} onClick={closeMenu}>
           <Image
-            className={css.logo__img}
-            width={140}
-            height={64}
             src="/images/logo.png"
             alt="WONA Bride"
+            width={140}
+            height={64}
             priority
-          />{" "}
-        </Link>{" "}
-        <nav
-          className={`${css.header__nav} ${css.nav}`}
-          aria-label="Основна навігація"
-        >
-          {" "}
-          <ul className={css.nav__list}>
-            {" "}
-            <li className={css.nav__item}>
-              {" "}
-              <Link className={css.nav__link} href="/catalog">
-                {" "}
-                Наші сукні{" "}
-              </Link>{" "}
-            </li>{" "}
-            <li className={css.nav__item}>
-              {" "}
-              <Link className={css.nav__link} href="#about">
-                {" "}
-                Про нас{" "}
-              </Link>{" "}
-            </li>{" "}
-            <li className={css.nav__item}>
-              {" "}
-              <Link className={css.nav__link} href="#popular">
-                {" "}
-                Популярні{" "}
-              </Link>{" "}
-            </li>{" "}
-            <li className={css.nav__item}>
-              {" "}
-              <Link className={css.nav__link} href="#feedback">
-                {" "}
-                Відгуки{" "}
-              </Link>{" "}
-            </li>{" "}
-          </ul>{" "}
-        </nav>{" "}
-        <Link
-          className={`${css.header__cta} ${css.btn} ${css["btn--primary"]}`}
-          href="/catalog"
-        >
-          {" "}
-          Переглянути сукні{" "}
-        </Link>{" "}
+          />
+        </Link>
+
+        <nav className={css.desktopNav}>
+          <Link href="/catalog">Наші сукні</Link>
+          <Link href="#about">Про нас</Link>
+          <Link href="#popular">Популярні</Link>
+          <Link href="#feedback">Відгуки</Link>
+        </nav>
+
+        <Link href="/catalog" className={css.button}>
+          Переглянути сукні
+        </Link>
+
         <button
-          className={css.burger}
-          type="button"
-          aria-label="Відкрити меню"
-          aria-expanded="false"
+          className={`${css.burger} ${isOpen ? css.active : ""}`}
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Меню"
         >
-          {" "}
-          <span></span> <span></span> <span></span>{" "}
-        </button>{" "}
-      </div>{" "}
+          <span />
+          <span />
+          <span />
+        </button>
+      </div>
+
+      <div className={`${css.mobileMenu} ${isOpen ? css.show : ""}`}>
+        <nav className={css.mobileNav}>
+          <Link href="/catalog" onClick={closeMenu}>
+            Наші сукні
+          </Link>
+
+          <Link href="#about" onClick={closeMenu}>
+            Про нас
+          </Link>
+
+          <Link href="#popular" onClick={closeMenu}>
+            Популярні
+          </Link>
+
+          <Link href="#feedback" onClick={closeMenu}>
+            Відгуки
+          </Link>
+
+          <Link
+            href="/catalog"
+            className={css.mobileButton}
+            onClick={closeMenu}
+          >
+            Переглянути сукні
+          </Link>
+        </nav>
+      </div>
     </header>
   );
-};
-export default Header;
+}
