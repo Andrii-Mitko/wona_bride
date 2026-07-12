@@ -1,5 +1,5 @@
-.sectionPopular {
-  padding: 16px 0;
+.section {
+  padding: 32px 0;
 }
 
 .container {
@@ -12,23 +12,21 @@
   box-sizing: border-box;
 }
 
-.popularTitle {
+.title {
   margin: 0 0 32px;
+
+  text-align: center;
 
   font-size: 36px;
   font-weight: 700;
   line-height: 1.2;
-  letter-spacing: 0.01em;
-
-  text-align: center;
 
   color: #080c09;
 }
 
-
 @media (min-width: 768px) {
-  .sectionPopular {
-    padding: 32px 0;
+  .section {
+    padding: 48px 0;
   }
 
   .container {
@@ -37,9 +35,8 @@
   }
 }
 
-
 @media (min-width: 1440px) {
-  .sectionPopular {
+  .section {
     padding: 64px 0;
   }
 
@@ -48,9 +45,7 @@
     padding: 0 64px;
   }
 
-  .popularTitle {
-    margin-bottom: 48px;
-
+  .title {
     font-size: 48px;
   }
 }

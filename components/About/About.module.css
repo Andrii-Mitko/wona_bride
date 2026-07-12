@@ -1,102 +1,123 @@
-.about__section {
+.aboutSection {
+  padding: 16px 0;
   background-color: #f0e6e6;
-  padding: 64px 20px;
-  margin: 0 auto;
 }
+
 .container {
   width: 100%;
   max-width: 375px;
+  padding: 0 20px;
   margin: 0 auto;
   box-sizing: border-box;
 }
-.about__title {
+
+.aboutContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.aboutContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.aboutTitle {
+  margin: 0 0 24px;
+
   font-family: "Raleway", sans-serif;
   font-size: 36px;
   font-weight: 700;
-  color: #080c09;
   line-height: 1.2;
   letter-spacing: 0.01em;
-  margin-bottom: 24px;
-}
 
-.about__text {
-  font-family: var(--font-family);
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.6;
   color: #080c09;
 }
 
-.about__image {
+.aboutText {
+  margin: 0 0 16px;
+
+  font-size: 18px;
+  line-height: 1.6;
+
+  color: #080c09;
+}
+
+.aboutText:last-child {
+  margin-bottom: 0;
+}
+
+/* контейнер для Image fill */
+.imageWrapper {
+  position: relative;
+
   width: 100%;
+  height: 335px;
+
+  overflow: hidden;
   border-radius: 8px;
-  transition: transform 0.3s;
 }
 
-.about__content {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 24px;
+.aboutImage {
+  object-fit: cover;
+
+  transition: transform 300ms ease;
 }
 
-.about__container {
-  padding: 0;
-  gap: 0;
-  max-width: 335px;
-}
-
+/* Tablet */
 @media (min-width: 768px) {
-  .about__section {
-    padding: 32px;
+  .aboutSection {
+    padding: 32px 0;
   }
+
   .container {
     max-width: 768px;
     padding: 0 32px;
   }
-  .about__container {
+
+  .aboutContainer {
     max-width: 704px;
+  }
+
+  .imageWrapper {
+    height: 430px;
   }
 }
 
+/* Desktop */
 @media (min-width: 1440px) {
-  .about__section {
-    padding: 64px;
+  .aboutSection {
+    padding: 64px 0;
   }
+
   .container {
     max-width: 1440px;
     padding: 0 64px;
   }
-  .about__container {
+
+  .aboutContainer {
     max-width: 1312px;
-    margin-left: auto;
-    margin-right: auto;
+
     display: grid;
     grid-template-columns: 644px 644px;
     gap: 24px;
+
     align-items: center;
   }
 
-  .about__content {
-    width: 100%;
+  .aboutContent {
     max-width: 644px;
-    margin-bottom: 0;
-    align-self: center;
   }
 
-  .about__title {
-    font-family: "Raleway", sans-serif;
+  .aboutTitle {
     font-size: 48px;
-    font-weight: 700;
-    color: #080c09;
-    line-height: 1.2;
-    letter-spacing: 0.01em;
   }
 
-  .about__text {
-    font: 400 18px/1.6 var(--font-family);
-    color: var(--color-scheme-2-text);
+  .imageWrapper {
+    height: 430px;
   }
-  .about__image:hover {
+
+  .aboutImage:hover {
     transform: scale(1.02);
   }
 }
