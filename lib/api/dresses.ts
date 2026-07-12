@@ -7,16 +7,41 @@ export type GetDressesParams = {
   category?: DressCategory;
 };
 
-export async function getDresses(params?: GetDressesParams) {
+export type GetDressesResponse = {
+  dresses: typeof dresses;
+  totalItems: number;
+  totalPages: number;
+  page: number;
+  limit: number;
+};
+
+export async function getDresses(
+  params?: GetDressesParams,
+): Promise<GetDressesResponse> {
+  const page = params?.page ?? 1;
+  const limit = params?.limit ?? 8;
+
   let result = [...dresses];
 
-  const category = params?.category;
-
-  if (category) {
-    result = result.filter((dress) => dress.category.includes(category));
+  if (params?.category) {
+    result = result.filter((dress) =>
+      dress.category.includes(params.category!),
+    );
   }
 
-  return result;
+  const totalItems = result.length;
+  const totalPages = Math.ceil(totalItems / limit);
+
+  const start = (page - 1) * limit;
+  const end = start + limit;
+
+  return {
+    dresses: result.slice(start, end),
+    totalItems,
+    totalPages,
+    page,
+    limit,
+  };
 }
 
 export async function getDressBySlug(slug: string) {

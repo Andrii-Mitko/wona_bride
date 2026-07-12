@@ -6,9 +6,9 @@ import { useDresses } from "@/hooks/useDresses";
 import DressGrid from "@/components/DressGrid/DressGrid";
 
 const Popular = () => {
-  const { data: dresses = [], isLoading } = useDresses();
+  const { data, isLoading } = useDresses();
 
-  const popularDresses = dresses.filter((dress) => dress.isPopular);
+  const popularDresses = data?.dresses.filter((dress) => dress.isPopular) ?? [];
 
   return (
     <section className={css.sectionPopular} id="popular">

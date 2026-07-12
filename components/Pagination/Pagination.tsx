@@ -1,30 +1,44 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
 import ReactPaginate from "react-paginate";
+
 import css from "./Pagination.module.css";
 
-type PaginationProps = {
-  totalPages: number;
+type Props = {
   page: number;
-  onPageChange: (page: number) => void;
+  totalPages: number;
 };
 
-export default function Pagination({
-  totalPages,
-  page,
-  onPageChange,
-}: PaginationProps) {
+export default function Pagination({ page, totalPages }: Props) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  function handlePageChange(selected: number) {
+    const params = new URLSearchParams(searchParams);
+
+    if (selected === 1) {
+      params.delete("page");
+    } else {
+      params.set("page", selected.toString());
+    }
+
+    const query = params.toString();
+
+    router.push(`/catalog${query ? `?${query}` : ""}`);
+  }
+
   return (
     <ReactPaginate
       className={css.pagination}
       breakLabel="..."
-      nextLabel=">"
-      previousLabel="<"
+      previousLabel="‹"
+      nextLabel="›"
       pageCount={totalPages}
       forcePage={page - 1}
-      onPageChange={(e) => onPageChange(e.selected + 1)}
       pageRangeDisplayed={5}
       marginPagesDisplayed={1}
+      onPageChange={(event) => handlePageChange(event.selected + 1)}
       activeClassName={css.active}
       pageClassName={css.pageItem}
       pageLinkClassName={css.pageLink}

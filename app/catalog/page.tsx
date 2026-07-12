@@ -1,15 +1,18 @@
 import DressCategories from "@/components/DressCategories/DressCategories";
 import DressGrid from "@/components/DressGrid/DressGrid";
+import Pagination from "@/components/Pagination/Pagination";
 
 import { getCategories } from "@/lib/api/categories";
 import { getDresses } from "@/lib/api/dresses";
 
-import css from "./catalog.module.css";
 import { isDressCategory } from "@/lib/utils/dress";
+
+import css from "./catalog.module.css";
 
 type Props = {
   searchParams: Promise<{
     category?: string;
+    page?: string;
   }>;
 };
 
@@ -21,10 +24,15 @@ export default async function CatalogPage({ searchParams }: Props) {
       ? params.category
       : undefined;
 
-  const [categories, dresses] = await Promise.all([
+  const page = Number(params.page) || 1;
+
+  const [categories, dressesResponse] = await Promise.all([
     getCategories(),
+
     getDresses({
       category: activeCategory,
+      page,
+      limit: 8,
     }),
   ]);
 
@@ -38,7 +46,14 @@ export default async function CatalogPage({ searchParams }: Props) {
           activeCategory={activeCategory ?? "all"}
         />
 
-        <DressGrid dresses={dresses} />
+        <DressGrid dresses={dressesResponse.dresses} />
+
+        {dressesResponse.totalPages > 1 && (
+          <Pagination
+            page={dressesResponse.page}
+            totalPages={dressesResponse.totalPages}
+          />
+        )}
       </div>
     </section>
   );
