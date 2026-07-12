@@ -1,13 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { getDresses } from "@/lib/api/dresses";
 
-type UseDressesParams = {
-  page?: number;
-  limit?: number;
-  category?: string;
-};
+import { getDresses, type GetDressesParams } from "@/lib/api/dresses";
 
-export function useDresses(params?: UseDressesParams) {
+export function useDresses(params?: GetDressesParams) {
   return useQuery({
     queryKey: ["dresses", params],
     queryFn: () => getDresses(params),

@@ -1,7 +1,7 @@
 import { dresses } from "@/data/dresses";
 import { DressCategory } from "@/types/dress";
 
-type GetDressesParams = {
+export type GetDressesParams = {
   page?: number;
   limit?: number;
   category?: DressCategory;
