@@ -9,7 +9,8 @@ export const dresses: Dress[] = [
     description: "Елегантна весільна сукня.",
     images: ["/images/dresses/image.png"],
     sizes: ["XS", "S", "M"],
-    category: "classic",
+    category: ["wedding"],
+    style: ["a-line"],
     isPopular: true,
   },
 
@@ -21,7 +22,8 @@ export const dresses: Dress[] = [
     description: "Витончена сукня для особливого дня.",
     images: ["/images/dresses/image2.jpg"],
     sizes: ["S", "M", "L"],
-    category: "princess",
+    category: ["evening"],
+    style: ["princess"],
     isPopular: true,
   },
 
@@ -33,7 +35,9 @@ export const dresses: Dress[] = [
     description: "Сукня з ніжним силуетом.",
     images: ["/images/dresses/image3.png"],
     sizes: ["XS", "S"],
-    category: "classic",
+    category: ["wedding", "holiday"],
+
+    style: ["a-line"],
     isPopular: false,
   },
 
@@ -45,7 +49,9 @@ export const dresses: Dress[] = [
     description: "Розкішна весільна сукня.",
     images: ["/images/dresses/image4.png"],
     sizes: ["M", "L"],
-    category: "mermaid",
+    category: ["wedding", "holiday"],
+
+    style: ["a-line"],
     isPopular: true,
   },
 ];

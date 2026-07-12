@@ -2,42 +2,44 @@ import { Category } from "@/types/category";
 
 export const categories: Category[] = [
   {
-    id: "1",
-    name: "Усі",
-    slug: "all",
-  },
-  {
-    id: "2",
-    name: "Класичні",
-    slug: "classic",
-  },
-  {
-    id: "3",
-    name: "Русалка",
-    slug: "mermaid",
-  },
-  {
-    id: "4",
-    name: "Принцеса",
-    slug: "princess",
-  },
-];
-
-export const dressCategories = [
-  {
     id: "all",
     name: "Всі сукні",
+    slug: "",
   },
+
   {
-    id: "classic",
-    name: "Класичні",
+    id: "wedding",
+    name: "Весільні",
+    slug: "wedding",
   },
+
   {
-    id: "princess",
-    name: "Принцеса",
+    id: "evening",
+    name: "Вечірні",
+    slug: "evening",
   },
+
   {
-    id: "mermaid",
-    name: "Русалка",
+    id: "cocktail",
+    name: "Коктейльні",
+    slug: "cocktail",
+  },
+
+  {
+    id: "holiday",
+    name: "Святкові",
+    slug: "holiday",
+  },
+
+  {
+    id: "graduation",
+    name: "Випускні",
+    slug: "graduation",
+  },
+
+  {
+    id: "kids",
+    name: "Дитячі",
+    slug: "kids",
   },
 ];

@@ -1,0 +1,72 @@
+.section {
+  padding: 40px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  display: grid;
+  gap: 40px;
+}
+
+.imageWrapper {
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  font-size: 40px;
+}
+
+.price {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.description {
+  font-size: 18px;
+}
+
+.sizes {
+  display: flex;
+  gap: 12px;
+}
+
+.sizes li {
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.button {
+  width: fit-content;
+  padding: 14px 30px;
+
+  border: none;
+  border-radius: 30px;
+
+  background: #975052;
+  color: white;
+
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .container {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+}

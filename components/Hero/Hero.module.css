@@ -1,13 +1,23 @@
 .hero {
   padding: 136px 0;
   background-image:
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(56, 19, 19, 0.2)),
+    url(../../public/images/IMG_4598.JPG);
+  background-color: rgba(217, 217, 217, 1);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 0% 60%;
+}
+/* .hero {
+  padding: 136px 0;
+  background-image:
     linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     url(../../public/images/hero.png);
   background-color: rgba(217, 217, 217, 1);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-}
+} */
 
 .container {
   width: 100%;
