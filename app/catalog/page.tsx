@@ -32,8 +32,7 @@ export default async function CatalogPage({ searchParams }: Props) {
     }),
   ]);
 
-  const dresses = dressesResponse.dresses;
-  const { totalPages, page } = dressesResponse;
+ const { dresses, totalPages, page } = dressesResponse;
 
   const titles = {
     all: "Колекція весільних суконь",
@@ -58,11 +57,11 @@ export default async function CatalogPage({ searchParams }: Props) {
         />
 
         <DressGrid dresses={dresses} />
-        <Pagination
-          totalPages={dressesResponse.totalPages}
-          currentPage={dressesResponse.page}
-          category={activeCategory}
-        />
+<Pagination
+  totalPages={totalPages}
+  currentPage={page}
+  category={activeCategory}
+/>
       </div>
     </section>
   );

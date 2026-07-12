@@ -6,11 +6,14 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
-
+}
+.backWrapper {
+  margin-bottom: 32px;
+}
+.product {
   display: grid;
   gap: 40px;
 }
-
 .imageWrapper {
   width: 100%;
 }
@@ -18,7 +21,7 @@
 .image {
   width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 12px;
 }
 
 .content {
@@ -43,6 +46,8 @@
 .sizes {
   display: flex;
   gap: 12px;
+  list-style: none;
+  padding: 0;
 }
 
 .sizes li {
@@ -65,8 +70,8 @@
 }
 
 @media (min-width: 768px) {
-  .container {
+  .product {
     grid-template-columns: 1fr 1fr;
-    align-items: center;
+    align-items: start;
   }
 }
