@@ -42,7 +42,11 @@ export default async function DressPage({ params }: Props) {
                 <li key={size}>{size}</li>
               ))}
             </ul>
-            <AppointmentModal dressName={dress.name} />
+            <AppointmentModal
+              dressName={dress.name}
+              sizes={dress.sizes}
+              sizeType={dress.sizeType}
+            />
           </div>
         </div>
       </div>

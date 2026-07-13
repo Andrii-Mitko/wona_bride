@@ -10,9 +10,15 @@ import css from "./AppointmentModal.module.css";
 
 type Props = {
   dressName: string;
+  sizes: string[];
+  sizeType: "letter" | "women" | "kids";
 };
 
-export default function AppointmentModal({ dressName }: Props) {
+export default function AppointmentModal({
+  dressName,
+  sizes,
+  sizeType,
+}: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSuccess = () => {
@@ -28,7 +34,12 @@ export default function AppointmentModal({ dressName }: Props) {
       </button>
 
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <AppointmentForm dressName={dressName} onSuccess={handleSuccess} />
+        <AppointmentForm
+          dressName={dressName}
+          sizes={sizes}
+          sizeType={sizeType}
+          onSuccess={handleSuccess}
+        />
       </Modal>
     </>
   );

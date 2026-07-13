@@ -10,10 +10,23 @@ import {
 
 type Props = {
   dressName: string;
+  sizes: string[];
+  sizeType: "letter" | "women" | "kids";
   onSuccess: () => void;
 };
 
-export default function AppointmentForm({ dressName, onSuccess }: Props) {
+const sizeTypeLabel: Record<"letter" | "women" | "kids", string> = {
+  letter: "Буквені розміри",
+  women: "Жіночі розміри",
+  kids: "Дитячі розміри",
+};
+
+export default function AppointmentForm({
+  dressName,
+  sizes,
+  sizeType,
+  onSuccess,
+}: Props) {
   const {
     register,
     handleSubmit,
@@ -22,14 +35,29 @@ export default function AppointmentForm({ dressName, onSuccess }: Props) {
     resolver: zodResolver(appointmentSchema),
     defaultValues: {
       dressName,
+      sizes: [],
       privacy: false,
     },
   });
 
-  const onSubmit = (data: AppointmentFormData) => {
-    console.log(data);
+  const onSubmit = async (data: AppointmentFormData) => {
+    try {
+      const response = await fetch("/api/appointment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    onSuccess();
+      if (!response.ok) {
+        throw new Error("Помилка відправки");
+      }
+
+      onSuccess();
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <section className={css.section}>
@@ -39,6 +67,24 @@ export default function AppointmentForm({ dressName, onSuccess }: Props) {
       </p>
       <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
         <input type="hidden" {...register("dressName")} />
+        <div className={css.sizes}>
+          <p className={css.label}>Оберіть розмір *</p>
+
+          <p className={css.sizeInfo}>{sizeTypeLabel[sizeType]}</p>
+
+          <div className={css.sizesGrid}>
+            {sizes.map((size) => (
+              <label key={size} className={css.sizeItem}>
+                <input type="checkbox" value={size} {...register("sizes")} />
+                <span>{size}</span>
+              </label>
+            ))}
+          </div>
+
+          {errors.sizes && (
+            <p className={css.error}>{String(errors.sizes.message)}</p>
+          )}
+        </div>
         <label className={css.label}>
           Ім`я *
           <input

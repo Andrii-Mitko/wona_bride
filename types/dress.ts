@@ -1,3 +1,5 @@
+import { SizeType } from "@/lib/validation/dress";
+
 export type DressCategory =
   | "wedding"
   | "evening"
@@ -5,10 +7,6 @@ export type DressCategory =
   | "holiday"
   | "graduation"
   | "kids";
-
-export type DressStyle = "princess" | "mermaid" | "a-line" | "minimal";
-
-export type DressSize = "XS" | "S" | "M" | "L" | "XL";
 
 export type Dress = {
   id: string;
@@ -25,9 +23,11 @@ export type Dress = {
 
   category: DressCategory[];
 
-  style: DressStyle[];
+  style: string[];
 
-  sizes: DressSize[];
+  sizeType: SizeType;
+
+  sizes: string[];
 
   isPopular: boolean;
 };
