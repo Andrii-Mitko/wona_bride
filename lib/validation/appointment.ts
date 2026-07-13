@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const appointmentSchema = z.object({
-  dress: z.string(),
+  dressName: z.string(),
   name: z.string().trim().min(2, "Ім'я повинно містити мінімум 2 символи"),
 
   phone: z

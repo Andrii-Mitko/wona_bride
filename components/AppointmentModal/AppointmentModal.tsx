@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 import Modal from "@/components/Modal/Modal";
 import AppointmentForm from "@/components/AppointmentForm/AppointmentForm";
@@ -14,6 +15,12 @@ type Props = {
 export default function AppointmentModal({ dressName }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleSuccess = () => {
+    setIsOpen(false);
+
+    toast.success("Дякуємо! Ми зв'яжемося з вами.");
+  };
+
   return (
     <>
       <button className={css.button} onClick={() => setIsOpen(true)}>
@@ -21,7 +28,7 @@ export default function AppointmentModal({ dressName }: Props) {
       </button>
 
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <AppointmentForm dressName={dressName} />
+        <AppointmentForm dressName={dressName} onSuccess={handleSuccess} />
       </Modal>
     </>
   );

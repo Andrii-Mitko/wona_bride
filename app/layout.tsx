@@ -1,4 +1,5 @@
 import Header from "@/components/Header/Header";
+import { Toaster } from "react-hot-toast";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import css from "./page.module.css";
 import type { Metadata } from "next";
@@ -51,6 +52,8 @@ export default function RootLayout({
           <main className={css.main}>{children}</main>
 
           <Footer />
+
+          <Toaster position="top-center" />
         </TanStackProvider>
       </body>
     </html>

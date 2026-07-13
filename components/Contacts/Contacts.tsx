@@ -34,13 +34,14 @@ export default function Contacts() {
               <a href="mailto:wona.bride@gmail.com">wona.bride@gmail.com</a>
             </li>
 
-            <li>🕒 Пн–Сб: 10:00–18:00</li>
-            <li>Нд: вихідний</li>
+            <li>🕒 Вт–Сб: 09:00–17:00</li>
+            <li>🕒Нд: 09:00–14:00</li>
+            <li>🕒Пн: вихідний</li>
           </ul>
 
           <a
             className={css.button}
-            href="https://www.google.com.ua/maps/dir//Bar+Soborna23,+%D0%B2%D1%83%D0%BB%D0%B8%D1%86%D1%8F+%D0%A1%D0%BE%D0%B1%D0%BE%D1%80%D0%BD%D0%B0,+23,+%D0%91%D0%B0%D1%80,+%D0%92%D1%96%D0%BD%D0%BD%D0%B8%D1%86%D1%8C%D0%BA%D0%B0+%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C,+23000/@49.07561,27.6694121,17z/data=!4m17!1m8!3m7!1s0x473289003b8ca357:0xfeff1fb08f9ea93f!2sBar+Soborna23!8m2!3d49.0762724!4d27.6713551!15sClPQstGD0LvQuNGG0Y8g0KHQvtCx0L7RgNGM0YHRjNC60LAgMjMsINC8LiDQkdCw0YAsINCS0ZbQvdC90LjRhtGM0LrQsCDQvtCx0LvQsNGB0YLRjJIBEmFwYXJ0bWVudF9idWlsZGluZ-ABAA!16s%2Fg%2F11lnst0665!4m7!1m0!1m5!1m1!1s0x473289003b8ca357:0xfeff1fb08f9ea93f!2m2!1d27.6713551!2d49.0762724?hl=ru&entry=ttu&g_ep=EgoyMDI2MDcwOC4wIKXMDSoASAFQAw%3D%3D"
+            href="https://www.google.com.ua/maps/dir//Bar+Soborna23,+%D0%B2%D1%83%D0%BB%D0%B8%D1%86%D1%8F+%D0%A1%D0%BE%D0%B1%D0%BE%D1%80%D0%BD%D0%B0,+23,+%D0%91%D0%B0%D1%80,+%D0%92%D1%96%D0%BD%D0%BD%D0%B8%D1%86%D1%8C%D0%BA%D0%B0+%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C,+23000/@49.07561,27.6694121,17z/data=!4m17!1m8!3m7!1s0x473289003b8ca357:0xfeff1fb08f9ea93f!2sBar+Soborna23!8m2!3d49.0762724!4d27.6713551!15sClPQstGD0LvQuNGG0Y8g0KHQvtCx0L7RgNGM0YHRjNC60LAgMjMsINC8LiDQkdCw0YAsINCS0ZbQvdC9０LjRhtGM０rQsCDQvtCx０LvQsNGB０YLRjJIBEmFwYX０bWVudF9idWlsZGluZ-ABAA!１6s%2Fg%2F１１lnst０665!４m７!１m０!１m５!１m１!１s０x４７３２８９００３b８ca３57:０xfeff１fb０８f９ea９３f!２m２!１d２７.６７１３551!２d４９.０７６２724?hl=ru&entry=ttu&g_ep=EgoyMDI2MDcwOC4wIKXMDSoASAFQAw%3D%3D"
             target="_blank"
             rel="noopener noreferrer"
           >

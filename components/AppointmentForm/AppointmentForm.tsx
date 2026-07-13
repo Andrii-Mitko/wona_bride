@@ -10,19 +10,26 @@ import {
 
 type Props = {
   dressName: string;
+  onSuccess: () => void;
 };
 
-export default function AppointmentForm({ dressName }: Props) {
+export default function AppointmentForm({ dressName, onSuccess }: Props) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<AppointmentFormData>({
     resolver: zodResolver(appointmentSchema),
+    defaultValues: {
+      dressName,
+      privacy: false,
+    },
   });
 
   const onSubmit = (data: AppointmentFormData) => {
     console.log(data);
+
+    onSuccess();
   };
   return (
     <section className={css.section}>
@@ -31,7 +38,7 @@ export default function AppointmentForm({ dressName }: Props) {
         Сукня: <strong>{dressName}</strong>
       </p>
       <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
-        <input type="hidden" value={dressName} {...register("dress")} />
+        <input type="hidden" {...register("dressName")} />
         <label className={css.label}>
           Ім`я *
           <input
@@ -63,25 +70,20 @@ export default function AppointmentForm({ dressName }: Props) {
         </label>
         <label className={css.label}>
           Дата
-          <input className={css.input} type="date" name="date" />
+          <input className={css.input} type="date" {...register("date")} />
         </label>
 
         <label className={css.label}>
           Час
-          <input className={css.input} type="time" name="time" />
+          <input className={css.input} type="time" {...register("time")} />
         </label>
 
         <label className={css.label}>
           Повідомлення
-          <textarea
-            className={css.textarea}
-            name="message"
-            rows={5}
-            placeholder="Наприклад: Мене цікавить примірка у суботу після 15:00."
-          />
+          <textarea className={css.textarea} {...register("message")} />
         </label>
         <label className={css.checkboxLabel}>
-          <input type="checkbox" name="privacy" required />
+          <input type="checkbox" {...register("privacy")} />
 
           <span>Я погоджуюся з Політикою конфіденційності</span>
         </label>
