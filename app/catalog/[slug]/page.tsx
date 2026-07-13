@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-
+import AppointmentModal from "@/components/AppointmentModal/AppointmentModal";
 import { getDressBySlug } from "@/lib/api/dresses";
 import DressGallery from "@/components/DressGallery/DressGallery";
 import css from "./page.module.css";
@@ -42,8 +42,7 @@ export default async function DressPage({ params }: Props) {
                 <li key={size}>{size}</li>
               ))}
             </ul>
-
-            <button className={css.button}>Записатися на примірку</button>
+            <AppointmentModal dressName={dress.name} />
           </div>
         </div>
       </div>

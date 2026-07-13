@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className={css.footer} id="footer">
       <div className={css["footer__container"]}>
         <Link
-          href="#top"
+          href="/#top"
           className={`${css.footer__logo}  ${css.logo}  ${css["logo--light"]}`}
           aria-label="WONA — на головну"
         >
@@ -27,28 +27,33 @@ const Footer = () => {
         <nav className={css["footer__nav"]} aria-label="Навігація в футері">
           <ul className={css["footer__nav-list"]}>
             <li className={css["footer__nav-item"]}>
-              <Link className={css["footer__nav-link"]} href="#furniture">
+              <Link className={css["footer__nav-link"]} href="/#furniture">
                 Наші сукні
               </Link>
             </li>
             <li className={css["footer__nav-item"]}>
-              <Link className={css["footer__nav-link"]} href="#about">
+              <Link className={css["footer__nav-link"]} href="/#about">
                 Про нас
               </Link>
             </li>
             <li className={css["footer__nav-item"]}>
-              <Link className={css["footer__nav-link"]} href="#popular">
+              <Link className={css["footer__nav-link"]} href="/#popular">
                 Популярні
               </Link>
             </li>
             <li className={css["footer__nav-item"]}>
-              <Link className={css["footer__nav-link"]} href="#faq">
+              <Link className={css["footer__nav-link"]} href="/#faq">
                 Часті питання
               </Link>
             </li>
             <li className={css["footer__nav-item"]}>
-              <Link className={css["footer__nav-link"]} href="#feedback">
+              <Link className={css["footer__nav-link"]} href="/#feedback">
                 Відгуки
+              </Link>
+            </li>
+            <li className={css["footer__nav-item"]}>
+              <Link className={css["footer__nav-link"]} href="/#contacts">
+                Контакти
               </Link>
             </li>
           </ul>
@@ -68,7 +73,7 @@ const Footer = () => {
                 width="24"
                 height="24"
               >
-                <use href="./icons/icons.svg#icon-youtube"></use>
+                <use href="/icons/icons.svg#icon-youtube"></use>
               </svg>
             </Link>
           </li>
@@ -86,7 +91,7 @@ const Footer = () => {
                 width="24"
                 height="24"
               >
-                <use href="./icons/icons.svg#icon-instagram"></use>
+                <use href="/icons/icons.svg#icon-instagram"></use>
               </svg>
             </Link>
           </li>
@@ -104,12 +109,22 @@ const Footer = () => {
                 width="24"
                 height="24"
               >
-                <use href="./icons/icons.svg#icon-facebook"></use>
+                <use href="/icons/icons.svg#icon-facebook"></use>
               </svg>
             </Link>
           </li>
         </ul>
+        <div className={css.contacts}>
+          <a href="tel:+380XXXXXXXXX" className={css.contact}>
+            +38 (096) 671 57 46
+          </a>
 
+          <a href="mailto:wona.bride@gmail.com" className={css.contact}>
+            wona.bride@gmail.com
+          </a>
+
+          <p className={css.address}>м. Бар, Вінницька область</p>
+        </div>
         <p className={css["footer__copy-mobi"]}>
           © 2026 WONA. Всі права захищені.
         </p>

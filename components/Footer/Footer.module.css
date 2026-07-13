@@ -100,6 +100,23 @@
   display: none;
 }
 
+.contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact,
+.address {
+  color: #fff;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.contact:hover {
+  opacity: 0.8;
+}
+
 /* Tablet */
 @media screen and (min-width: 768px) {
   .footer {
@@ -134,13 +151,13 @@
   }
 
   .footer__nav {
-    order: 2;
-    width: auto;
+    max-width: 400px;
   }
 
   .footer__nav-list {
-    flex-wrap: nowrap;
-    gap: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
   }
 
   .footer__socials {

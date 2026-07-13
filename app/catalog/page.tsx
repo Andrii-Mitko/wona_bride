@@ -32,10 +32,10 @@ export default async function CatalogPage({ searchParams }: Props) {
     }),
   ]);
 
- const { dresses, totalPages, page } = dressesResponse;
+  const { dresses, totalPages, page } = dressesResponse;
 
   const titles = {
-    all: "Колекція весільних суконь",
+    all: "Наші сукні",
     wedding: "Весільні сукні",
     evening: "Вечірні сукні",
     cocktail: "Коктейльні сукні",
@@ -57,11 +57,11 @@ export default async function CatalogPage({ searchParams }: Props) {
         />
 
         <DressGrid dresses={dresses} />
-<Pagination
-  totalPages={totalPages}
-  currentPage={page}
-  category={activeCategory}
-/>
+        <Pagination
+          totalPages={totalPages}
+          currentPage={page}
+          category={activeCategory}
+        />
       </div>
     </section>
   );

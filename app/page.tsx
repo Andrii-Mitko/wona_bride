@@ -1,4 +1,5 @@
 import About from "@/components/About/About";
+import Contacts from "@/components/Contacts/Contacts";
 import Dresses from "@/components/Dresses/Dresses";
 import Faq from "@/components/Faq/Faq";
 import Feedback from "@/components/Feedback/Feedback";
@@ -15,6 +16,7 @@ export default function Home() {
       <Popular />
       <Faq />
       <Feedback />
+      <Contacts />
     </>
   );
 }

@@ -1,3 +1,6 @@
+.swiper {
+  width: 100%;
+}
 .feedback__section {
   padding: 16px 0;
   background-color: #fff;
@@ -36,9 +39,15 @@
 }
 
 .feedback__item {
+  min-height: 250px;
+  padding: 32px;
+
+  border-radius: 20px;
+
+  background: #faf6f5;
+
   display: flex;
   flex-direction: column;
-  width: 100%;
 }
 
 .feedback__stars {
@@ -52,9 +61,11 @@
 .feedback__star {
   width: 20px;
   height: 20px;
+  fill: #d4af37;
 }
 
 .feedback__comment {
+  flex-grow: 1;
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 20px;

@@ -56,7 +56,7 @@
   width: 100%;
   padding: 20px 0;
   font-family: var(--font-family);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 18px;
   line-height: 1.6;
   color: var(--color-text);
@@ -69,7 +69,7 @@
 }
 
 .faq__question::marker {
-  content: '';
+  content: "";
 }
 
 .faq__question:focus-visible {
@@ -140,6 +140,6 @@
   }
 
   .faq__list {
-    max-width: 865px;
+    max-width: 900px;
   }
 }

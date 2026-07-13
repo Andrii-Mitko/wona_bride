@@ -25,9 +25,10 @@ export default function Header() {
 
         <nav className={css.desktopNav}>
           <Link href="/catalog">Наші сукні</Link>
-          <Link href="#about">Про нас</Link>
-          <Link href="#popular">Популярні</Link>
-          <Link href="#feedback">Відгуки</Link>
+          <Link href="/#about">Про нас</Link>
+          <Link href="/#popular">Популярні</Link>
+          <Link href="/#feedback">Відгуки</Link>
+          <Link href="/#contacts">Контакти</Link>
         </nav>
 
         <Link href="/catalog" className={css.button}>
@@ -51,16 +52,19 @@ export default function Header() {
             Наші сукні
           </Link>
 
-          <Link href="#about" onClick={closeMenu}>
+          <Link href="/#about" onClick={closeMenu}>
             Про нас
           </Link>
 
-          <Link href="#popular" onClick={closeMenu}>
+          <Link href="/#popular" onClick={closeMenu}>
             Популярні
           </Link>
 
-          <Link href="#feedback" onClick={closeMenu}>
+          <Link href="/#feedback" onClick={closeMenu}>
             Відгуки
+          </Link>
+          <Link href="/#contacts" onClick={closeMenu}>
+            Контакти
           </Link>
 
           <Link
