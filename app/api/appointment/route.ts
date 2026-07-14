@@ -1,9 +1,15 @@
+import { connectDB } from "@/lib/mongodb";
+import Appointment from "@/models/Appointment";
+
 export async function POST(req: Request) {
   try {
     const data = await req.json();
-
+    await connectDB();
     console.log("Нова заявка:", data);
-
+    await Appointment.create({
+      ...data,
+      status: "new",
+    });
     const message = `
 🕊 Нова заявка WONA Bride
 
