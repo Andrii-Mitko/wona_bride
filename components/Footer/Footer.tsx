@@ -63,6 +63,25 @@ const Footer = () => {
           <li className={css["footer__social-item"]}>
             <Link
               className={css["footer__social-link"]}
+              href="https://vt.tiktok.com/ZSXByLKy6/
+"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="tiktok"
+            >
+              <svg
+                className={css["footer__social-icon"]}
+                width="24"
+                height="24"
+              >
+                <use href="/icons/icons.svg#icon-tiktok"></use>
+              </svg>
+              TikTok
+            </Link>
+          </li>
+          {/* <li className={css["footer__social-item"]}>
+            <Link
+              className={css["footer__social-link"]}
               href="https://www.youtube.com/"
               target="_blank"
               rel="noopener noreferrer"
@@ -76,9 +95,9 @@ const Footer = () => {
                 <use href="/icons/icons.svg#icon-youtube"></use>
               </svg>
             </Link>
-          </li>
+          </li> */}
 
-          <li className={css["footer__social-item"]}>
+          {/* <li className={css["footer__social-item"]}>
             <Link
               className={css["footer__social-link"]}
               href="https://www.instagram.com/"
@@ -94,9 +113,9 @@ const Footer = () => {
                 <use href="/icons/icons.svg#icon-instagram"></use>
               </svg>
             </Link>
-          </li>
+          </li> */}
 
-          <li className={css["footer__social-item"]}>
+          {/* <li className={css["footer__social-item"]}>
             <Link
               className={css["footer__social-link"]}
               href="https://www.facebook.com/"
@@ -112,7 +131,7 @@ const Footer = () => {
                 <use href="/icons/icons.svg#icon-facebook"></use>
               </svg>
             </Link>
-          </li>
+          </li> */}
         </ul>
         <div className={css.contacts}>
           <a href="tel:+380XXXXXXXXX" className={css.contact}>
