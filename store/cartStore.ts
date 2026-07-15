@@ -27,13 +27,14 @@ export const useCartStore = create<CartStore>()(
       addToCart: (dress, size) =>
         set((state) => {
           const existing = state.items.find(
-            (item) => item.dress.id === dress.id && item.selectedSize === size,
+            (item) =>
+              item.dress._id === dress._id && item.selectedSize === size,
           );
 
           if (existing) {
             return {
               items: state.items.map((item) =>
-                item.dress.id === dress.id && item.selectedSize === size
+                item.dress._id === dress._id && item.selectedSize === size
                   ? {
                       ...item,
                       quantity: item.quantity + 1,
@@ -58,14 +59,14 @@ export const useCartStore = create<CartStore>()(
       removeFromCart: (id, size) =>
         set((state) => ({
           items: state.items.filter(
-            (item) => !(item.dress.id === id && item.selectedSize === size),
+            (item) => !(item.dress._id === id && item.selectedSize === size),
           ),
         })),
 
       increaseQuantity: (id, size) =>
         set((state) => ({
           items: state.items.map((item) =>
-            item.dress.id === id && item.selectedSize === size
+            item.dress._id === id && item.selectedSize === size
               ? {
                   ...item,
                   quantity: item.quantity + 1,
@@ -78,7 +79,7 @@ export const useCartStore = create<CartStore>()(
         set((state) => ({
           items: state.items
             .map((item) =>
-              item.dress.id === id && item.selectedSize === size
+              item.dress._id === id && item.selectedSize === size
                 ? {
                     ...item,
                     quantity: item.quantity - 1,

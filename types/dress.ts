@@ -11,7 +11,7 @@ export type DressCategory =
 export type DressStyle = "princess" | "a-line" | "mermaid" | "minimal";
 
 export type Dress = {
-  id: string;
+  _id: string;
 
   name: string;
 

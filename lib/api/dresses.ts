@@ -1,5 +1,9 @@
-import { dresses } from "@/data/dresses";
-import { DressCategory } from "@/types/dress";
+import "server-only";
+
+import { connectDB } from "@/lib/mongodb";
+import DressModel from "@/models/Dress";
+
+import type { Dress, DressCategory } from "@/types/dress";
 
 export type GetDressesParams = {
   page?: number;
@@ -8,58 +12,128 @@ export type GetDressesParams = {
 };
 
 export type GetDressesResponse = {
-  dresses: typeof dresses;
+  dresses: Dress[];
   totalItems: number;
   totalPages: number;
   page: number;
   limit: number;
 };
 
+function normalizeDress(dress: {
+  _id: unknown;
+  name: string;
+  slug: string;
+  article: string;
+  price: number;
+  description: string;
+  images: string[];
+  category: DressCategory[];
+  style: Dress["style"];
+  color: string;
+  fabric: string[];
+  sizeType: Dress["sizeType"];
+  sizes: string[];
+  isPopular: boolean;
+}): Dress {
+  return {
+    _id: String(dress._id),
+
+    name: dress.name,
+    slug: dress.slug,
+    article: dress.article,
+
+    price: dress.price,
+
+    description: dress.description,
+
+    images: dress.images,
+
+    category: dress.category,
+
+    style: dress.style,
+
+    color: dress.color,
+
+    fabric: dress.fabric,
+
+    sizeType: dress.sizeType,
+
+    sizes: dress.sizes,
+
+    isPopular: dress.isPopular,
+  };
+}
+
 export async function getDresses(
   params?: GetDressesParams,
 ): Promise<GetDressesResponse> {
+  await connectDB();
+
   const page = params?.page ?? 1;
   const limit = params?.limit ?? 8;
 
-  let result = [...dresses];
+  const filter = params?.category
+    ? {
+        category: params.category,
+      }
+    : {};
 
-  if (params?.category) {
-    result = result.filter((dress) =>
-      dress.category.includes(params.category!),
-    );
-  }
+  const totalItems = await DressModel.countDocuments(filter);
 
-  const totalItems = result.length;
-  const totalPages = Math.ceil(totalItems / limit);
-
-  const start = (page - 1) * limit;
-  const end = start + limit;
+  const dresses = await DressModel.find(filter)
+    .skip((page - 1) * limit)
+    .limit(limit)
+    .lean();
 
   return {
-    dresses: result.slice(start, end),
+    dresses: dresses.map(normalizeDress),
+
     totalItems,
-    totalPages,
+
+    totalPages: Math.ceil(totalItems / limit),
+
     page,
+
     limit,
   };
 }
 
 export async function getDressBySlug(slug: string) {
-  return dresses.find((dress) => dress.slug === slug);
+  await connectDB();
+
+  const dress = await DressModel.findOne({
+    slug,
+  }).lean();
+
+  if (!dress) {
+    return null;
+  }
+
+  return normalizeDress(dress);
 }
 
 export async function getSimilarDresses(slug: string, limit = 4) {
-  const currentDress = dresses.find((dress) => dress.slug === slug);
+  await connectDB();
+
+  const currentDress = await DressModel.findOne({
+    slug,
+  }).lean();
 
   if (!currentDress) {
     return [];
   }
 
-  return dresses
-    .filter(
-      (dress) =>
-        dress.slug !== slug &&
-        dress.style.some((style) => currentDress.style.includes(style)),
-    )
-    .slice(0, limit);
+  const dresses = await DressModel.find({
+    slug: {
+      $ne: slug,
+    },
+
+    style: {
+      $in: currentDress.style,
+    },
+  })
+    .limit(limit)
+    .lean();
+
+  return dresses.map(normalizeDress);
 }

@@ -47,7 +47,7 @@ export default function CartPage() {
         <div className={css.list}>
           {items.map((item) => (
             <article
-              key={`${item.dress.id}-${item.selectedSize}`}
+              key={`${item.dress._id}-${item.selectedSize}`}
               className={css.item}
             >
               <div className={css.imageWrapper}>
@@ -69,7 +69,7 @@ export default function CartPage() {
                 <div className={css.actions}>
                   <button
                     onClick={() =>
-                      decreaseQuantity(item.dress.id, item.selectedSize)
+                      decreaseQuantity(item.dress._id, item.selectedSize)
                     }
                   >
                     -
@@ -79,7 +79,7 @@ export default function CartPage() {
 
                   <button
                     onClick={() =>
-                      increaseQuantity(item.dress.id, item.selectedSize)
+                      increaseQuantity(item.dress._id, item.selectedSize)
                     }
                   >
                     +
@@ -89,7 +89,7 @@ export default function CartPage() {
                 <button
                   className={css.remove}
                   onClick={() =>
-                    removeFromCart(item.dress.id, item.selectedSize)
+                    removeFromCart(item.dress._id, item.selectedSize)
                   }
                 >
                   Видалити

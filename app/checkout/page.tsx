@@ -36,7 +36,7 @@ export default function CheckoutPage() {
       },
 
       items: items.map((item) => ({
-        dressId: item.dress.id,
+        dressId: item.dress._id,
         name: item.dress.name,
         size: item.selectedSize,
         price: item.dress.price,

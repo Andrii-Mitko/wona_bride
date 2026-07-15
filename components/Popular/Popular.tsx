@@ -1,28 +1,20 @@
-"use client";
+import DressGrid from "@/components/DressGrid/DressGrid";
+import { getDresses } from "@/lib/api/dresses";
 
 import css from "./Popular.module.css";
 
-import { useDresses } from "@/hooks/useDresses";
-import DressGrid from "@/components/DressGrid/DressGrid";
-
-const Popular = () => {
-  const { data, isLoading } = useDresses();
-
-  const popularDresses = data?.dresses.filter((dress) => dress.isPopular) ?? [];
+export default async function Popular() {
+  const { dresses } = await getDresses({
+    limit: 4,
+  });
 
   return (
-    <section className={css.sectionPopular} id="popular">
+    <section className={css.section}>
       <div className={css.container}>
-        <h2 className={css.popularTitle}>Популярні сукні</h2>
+        <h2 className={css.title}>Наші сукні</h2>
 
-        {isLoading ? (
-          <p>Завантаження...</p>
-        ) : (
-          <DressGrid dresses={popularDresses} />
-        )}
+        <DressGrid dresses={dresses} />
       </div>
     </section>
   );
-};
-
-export default Popular;
+}

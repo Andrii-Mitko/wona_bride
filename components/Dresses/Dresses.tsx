@@ -1,12 +1,16 @@
 import Link from "next/link";
 
 import DressGrid from "@/components/DressGrid/DressGrid";
-import { dresses } from "@/data/dresses";
+import { getDresses } from "@/lib/api/dresses";
 
 import css from "./Dresses.module.css";
 
-const Dresses = () => {
-  const popularDresses = dresses.slice(0, 4);
+const Dresses = async () => {
+  const { dresses } = await getDresses({
+    limit: 4,
+  });
+
+  const popularDresses = dresses.filter((dress) => dress.isPopular);
 
   return (
     <section className={css.section} id="dresses">
@@ -21,13 +25,21 @@ const Dresses = () => {
         </div>
 
         <div className={css.categories}>
-          <button className={css.categoryActive}>Всі сукні</button>
+          <Link href="/catalog" className={css.categoryActive}>
+            Всі сукні
+          </Link>
 
-          <button className={css.category}>Весільні</button>
+          <Link href="/catalog?category=wedding" className={css.category}>
+            Весільні
+          </Link>
 
-          <button className={css.category}>Вечірні</button>
+          <Link href="/catalog?category=evening" className={css.category}>
+            Вечірні
+          </Link>
 
-          <button className={css.category}>Святкові</button>
+          <Link href="/catalog?category=holiday" className={css.category}>
+            Святкові
+          </Link>
         </div>
 
         <DressGrid dresses={popularDresses} />
