@@ -47,3 +47,19 @@ export async function getDresses(
 export async function getDressBySlug(slug: string) {
   return dresses.find((dress) => dress.slug === slug);
 }
+
+export async function getSimilarDresses(slug: string, limit = 4) {
+  const currentDress = dresses.find((dress) => dress.slug === slug);
+
+  if (!currentDress) {
+    return [];
+  }
+
+  return dresses
+    .filter(
+      (dress) =>
+        dress.slug !== slug &&
+        dress.style.some((style) => currentDress.style.includes(style)),
+    )
+    .slice(0, limit);
+}

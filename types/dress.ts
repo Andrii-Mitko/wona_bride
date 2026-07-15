@@ -8,12 +8,16 @@ export type DressCategory =
   | "graduation"
   | "kids";
 
+export type DressStyle = "princess" | "a-line" | "mermaid" | "minimal";
+
 export type Dress = {
   id: string;
 
   name: string;
 
   slug: string;
+
+  article: string;
 
   price: number;
 
@@ -23,7 +27,11 @@ export type Dress = {
 
   category: DressCategory[];
 
-  style: string[];
+  style: DressStyle[];
+
+  color: string;
+
+  fabric: string[];
 
   sizeType: SizeType;
 

@@ -1,0 +1,40 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.item {
+  min-width: 52px;
+  padding: 10px 16px;
+
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+
+  background: white;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+.item:hover {
+  border-color: #975052;
+}
+
+.active {
+  background: #975052;
+  color: white;
+  border-color: #975052;
+}

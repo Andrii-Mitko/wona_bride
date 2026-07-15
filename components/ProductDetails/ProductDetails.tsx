@@ -1,0 +1,81 @@
+"use client";
+
+import AppointmentModal from "@/components/AppointmentModal/AppointmentModal";
+import { categoryLabels, styleLabels } from "@/lib/utils/dress";
+import { Dress } from "@/types/dress";
+import css from "./ProductDetails.module.css";
+import SizeSelector from "@/components/SizeSelector/SizeSelector";
+import { useState } from "react";
+import { useCartStore } from "@/store/cartStore";
+
+type Props = {
+  dress: Dress;
+};
+
+export default function ProductDetails({ dress }: Props) {
+  const [selectedSize, setSelectedSize] = useState("");
+  const addToCart = useCartStore((state) => state.addToCart);
+  return (
+    <div className={css.content}>
+      <h1 className={css.title}>{dress.name}</h1>
+
+      <p className={css.price}>{dress.price.toLocaleString("uk-UA")} ₴</p>
+
+      <div className={css.specifications}>
+        <div className={css.specItem}>
+          <span>Артикул</span>
+          <strong>{dress.article}</strong>
+        </div>
+
+        <div className={css.specItem}>
+          <span>Категорія</span>
+
+          <strong>
+            {dress.category
+              .map((category) => categoryLabels[category])
+              .join(", ")}
+          </strong>
+        </div>
+
+        <div className={css.specItem}>
+          <span>Фасон</span>
+
+          <strong>
+            {dress.style.map((style) => styleLabels[style]).join(", ")}
+          </strong>
+        </div>
+
+        <div className={css.specItem}>
+          <span>Колір</span>
+
+          <strong>{dress.color}</strong>
+        </div>
+
+        <div className={css.specItem}>
+          <span>Матеріал</span>
+
+          <strong>{dress.fabric.join(", ")}</strong>
+        </div>
+      </div>
+
+      <p className={css.description}>{dress.description}</p>
+
+      <h2 className={css.subtitle}>Розміри</h2>
+
+      <SizeSelector sizes={dress.sizes} onSelect={setSelectedSize} />
+      <button
+        type="button"
+        className={css.addToCart}
+        disabled={!selectedSize}
+        onClick={() => addToCart(dress, selectedSize)}
+      >
+        🛒 Додати в кошик
+      </button>
+      <AppointmentModal
+        dressName={dress.name}
+        sizes={dress.sizes}
+        sizeType={dress.sizeType}
+      />
+    </div>
+  );
+}

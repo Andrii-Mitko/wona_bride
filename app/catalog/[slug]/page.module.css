@@ -24,38 +24,6 @@
   border-radius: 12px;
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.title {
-  font-size: 40px;
-}
-
-.price {
-  font-size: 28px;
-  font-weight: 700;
-}
-
-.description {
-  font-size: 18px;
-}
-
-.sizes {
-  display: flex;
-  gap: 12px;
-  list-style: none;
-  padding: 0;
-}
-
-.sizes li {
-  border: 1px solid #ccc;
-  padding: 8px 16px;
-  border-radius: 20px;
-}
-
 .button {
   width: fit-content;
   padding: 14px 30px;
@@ -67,6 +35,30 @@
   color: white;
 
   cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.addToCart {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  background-color: #975052;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.addToCart:hover {
+  opacity: 0.9;
 }
 
 @media (min-width: 768px) {

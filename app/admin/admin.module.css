@@ -77,3 +77,18 @@
   font-size: 16px;
   background: white;
 }
+.statusNew {
+  background-color: #fff8d6;
+}
+
+.statusConfirmed {
+  background-color: #e8f2ff;
+}
+
+.statusCompleted {
+  background-color: #e9f9ea;
+}
+
+.statusCancelled {
+  background-color: #ffe8e8;
+}

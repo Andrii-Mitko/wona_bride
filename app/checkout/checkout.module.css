@@ -1,0 +1,78 @@
+.section {
+  padding: 40px 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+
+  padding: 0 20px;
+}
+
+.title {
+  font-size: 30px;
+  margin-bottom: 32px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form input,
+.form textarea {
+  width: 100%;
+
+  padding: 14px 16px;
+
+  border: 1px solid #ddd;
+  border-radius: 12px;
+
+  font-size: 16px;
+}
+
+.form textarea {
+  min-height: 120px;
+
+  resize: vertical;
+}
+
+.summary {
+  margin-top: 20px;
+
+  font-size: 20px;
+}
+
+.form button {
+  margin-top: 20px;
+
+  padding: 16px;
+
+  border: none;
+  border-radius: 30px;
+
+  background: #975052;
+  color: white;
+
+  cursor: pointer;
+}
+
+.error {
+  margin-top: -10px;
+
+  font-size: 14px;
+  color: #975052;
+}
+
+@media only screen and (min-width: 768px) {
+  .section {
+    padding: 60px 0;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .container {
+    max-width: 700px;
+  }
+}

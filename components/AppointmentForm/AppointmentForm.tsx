@@ -1,5 +1,6 @@
 "use client";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import css from "./AppointmentForm.module.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -12,7 +13,6 @@ type Props = {
   dressName: string;
   sizes: string[];
   sizeType: "letter" | "women" | "kids";
-  onSuccess: () => void;
 };
 
 const sizeTypeLabel: Record<"letter" | "women" | "kids", string> = {
@@ -21,12 +21,8 @@ const sizeTypeLabel: Record<"letter" | "women" | "kids", string> = {
   kids: "Дитячі розміри",
 };
 
-export default function AppointmentForm({
-  dressName,
-  sizes,
-  sizeType,
-  onSuccess,
-}: Props) {
+export default function AppointmentForm({ dressName, sizes, sizeType }: Props) {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -54,7 +50,7 @@ export default function AppointmentForm({
         throw new Error("Помилка відправки");
       }
 
-      onSuccess();
+      router.push("/appointment-success");
     } catch (error) {
       console.error(error);
     }

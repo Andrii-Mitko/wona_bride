@@ -4,9 +4,14 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import css from "./Header.module.css";
+import { useCartStore } from "@/store/cartStore";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const items = useCartStore((state) => state.items);
+
+  const cartCount = items.reduce((total, item) => total + item.quantity, 0);
 
   const closeMenu = () => setIsOpen(false);
 
@@ -33,6 +38,11 @@ export default function Header() {
 
         <Link href="/catalog" className={css.button}>
           Переглянути сукні
+        </Link>
+
+        <Link href="/cart" className={css.cart}>
+          🛒
+          {cartCount > 0 && <span className={css.cartCount}>{cartCount}</span>}
         </Link>
 
         <button
