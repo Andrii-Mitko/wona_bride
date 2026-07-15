@@ -1,17 +1,19 @@
 import { connectDB } from "@/lib/mongodb";
 import Appointment from "@/models/Appointment";
+import { NextRequest } from "next/server";
 
 export async function PATCH(
-  req: Request,
-  { params }: { params: { id: string } },
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     await connectDB();
 
+    const { id } = await params;
     const data = await req.json();
 
     const appointment = await Appointment.findByIdAndUpdate(
-      params.id,
+      id,
       {
         status: data.status,
       },
