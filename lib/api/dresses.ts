@@ -1,7 +1,7 @@
 import "server-only";
 
 import { connectDB } from "@/lib/mongodb";
-import DressModel from "@/models/Dress";
+import DressModel from "@/models/DressModel";
 
 import type { Dress, DressCategory } from "@/types/dress";
 

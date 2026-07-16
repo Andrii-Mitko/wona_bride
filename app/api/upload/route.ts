@@ -1,33 +1,51 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import axios from "axios";
-import { api } from "../api";
+import type { UploadApiResponse } from "cloudinary";
+import cloudinary from "@/lib/cloudinary";
 
 export async function POST(request: Request) {
-  const cookieStore = await cookies();
   try {
     const formData = await request.formData();
 
-    const { data } = await api.post("/upload", formData, {
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
-    });
+    const file = formData.get("file") as File;
 
-    return NextResponse.json(data);
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return NextResponse.json(
-        {
-          error: error.response?.data?.error ?? error.message,
-        },
-        { status: error.response?.status ?? 500 },
-      );
+    if (!file) {
+      return NextResponse.json({ error: "Файл не знайдено" }, { status: 400 });
     }
 
+    const bytes = await file.arrayBuffer();
+
+    const buffer = Buffer.from(bytes);
+
+    const result = await new Promise<UploadApiResponse>((resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream(
+          {
+            folder: "wona-bride/dresses",
+          },
+          (error, result) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(result as UploadApiResponse);
+            }
+          },
+        )
+        .end(buffer);
+    });
+
+    return NextResponse.json({
+      url: result.secure_url,
+    });
+  } catch (error) {
+    console.error("Cloudinary upload error:", error);
+
     return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 },
+      {
+        error: "Помилка завантаження фото",
+      },
+      {
+        status: 500,
+      },
     );
   }
 }

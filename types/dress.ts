@@ -39,3 +39,7 @@ export type Dress = {
 
   isPopular: boolean;
 };
+
+export type DressFromDB = Omit<Dress, "_id"> & {
+  _id: string;
+};

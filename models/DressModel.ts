@@ -79,6 +79,6 @@ const DressSchema = new Schema(
   },
 );
 
-const Dress = models.Dress || mongoose.model("Dress", DressSchema);
+const DressModel = models.Dress || mongoose.model("Dress", DressSchema);
 
-export default Dress;
+export default DressModel;

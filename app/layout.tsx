@@ -1,11 +1,9 @@
-import Header from "@/components/Header/Header";
 import { Toaster } from "react-hot-toast";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
-import css from "./page.module.css";
+
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/Footer/Footer";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -45,13 +43,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uk" data-scroll-behavior="smooth">
-      <body className={`${roboto.variable} ${css.body}`}>
+      <body className={roboto.variable}>
         <TanStackProvider>
-          <Header />
-
-          <main className={css.main}>{children}</main>
-
-          <Footer />
+          {children}
 
           <Toaster position="top-center" />
         </TanStackProvider>
