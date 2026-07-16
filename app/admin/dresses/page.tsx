@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import css from "./dresses.module.css";
 import type { Dress } from "@/types/dress";
+import Image from "next/image";
 
 export default async function AdminDressesPage() {
   await connectDB();
@@ -40,7 +41,9 @@ export default async function AdminDressesPage() {
             <tr key={dress._id.toString()}>
               <td>
                 {dress.images?.[0] ? (
-                  <img
+                  <Image
+                    width={100}
+                    height={100}
                     src={dress.images[0]}
                     alt={dress.name}
                     className={css.image}
