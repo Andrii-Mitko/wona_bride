@@ -32,8 +32,9 @@ export default function Contacts() {
 
             <li>
               ✉️
-              <Link href="mailto:wona.bride@gmail.com">
-                wona.bride@gmail.com
+              <Link href="mailto:<ТУТ ВАШ EMAIL>">
+                ТУТ довжен бути EMAIL (А може EMAIL не потрібен? А може ще якісь
+                контакти добавити?)
               </Link>
             </li>
             <li>
@@ -67,7 +68,7 @@ export default function Contacts() {
 
           <div className={css.social}>
             <Link
-              href="https://t.me/wona_bride"
+              href="https://web.telegram.org/a/#522480310"
               target="_blank"
               rel="noopener noreferrer"
               className={css.socialLink}
