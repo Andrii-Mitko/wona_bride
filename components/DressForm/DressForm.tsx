@@ -17,6 +17,8 @@ type Props = {
 };
 
 export default function DressForm({ initialData }: Props) {
+  const isEdit = !!initialData;
+
   const {
     register,
     handleSubmit,
@@ -33,16 +35,16 @@ export default function DressForm({ initialData }: Props) {
       color: initialData?.color ?? "",
       description: initialData?.description ?? "",
 
-      sizeType: "letter",
+      sizeType: initialData?.sizeType ?? "letter",
 
-      sizes: [],
+      sizes: initialData?.sizes ?? [],
 
-      fabric: [],
-      images: [],
-      category: [],
-      style: [],
+      fabric: initialData?.fabric ?? [],
+      images: initialData?.images ?? [],
+      category: initialData?.category ?? [],
+      style: initialData?.style ?? [],
 
-      isPopular: false,
+      isPopular: initialData?.isPopular ?? false,
     },
   });
 
@@ -56,19 +58,24 @@ export default function DressForm({ initialData }: Props) {
 
   const onSubmit = async (data: DressFormData) => {
     try {
-      const response = await fetch("/api/dress", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        isEdit ? `/api/dress/${initialData!._id}` : "/api/dress",
+        {
+          method: isEdit ? "PATCH" : "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...data,
+            slug: createSlug(data.name),
+          }),
         },
-        body: JSON.stringify({
-          ...data,
-          slug: createSlug(data.name),
-        }),
-      });
+      );
 
       if (!response.ok) {
-        throw new Error("Помилка створення сукні");
+        throw new Error(
+          isEdit ? "Помилка оновлення сукні" : "Помилка створення сукні",
+        );
       }
 
       const dress = await response.json();

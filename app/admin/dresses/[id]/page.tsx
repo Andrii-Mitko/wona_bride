@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { connectDB } from "@/lib/mongodb";
 import DressModel from "@/models/DressModel";
-
+import DeleteDressButton from "@/components/DeleteDressButton/DeleteDressButton";
 import css from "./page.module.css";
 
 type Props = {
@@ -38,6 +38,8 @@ export default async function DressPage({ params }: Props) {
         >
           ✏️ Редагувати
         </Link>
+
+        <DeleteDressButton id={dress._id.toString()} />
       </div>
 
       <div className={css.grid}>

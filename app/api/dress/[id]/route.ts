@@ -1,90 +1,119 @@
 import { NextResponse } from "next/server";
-import { api } from "../../api";
-import { cookies } from "next/headers";
-import { logErrorResponse } from "../../_utils/utils";
-import { isAxiosError } from "axios";
+
+import { connectDB } from "@/lib/mongodb";
+import DressModel from "@/models/DressModel";
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: Promise<{
+    id: string;
+  }>;
 };
 
 export async function GET(request: Request, { params }: Props) {
   try {
-    const cookieStore = await cookies();
-    const { id } = await params;
-    const res = await api(`/notes/${id}`, {
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
-    });
-    return NextResponse.json(res.data, { status: res.status });
-  } catch (error) {
-    if (isAxiosError(error)) {
-      logErrorResponse(error.response?.data);
-      return NextResponse.json(
-        { error: error.message, response: error.response?.data },
-        { status: error.status },
-      );
-    }
-    logErrorResponse({ message: (error as Error).message });
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 },
-    );
-  }
-}
+    await connectDB();
 
-export async function DELETE(request: Request, { params }: Props) {
-  try {
-    const cookieStore = await cookies();
     const { id } = await params;
 
-    const res = await api.delete(`/notes/${id}`, {
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
-    });
-    return NextResponse.json(res.data, { status: res.status });
-  } catch (error) {
-    if (isAxiosError(error)) {
-      logErrorResponse(error.response?.data);
+    const dress = await DressModel.findById(id).lean();
+
+    if (!dress) {
       return NextResponse.json(
-        { error: error.message, response: error.response?.data },
-        { status: error.status },
+        {
+          error: "Сукню не знайдено",
+        },
+        {
+          status: 404,
+        },
       );
     }
-    logErrorResponse({ message: (error as Error).message });
+
+    return NextResponse.json(dress);
+  } catch (error) {
+    console.error(error);
+
     return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 },
+      {
+        error: "Помилка сервера",
+      },
+      {
+        status: 500,
+      },
     );
   }
 }
 
 export async function PATCH(request: Request, { params }: Props) {
   try {
-    const cookieStore = await cookies();
+    await connectDB();
+
     const { id } = await params;
+
     const body = await request.json();
 
-    const res = await api.patch(`/notes/${id}`, body, {
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
+    const dress = await DressModel.findByIdAndUpdate(id, body, {
+      new: true,
+      runValidators: true,
     });
-    return NextResponse.json(res.data, { status: res.status });
-  } catch (error) {
-    if (isAxiosError(error)) {
-      logErrorResponse(error.response?.data);
+
+    if (!dress) {
       return NextResponse.json(
-        { error: error.message, response: error.response?.data },
-        { status: error.status },
+        {
+          error: "Сукню не знайдено",
+        },
+        {
+          status: 404,
+        },
       );
     }
-    logErrorResponse({ message: (error as Error).message });
+
+    return NextResponse.json(dress);
+  } catch (error) {
+    console.error(error);
+
     return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 },
+      {
+        error: "Помилка оновлення сукні",
+      },
+      {
+        status: 500,
+      },
+    );
+  }
+}
+
+export async function DELETE(request: Request, { params }: Props) {
+  try {
+    await connectDB();
+
+    const { id } = await params;
+
+    const dress = await DressModel.findByIdAndDelete(id);
+
+    if (!dress) {
+      return NextResponse.json(
+        {
+          error: "Сукню не знайдено",
+        },
+        {
+          status: 404,
+        },
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      {
+        error: "Помилка видалення сукні",
+      },
+      {
+        status: 500,
+      },
     );
   }
 }
