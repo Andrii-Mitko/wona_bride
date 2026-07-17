@@ -1,7 +1,10 @@
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
 import { connectDB } from "@/lib/mongodb";
 import Appointment from "@/models/Appointment";
 import css from "../admin.module.css";
-import AdminLogout from "@/components/AdminLogout/AdminLogout";
+
 import AppointmentStatus from "@/components/AppointmentStatus/AppointmentStatus";
 
 type AdminSearchParams = {
@@ -14,6 +17,14 @@ export default async function AdminPage({
 }: {
   searchParams: Promise<AdminSearchParams>;
 }) {
+  const cookieStore = await cookies();
+
+  const adminAuth = cookieStore.get("admin-auth");
+
+  if (!adminAuth || adminAuth.value !== "true") {
+    redirect("/admin/login");
+  }
+
   await connectDB();
 
   const { search = "", status = "" } = await searchParams;
@@ -48,7 +59,6 @@ export default async function AdminPage({
   return (
     <main className={css.container}>
       <h1 className={css.title}>Записи на примірку</h1>
-      <AdminLogout />
       <form method="GET" className={css.searchForm}>
         <input
           type="text"

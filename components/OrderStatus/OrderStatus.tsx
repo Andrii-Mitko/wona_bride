@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import css from "./OrderStatus.module.css";
 
 type Props = {
   id: string;
@@ -29,29 +30,50 @@ const statuses = [
 export default function OrderStatus({ id, status }: Props) {
   const [currentStatus, setCurrentStatus] = useState(status);
 
+  const [loading, setLoading] = useState(false);
+
   async function changeStatus(e: React.ChangeEvent<HTMLSelectElement>) {
     const newStatus = e.target.value;
 
-    setCurrentStatus(newStatus);
+    setLoading(true);
 
-    await fetch(`/api/orders/${id}`, {
+    const response = await fetch(`/api/orders/${id}`, {
       method: "PATCH",
+
       headers: {
         "Content-Type": "application/json",
       },
+
       body: JSON.stringify({
         status: newStatus,
       }),
     });
+
+    if (response.ok) {
+      setCurrentStatus(newStatus);
+    } else {
+      alert("Не вдалося змінити статус");
+    }
+
+    setLoading(false);
   }
 
   return (
-    <select value={currentStatus} onChange={changeStatus}>
-      {statuses.map((status) => (
-        <option key={status.value} value={status.value}>
-          {status.label}
-        </option>
-      ))}
-    </select>
+    <>
+      <select
+        className={css.select}
+        disabled={loading}
+        value={currentStatus}
+        onChange={changeStatus}
+      >
+        {statuses.map((status) => (
+          <option key={status.value} value={status.value}>
+            {status.label}
+          </option>
+        ))}
+      </select>
+
+      {loading && <span className={css.loading}>Збереження...</span>}
+    </>
   );
 }

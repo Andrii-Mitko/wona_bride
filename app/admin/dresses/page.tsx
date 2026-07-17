@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { connectDB } from "@/lib/mongodb";
 import DressModel from "@/models/DressModel";
 import Link from "next/link";
@@ -7,6 +9,14 @@ import type { Dress } from "@/types/dress";
 import Image from "next/image";
 
 export default async function AdminDressesPage() {
+  const cookieStore = await cookies();
+
+  const adminAuth = cookieStore.get("admin-auth");
+
+  if (!adminAuth || adminAuth.value !== "true") {
+    redirect("/admin/login");
+  }
+
   await connectDB();
 
   const dresses = (await DressModel.find()

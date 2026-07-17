@@ -2,8 +2,18 @@ import { connectDB } from "@/lib/mongodb";
 import Order from "@/models/Order";
 import OrderStatus from "@/components/OrderStatus/OrderStatus";
 import css from "../admin.module.css";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function OrdersPage() {
+  const cookieStore = await cookies();
+
+  const adminAuth = cookieStore.get("admin-auth");
+
+  if (!adminAuth || adminAuth.value !== "true") {
+    redirect("/admin/login");
+  }
+
   await connectDB();
 
   const orders = await Order.find().sort({

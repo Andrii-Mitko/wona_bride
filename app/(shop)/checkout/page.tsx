@@ -60,6 +60,8 @@ export default function CheckoutPage() {
       useCartStore.getState().clearCart();
 
       router.push("/success");
+    } else {
+      alert("Не вдалося оформити замовлення. Спробуйте ще раз.");
     }
   };
 
