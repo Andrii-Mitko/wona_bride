@@ -13,17 +13,19 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://wona-bride.vercel.app"),
+  metadataBase: new URL("https://wona-bride.com.ua"),
 
   title: "WONA Bride — весільні сукні",
   description:
     "Елегантні весільні сукні WONA Bride. Створіть свій ідеальний образ нареченої.",
 
   openGraph: {
-    title: "WONA Bride — весільні сукні",
+    title: "WONA Bride — Твоя ідеальна сукня",
     description:
       "Елегантні весільні сукні WONA Bride. Створіть свій ідеальний образ нареченої.",
-    url: "https://wona-bride.vercel.app",
+    url: "https://wona-bride.com.ua",
+    siteName: "WONA Bride",
+    locale: "uk_UA",
     images: [
       {
         url: "/images/og-image.jpg",
@@ -33,6 +35,14 @@ export const metadata: Metadata = {
       },
     ],
     type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "WONA Bride — Твоя ідеальна сукня",
+    description:
+      "Елегантні весільні сукні WONA Bride. Створіть свій ідеальний образ нареченої.",
+    images: ["/images/og-image.jpg"],
   },
 };
 
