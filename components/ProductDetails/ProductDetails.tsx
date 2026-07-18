@@ -21,6 +21,21 @@ export default function ProductDetails({ dress }: Props) {
 
       <p className={css.price}>{dress.price.toLocaleString("uk-UA")} ₴</p>
 
+      <div
+        className={`${css.availability} ${
+          dress.availability === "available"
+            ? css.available
+            : dress.availability === "order"
+              ? css.order
+              : css.waiting
+        }`}
+      >
+        {dress.availability === "available" && "🟢 Є в наявності"}
+
+        {dress.availability === "order" && "🟡 Під замовлення"}
+
+        {dress.availability === "waiting" && "🔴 Модель очікується"}
+      </div>
       <div className={css.specifications}>
         <div className={css.specItem}>
           <span>Артикул</span>
@@ -63,19 +78,33 @@ export default function ProductDetails({ dress }: Props) {
       <h2 className={css.subtitle}>Розміри</h2>
 
       <SizeSelector sizes={dress.sizes} onSelect={setSelectedSize} />
-      <button
-        type="button"
-        className={css.addToCart}
-        disabled={!selectedSize}
-        onClick={() => addToCart(dress, selectedSize)}
-      >
-        🛒 Додати в кошик
-      </button>
-      <AppointmentModal
-        dressName={dress.name}
-        sizes={dress.sizes}
-        sizeType={dress.sizeType}
-      />
+
+      {dress.availability !== "waiting" && (
+        <button
+          type="button"
+          className={css.addToCart}
+          disabled={!selectedSize}
+          onClick={() => addToCart(dress, selectedSize)}
+        >
+          🛒 Додати в кошик
+        </button>
+      )}
+
+      {dress.availability === "available" && (
+        <AppointmentModal
+          dressName={dress.name}
+          sizes={dress.sizes}
+          sizeType={dress.sizeType}
+        />
+      )}
+
+      {dress.availability === "waiting" && (
+        <div className={css.waitingInfo}>
+          Ця модель зараз очікується.
+          <br />
+          Незабаром вона буде доступна.
+        </div>
+      )}
     </div>
   );
 }

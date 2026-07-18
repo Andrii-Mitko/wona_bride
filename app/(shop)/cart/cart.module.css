@@ -50,22 +50,6 @@
   gap: 12px;
 }
 
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.actions button {
-  width: 32px;
-  height: 32px;
-
-  border: none;
-  border-radius: 50%;
-
-  cursor: pointer;
-}
-
 .remove {
   width: fit-content;
 

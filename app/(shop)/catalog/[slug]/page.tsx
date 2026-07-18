@@ -1,9 +1,11 @@
 import { notFound } from "next/navigation";
 import { getDressBySlug } from "@/lib/api/dresses";
 import DressGallery from "@/components/DressGallery/DressGallery";
-import css from "./page.module.css";
-import BackButton from "@/components/BackButton/BackButton";
 import ProductDetails from "@/components/ProductDetails/ProductDetails";
+import BackButton from "@/components/BackButton/BackButton";
+import css from "./page.module.css";
+
+export const dynamic = "force-dynamic";
 
 type Props = {
   params: Promise<{

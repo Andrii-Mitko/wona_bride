@@ -1,6 +1,7 @@
 import Link from "next/link";
 import css from "./AdminHeader.module.css";
 import AdminLogout from "@/components/AdminLogout/AdminLogout";
+import AdminBadge from "@/components/AdminBadge/AdminBadge";
 
 export default function AdminHeader() {
   return (
@@ -15,10 +16,16 @@ export default function AdminHeader() {
 
           <Link href="/admin/dresses">Сукні</Link>
 
-          <Link href="/admin/orders">Замовлення</Link>
+          <Link href="/admin/orders">
+            Замовлення 🛒 <AdminBadge type="orders" />
+          </Link>
 
-          <Link href="/admin/appointments">Примірки</Link>
-          <Link href="/admin/feedback">Відгуки</Link>
+          <Link href="/admin/appointments">
+            Примірки 👰 <AdminBadge type="appointments" />
+          </Link>
+          <Link href="/admin/feedback">
+            Відгуки ⭐ <AdminBadge type="feedbacks" />
+          </Link>
         </nav>
 
         <div className={css.actions}>

@@ -5,36 +5,28 @@ export async function POST(req: Request) {
   try {
     const data = await req.json();
     await connectDB();
-    console.log("Нова заявка:", data);
+
     await Appointment.create({
       ...data,
       status: "new",
     });
     const message = `
-🕊 Нова заявка WONA Bride
-
+🔔 Нова заявка на ПРИМІРКУ
 👗 Сукня:
 ${data.dressName}
-
 📏 Розмір:
 ${data.sizes.join(", ")}
-
 👤 Ім'я:
 ${data.name}
-
 📞 Телефон:
 ${data.phone}
-
 📅 Дата:
 ${data.date || "-"}
-
 ⏰ Час:
 ${data.time || "-"}
-
 💬 Повідомлення:
 ${data.message || "-"}
 `;
-
     await fetch(
       `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,
       {

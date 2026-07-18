@@ -73,6 +73,12 @@ const DressSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    availability: {
+      type: String,
+      enum: ["available", "order", "waiting"],
+      default: "order",
+      required: true,
+    },
   },
   {
     timestamps: true,

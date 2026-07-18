@@ -34,33 +34,24 @@ function normalizeDress(dress: {
   sizeType: Dress["sizeType"];
   sizes: string[];
   isPopular: boolean;
+  availability: Dress["availability"];
 }): Dress {
   return {
     _id: String(dress._id),
-
     name: dress.name,
     slug: dress.slug,
     article: dress.article,
-
     price: dress.price,
-
     description: dress.description,
-
     images: dress.images,
-
     category: dress.category,
-
     style: dress.style,
-
     color: dress.color,
-
     fabric: dress.fabric,
-
     sizeType: dress.sizeType,
-
     sizes: dress.sizes,
-
     isPopular: dress.isPopular,
+    availability: dress.availability,
   };
 }
 

@@ -11,7 +11,7 @@ export default function Header() {
 
   const items = useCartStore((state) => state.items);
 
-  const cartCount = items.reduce((total, item) => total + item.quantity, 0);
+  const cartCount = items.length;
 
   const closeMenu = () => setIsOpen(false);
 

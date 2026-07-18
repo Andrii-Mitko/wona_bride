@@ -12,10 +12,6 @@ type CartStore = {
 
   removeFromCart: (id: string, size: string) => void;
 
-  increaseQuantity: (id: string, size: string) => void;
-
-  decreaseQuantity: (id: string, size: string) => void;
-
   clearCart: () => void;
 };
 
@@ -26,22 +22,13 @@ export const useCartStore = create<CartStore>()(
 
       addToCart: (dress, size) =>
         set((state) => {
-          const existing = state.items.find(
+          const exists = state.items.some(
             (item) =>
               item.dress._id === dress._id && item.selectedSize === size,
           );
 
-          if (existing) {
-            return {
-              items: state.items.map((item) =>
-                item.dress._id === dress._id && item.selectedSize === size
-                  ? {
-                      ...item,
-                      quantity: item.quantity + 1,
-                    }
-                  : item,
-              ),
-            };
+          if (exists) {
+            return state;
           }
 
           return {
@@ -49,8 +36,8 @@ export const useCartStore = create<CartStore>()(
               ...state.items,
               {
                 dress,
-                quantity: 1,
                 selectedSize: size,
+                quantity: 1,
               },
             ],
           };
@@ -61,32 +48,6 @@ export const useCartStore = create<CartStore>()(
           items: state.items.filter(
             (item) => !(item.dress._id === id && item.selectedSize === size),
           ),
-        })),
-
-      increaseQuantity: (id, size) =>
-        set((state) => ({
-          items: state.items.map((item) =>
-            item.dress._id === id && item.selectedSize === size
-              ? {
-                  ...item,
-                  quantity: item.quantity + 1,
-                }
-              : item,
-          ),
-        })),
-
-      decreaseQuantity: (id, size) =>
-        set((state) => ({
-          items: state.items
-            .map((item) =>
-              item.dress._id === id && item.selectedSize === size
-                ? {
-                    ...item,
-                    quantity: item.quantity - 1,
-                  }
-                : item,
-            )
-            .filter((item) => item.quantity > 0),
         })),
 
       clearCart: () => set({ items: [] }),

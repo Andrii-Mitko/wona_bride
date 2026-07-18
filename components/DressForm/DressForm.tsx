@@ -11,6 +11,7 @@ import ImageUploader from "@/components/ImageUploader/ImageUploader";
 import css from "./DressForm.module.css";
 import SizeSelectorAdmin from "@/components/SizeSelectorAdmin/SizeSelectorAdmin";
 import { dressCategories, dressStyles, dressFabrics } from "@/data/options";
+import { useRouter } from "next/navigation";
 
 type Props = {
   initialData?: Dress;
@@ -45,9 +46,10 @@ export default function DressForm({ initialData }: Props) {
       style: initialData?.style ?? [],
 
       isPopular: initialData?.isPopular ?? false,
+      availability: initialData?.availability ?? "available",
     },
   });
-
+  const router = useRouter();
   const sizeType = watch("sizeType");
 
   const selectedSizes = watch("sizes") ?? [];
@@ -58,6 +60,8 @@ export default function DressForm({ initialData }: Props) {
 
   const onSubmit = async (data: DressFormData) => {
     try {
+      console.log("Відправляємо:", data);
+
       const response = await fetch(
         isEdit ? `/api/dress/${initialData!._id}` : "/api/dress",
         {
@@ -72,17 +76,23 @@ export default function DressForm({ initialData }: Props) {
         },
       );
 
+      console.log("Status:", response.status);
+
+      const result = await response.json();
+
+      console.log("Response:", result);
+
       if (!response.ok) {
-        throw new Error(
-          isEdit ? "Помилка оновлення сукні" : "Помилка створення сукні",
-        );
+        alert(result.error || result.message || "Помилка");
+        return;
       }
 
-      const dress = await response.json();
-
-      console.log("Створено:", dress);
+      alert(isEdit ? "Сукню оновлено!" : "Сукню створено!");
+      router.push("/admin/dresses");
+      router.refresh();
     } catch (error) {
       console.error(error);
+      alert("Помилка запиту");
     }
   };
 
@@ -205,6 +215,20 @@ export default function DressForm({ initialData }: Props) {
         <textarea rows={5} {...register("description")} />
 
         {errors.description && <span>{errors.description.message}</span>}
+      </div>
+
+      <div className={css.field}>
+        <label>Наявність</label>
+
+        <select {...register("availability")}>
+          <option value="available">🟢 Є в наявності</option>
+
+          <option value="order">🟡 Під замовлення</option>
+
+          <option value="waiting">🔴 Модель очікується</option>
+        </select>
+
+        {errors.availability && <span>{errors.availability.message}</span>}
       </div>
 
       <div className={css.field}>

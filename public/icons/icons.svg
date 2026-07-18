@@ -1,4 +1,8 @@
-<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg
+  aria-hidden="true"
+  style="position: absolute; width: 0; height: 0; overflow: hidden;"
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg">
     <defs>
         <symbol id="icon-arrow-back" viewBox="0 0 32 32">
             <path d="M28 14.667h-19.448l7.057-7.057-1.885-1.885-10.276 10.276 10.276 10.276 1.885-1.885-7.057-7.057h19.448v-2.667z"></path>

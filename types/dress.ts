@@ -10,6 +10,8 @@ export type DressCategory =
 
 export type DressStyle = "princess" | "a-line" | "mermaid" | "minimal";
 
+export type DressAvailability = "available" | "order" | "waiting";
+
 export type Dress = {
   _id: string;
 
@@ -38,6 +40,8 @@ export type Dress = {
   sizes: string[];
 
   isPopular: boolean;
+
+  availability: DressAvailability;
 };
 
 export type DressFromDB = Omit<Dress, "_id"> & {

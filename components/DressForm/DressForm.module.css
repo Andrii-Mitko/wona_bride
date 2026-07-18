@@ -11,7 +11,8 @@
 }
 
 .field input,
-.field textarea {
+.field textarea,
+.field select {
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 8px;

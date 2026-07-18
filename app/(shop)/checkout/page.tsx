@@ -13,10 +13,7 @@ export default function CheckoutPage() {
 
   const items = useCartStore((state) => state.items);
 
-  const total = items.reduce(
-    (sum, item) => sum + item.dress.price * item.quantity,
-    0,
-  );
+  const total = items.reduce((sum, item) => sum + item.dress.price, 0);
 
   const {
     register,
@@ -40,7 +37,6 @@ export default function CheckoutPage() {
         name: item.dress.name,
         size: item.selectedSize,
         price: item.dress.price,
-        quantity: item.quantity,
       })),
 
       total,
@@ -57,7 +53,9 @@ export default function CheckoutPage() {
     });
 
     if (response.ok) {
-      useCartStore.getState().clearCart();
+      const clearCart = useCartStore.getState().clearCart;
+
+      clearCart();
 
       router.push("/success");
     } else {

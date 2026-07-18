@@ -9,13 +9,12 @@ import css from "./cart.module.css";
 export default function CartPage() {
   const router = useRouter();
 
-  const { items, removeFromCart, increaseQuantity, decreaseQuantity } =
-    useCartStore();
+  const { items, removeFromCart } = useCartStore();
 
-  const total = items.reduce(
-    (sum, item) => sum + item.dress.price * item.quantity,
-    0,
-  );
+ const total = items.reduce(
+  (sum, item) => sum + item.dress.price,
+  0,
+);
 
   const handleCheckout = () => {
     if (items.length === 0) {
@@ -66,25 +65,7 @@ export default function CartPage() {
 
                 <p>{item.dress.price.toLocaleString("uk-UA")} ₴</p>
 
-                <div className={css.actions}>
-                  <button
-                    onClick={() =>
-                      decreaseQuantity(item.dress._id, item.selectedSize)
-                    }
-                  >
-                    -
-                  </button>
-
-                  <span>{item.quantity}</span>
-
-                  <button
-                    onClick={() =>
-                      increaseQuantity(item.dress._id, item.selectedSize)
-                    }
-                  >
-                    +
-                  </button>
-                </div>
+               
 
                 <button
                   className={css.remove}

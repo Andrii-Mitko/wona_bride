@@ -26,7 +26,8 @@ export const dressSchema = z.object({
   sizes: z.array(z.string()),
 
   isPopular: z.boolean(),
-}); // <-- вот эта скобка должна быть
+  availability: z.enum(["available", "order", "waiting"]),
+});
 
 export type DressFormData = z.infer<typeof dressSchema>;
 

@@ -7,7 +7,6 @@ type OrderItem = {
   name: string;
   size: string;
   price: number;
-  quantity: number;
 };
 
 export async function POST(request: Request) {
@@ -26,37 +25,26 @@ export async function POST(request: Request) {
         (item: OrderItem) =>
           `👗 ${item.name}
 📏 Розмір: ${item.size}
-💰 ${item.price} ₴
-Кількість: ${item.quantity}`,
+💰 ${item.price} ₴`,
       )
       .join("\n\n");
 
     const message = `
-🛒 НОВЕ ЗАМОВЛЕННЯ WONA Bride
-
+🛒 Нове замовлення на ПОКУПКУ
 👤 Клієнт:
 ${body.customer.name}
-
 📞 Телефон:
 ${body.customer.phone}
-
 📧 Email:
 ${body.customer.email}
-
-
 ${items}
-
-
 💰 Разом:
 ${body.total} ₴
-
 💬 Коментар:
 ${body.customer.comment || "-"}
-
 🆕 Статус:
 Нове замовлення
 `;
-
     await sendTelegram(message);
 
     return NextResponse.json(

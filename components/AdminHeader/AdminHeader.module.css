@@ -30,8 +30,14 @@
 .nav a {
   color: #333;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   transition: color 0.2s ease;
+}
+.nav a span {
+  margin-left: 2px;
+  color: #942e32;
+  font-size: 17px;
+  font-weight: 700;
 }
 
 .nav a:hover {
