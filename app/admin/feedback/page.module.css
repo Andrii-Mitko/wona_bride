@@ -1,0 +1,14 @@
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.title {
+  margin-bottom: 32px;
+
+  font-size: 36px;
+  font-weight: 700;
+
+  color: var(--color-text);
+}

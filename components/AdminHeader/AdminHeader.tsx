@@ -18,6 +18,7 @@ export default function AdminHeader() {
           <Link href="/admin/orders">Замовлення</Link>
 
           <Link href="/admin/appointments">Примірки</Link>
+          <Link href="/admin/feedback">Відгуки</Link>
         </nav>
 
         <div className={css.actions}>

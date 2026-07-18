@@ -19,6 +19,7 @@
   display: block;
   overflow: hidden;
   aspect-ratio: 3 / 4;
+  position: relative;
 }
 
 .image {

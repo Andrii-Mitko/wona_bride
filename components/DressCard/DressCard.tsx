@@ -17,8 +17,12 @@ const DressCard = ({ dress, priority = false }: Props) => {
         <Image
           src={dress.images[0]}
           alt={dress.name}
-          width={400}
-          height={550}
+          fill
+          sizes="
+    (min-width:1440px) 300px,
+    (min-width:768px) 350px,
+    100vw
+  "
           className={css.image}
           priority={priority}
         />
@@ -27,7 +31,7 @@ const DressCard = ({ dress, priority = false }: Props) => {
       <div className={css.content}>
         <h3 className={css.title}>{dress.name}</h3>
 
-        <p className={css.category}>{dress.category}</p>
+        <p className={css.category}>{dress.category.join(", ")}</p>
 
         <p className={css.price}>{dress.price.toLocaleString("uk-UA")} ₴</p>
 

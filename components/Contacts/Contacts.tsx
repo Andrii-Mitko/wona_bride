@@ -31,16 +31,8 @@ export default function Contacts() {
             </li>
 
             <li>
-              ✉️
-              <Link href="mailto:<ТУТ ВАШ EMAIL>">
-                ТУТ довжен бути EMAIL (А може EMAIL не потрібен? А може ще якісь
-                контакти добавити?)
-              </Link>
-            </li>
-            <li>
               <Link
-                href="https://vt.tiktok.com/ZSXByLKy6/
-            "
+                href="https://www.tiktok.com/@wona_bride"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="tiktok"
@@ -68,7 +60,7 @@ export default function Contacts() {
 
           <div className={css.social}>
             <Link
-              href="https://web.telegram.org/a/#522480310"
+              href="https://t.me/li_lelii"
               target="_blank"
               rel="noopener noreferrer"
               className={css.socialLink}
@@ -77,7 +69,7 @@ export default function Contacts() {
             </Link>
 
             <Link
-              href="viber://chat?number=%2B380966715746"
+              href="viber://chat?number=+380966715746"
               target="_blank"
               rel="noopener noreferrer"
               className={css.socialLink}

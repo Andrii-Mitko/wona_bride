@@ -2,13 +2,14 @@ import { Toaster } from "react-hot-toast";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
-import "./globals.css";
 
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-roboto",
+import "./globals.css";
+import { Raleway } from "next/font/google";
+
+const raleway = Raleway({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-raleway",
   display: "swap",
 });
 
@@ -53,7 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uk" data-scroll-behavior="smooth">
-      <body className={roboto.variable}>
+      <body className={raleway.variable}>
         <TanStackProvider>
           {children}
 

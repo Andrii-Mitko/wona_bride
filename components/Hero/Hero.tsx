@@ -6,11 +6,17 @@ const Hero = () => {
     <section className={css.hero}>
       <div className={`${css.container} ${css.heroContainer}`}>
         <div className={css.heroContent}>
-          <h1 className={css.heroTitle}>Знайдіть сукню своєї мрії</h1>
+          <p className={css.badge}>WONA Bride — весільні сукні</p>
+
+          <h1 className={css.heroTitle}>
+            Сукня вашої мрії
+            <br />
+            для особливого дня
+          </h1>
 
           <p className={css.heroText}>
-            Весільні та вечірні сукні WONA створені, щоб підкреслити вашу красу,
-            стиль та індивідуальність у найважливіший день.
+            Елегантні весільні та вечірні сукні, які підкреслять вашу красу,
+            стиль і індивідуальність.
           </p>
 
           <div className={css.heroActions}>
@@ -18,8 +24,8 @@ const Hero = () => {
               Переглянути колекцію
             </Link>
 
-            <Link href="#feedback" className={css.secondaryButton}>
-              Відгуки клієнтів
+            <Link href="/appointment-success" className={css.secondaryButton}>
+              Записатися на примірку
             </Link>
           </div>
         </div>

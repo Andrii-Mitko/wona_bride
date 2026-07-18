@@ -1,21 +1,12 @@
 .faq-section {
-  padding: 48px 20px;
-  background-color: var(--color-white);
-}
-
-.faq-section * {
-  box-sizing: border-box;
+  padding: 64px 20px;
+  background-color: var(--color-surface);
 }
 
 .faq-container {
   width: 100%;
   max-width: 1312px;
   margin: 0 auto;
-}
-
-.section-faq {
-  margin-bottom: 32px;
-  text-align: center;
 }
 
 .section-faq__title {
@@ -26,6 +17,7 @@
   letter-spacing: 0.01em;
   text-align: center;
   color: var(--color-text);
+  margin-bottom: 32px;
 }
 
 .faq__list {

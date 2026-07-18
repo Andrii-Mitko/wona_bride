@@ -1,90 +1,105 @@
 .swiper {
   width: 100%;
+  overflow: hidden;
 }
+
+.swiper :global(.swiper-slide) {
+  height: auto;
+}
+
 .feedback__section {
   padding: 16px 0;
-  background-color: #fff;
+  background-color: var(--color-surface);
 }
 
 .container {
   width: 100%;
   max-width: 375px;
+
   padding: 0 20px;
   margin: 0 auto;
+
   box-sizing: border-box;
 }
 
 .feedback__title {
-  font-family: var(--font-family);
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 1.2;
-  letter-spacing: 0.01em;
-  color: #080c09;
   margin-bottom: 24px;
+
+  font-family: var(--font-family);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.2;
+
+  color: var(--color-text);
 }
 
 .feedback__description {
+  margin-bottom: 40px;
+
   font-family: var(--font-family);
-  font-weight: 400;
   font-size: 18px;
   line-height: 1.6;
-  color: #080c09;
-  margin-bottom: 80px;
-}
 
-.feedback__list {
-  margin-bottom: 48px;
-  align-items: stretch;
+  color: var(--color-text);
 }
 
 .feedback__item {
-  min-height: 250px;
+  width: 100%;
+  min-height: 260px;
+
   padding: 32px;
 
   border-radius: 20px;
 
-  background: #faf6f5;
+  background-color: #faf6f5;
+
+  border: 1px solid var(--color-border);
 
   display: flex;
+
   flex-direction: column;
 }
 
 .feedback__stars {
   display: flex;
+
   gap: 4px;
-  list-style: none;
+
   padding: 0;
   margin-bottom: 24px;
+
+  list-style: none;
 }
 
 .feedback__star {
   width: 20px;
   height: 20px;
+
   fill: #d4af37;
 }
 
 .feedback__comment {
   flex-grow: 1;
-  font-family: var(--font-family);
-  font-weight: 500;
+
+  margin-bottom: 24px;
+
   font-size: 20px;
   line-height: 1.6;
-  color: #080c09;
-  margin-bottom: 24px;
+
+  color: var(--color-text);
 }
 
 .feedback__name {
-  font-family: var(--font-family);
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.6;
-  color: #080c09;
   margin-top: auto;
-}
 
+  font-size: 16px;
+  font-weight: 700;
+
+  color: var(--color-text);
+}
 .feedback__control_panel {
   display: flex;
+
   align-items: center;
   justify-content: space-between;
 }
@@ -94,75 +109,103 @@
   align-items: center;
 }
 
-/* Swiper */
-:global(.swiper-pagination-bullet) {
-  background-color: #080c09;
-  opacity: 0.2;
-  width: 8px;
-  height: 8px;
-}
-
-:global(.swiper-pagination-bullet-active) {
-  opacity: 1;
-}
-
 .feedback__arrows {
   display: flex;
-  align-items: center;
+
   gap: 16px;
 }
 
 .feedback__arrow {
-  border: 1px solid rgba(8, 12, 9, 0.15);
-  border-radius: 100px;
   width: 48px;
   height: 48px;
-  background-color: #f2f2f2;
+
   display: flex;
+
   align-items: center;
   justify-content: center;
+
+  border-radius: 999px;
+
+  background-color: #f2f2f2;
 }
 
 .feedback__arrow__icon {
   width: 24px;
   height: 24px;
-  fill: #080c09;
+
+  fill: var(--color-text);
+}
+.feedbackAction {
+  margin-top: 64px;
+
+  padding: 40px;
+
+  text-align: center;
+
+  border-radius: var(--radius-lg);
+
+  background-color: #faf6f5;
 }
 
-.feedback__arrow:hover,
-.feedback__arrow:focus {
-  background-color: #975052;
+.feedbackActionTitle {
+  margin-bottom: 16px;
+
+  font-size: 32px;
+  font-weight: 700;
+
+  color: var(--color-text);
 }
 
-.feedback__arrow:hover .feedback__arrow__icon,
-.feedback__arrow:focus .feedback__arrow__icon {
-  fill: #fff;
+.feedbackActionText {
+  max-width: 600px;
+
+  margin: 0 auto 32px;
+
+  font-size: 18px;
+
+  line-height: 1.6;
+
+  color: var(--color-muted);
 }
 
-.feedback__arrow:active {
-  background-color: #6b0609;
+.feedbackButton {
+  display: inline-flex;
+
+  justify-content: center;
+  align-items: center;
+
+  min-width: 240px;
+
+  height: 52px;
+
+  padding: 0 32px;
+
+  border-radius: 999px;
+
+  background-color: var(--color-accent);
+
+  color: #fff;
+
+  font-weight: 600;
+
+  transition:
+    background-color var(--transition),
+    transform var(--transition);
 }
 
-@media only screen and (min-width: 768px) {
-  .feedback__section {
-    padding: 32px 0;
-  }
+.feedbackButton:hover {
+  background-color: var(--color-accent-light);
 
+  transform: translateY(-2px);
+}
+@media (min-width: 768px) {
   .container {
     max-width: 768px;
     padding: 0 32px;
   }
 }
 
-@media only screen and (min-width: 1440px) {
-  .feedback__section {
-    padding: 64px 0;
-  }
-
-  .feedback__title {
-    font-size: 48px;
-  }
-
+@media (min-width: 1440px) {
   .container {
     max-width: 1440px;
     padding: 0 64px;

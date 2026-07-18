@@ -5,15 +5,26 @@ import css from "./Popular.module.css";
 
 export default async function Popular() {
   const { dresses } = await getDresses({
-    limit: 4,
+    limit: 8,
   });
 
-  return (
-    <section className={css.section}>
-      <div className={css.container}>
-        <h2 className={css.title}>Наші сукні</h2>
+  const popularDresses = dresses.filter((dress) => dress.isPopular);
 
-        <DressGrid dresses={dresses} />
+  return (
+    <section className={css.section} id="popular">
+      <div className={css.container}>
+        <div className={css.header}>
+          <p className={css.label}>Обрані моделі</p>
+
+          <h2 className={css.title}>Популярні сукні</h2>
+
+          <p className={css.subtitle}>
+            Найулюбленіші моделі наших клієнток. Витончені фасони для особливих
+            моментів.
+          </p>
+        </div>
+
+        <DressGrid dresses={popularDresses} />
       </div>
     </section>
   );

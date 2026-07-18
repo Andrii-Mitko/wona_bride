@@ -14,8 +14,8 @@ export default function Home() {
       <About />
       <Dresses />
       <Popular />
-      <Faq />
       <Feedback />
+      <Faq />
       <Contacts />
     </>
   );

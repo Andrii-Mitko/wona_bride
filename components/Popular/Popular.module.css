@@ -1,56 +1,71 @@
-.sectionPopular {
-  padding: 16px 0;
+.section {
+  padding: 64px 0;
+
+  background: #ffffff;
 }
 
 .container {
   width: 100%;
-  max-width: 375px;
 
-  padding: 0 20px;
+  max-width: 1440px;
+
+  padding: 0 64px;
+
   margin: 0 auto;
-
-  box-sizing: border-box;
 }
 
-.popularTitle {
-  margin: 0 0 32px;
+.header {
+  max-width: 700px;
 
-  font-size: 36px;
-  font-weight: 700;
+  margin-bottom: 48px;
+}
+
+.label {
+  margin-bottom: 16px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  color: var(--color-accent);
+}
+
+.title {
+  margin-bottom: 20px;
+
+  font-size: 48px;
+
   line-height: 1.2;
-  letter-spacing: 0.01em;
 
-  text-align: center;
-
-  color: #080c09;
+  color: var(--color-dark);
 }
 
+.subtitle {
+  font-size: 20px;
 
-@media (min-width: 768px) {
-  .sectionPopular {
-    padding: 32px 0;
+  line-height: 1.6;
+
+  color: var(--color-muted);
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding: 48px 0;
   }
 
   .container {
-    max-width: 768px;
-    padding: 0 32px;
-  }
-}
-
-
-@media (min-width: 1440px) {
-  .sectionPopular {
-    padding: 64px 0;
+    padding: 0 20px;
   }
 
-  .container {
-    max-width: 1440px;
-    padding: 0 64px;
+  .title {
+    font-size: 36px;
   }
 
-  .popularTitle {
-    margin-bottom: 48px;
-
-    font-size: 48px;
+  .subtitle {
+    font-size: 18px;
   }
 }
