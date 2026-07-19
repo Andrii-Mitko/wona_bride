@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Dress } from "@/types/dress";
-
+import { categoryLabels } from "@/lib/utils/dress";
 import css from "./DressCard.module.css";
 
 type Props = {
@@ -31,7 +31,11 @@ const DressCard = ({ dress, priority = false }: Props) => {
       <div className={css.content}>
         <h3 className={css.title}>{dress.name}</h3>
 
-        <p className={css.category}>{dress.category.join(", ")}</p>
+        <p className={css.category}>
+          {dress.category
+            .map((category) => categoryLabels[category])
+            .join(", ")}
+        </p>
 
         <p className={css.price}>{dress.price.toLocaleString("uk-UA")} ₴</p>
 
