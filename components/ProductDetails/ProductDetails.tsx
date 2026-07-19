@@ -8,6 +8,7 @@ import SizeSelector from "@/components/SizeSelector/SizeSelector";
 import { useState } from "react";
 import { useCartStore } from "@/store/cartStore";
 import toast from "react-hot-toast";
+import ShareButton from "@/components/ShareButton/ShareButton";
 
 type Props = {
   dress: Dress;
@@ -94,7 +95,7 @@ export default function ProductDetails({ dress }: Props) {
           🛒 Додати в кошик
         </button>
       )}
-
+      <ShareButton title={dress.name} />
       {dress.availability === "available" && (
         <AppointmentModal
           dressName={dress.name}
