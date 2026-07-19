@@ -12,24 +12,12 @@ export default async function Feedback() {
       <div className={css.container}>
         <h2 className={css.feedback__title}>Відгуки клієнтів</h2>
 
-        <h3 className={css.feedback__description}>
+        <p className={css.feedback__description}>
           Дізнайтеся, що кажуть наші задоволені клієнти про наші сукні.
-        </h3>
+        </p>
 
         <FeedbackSwiper feedbacks={feedbacks} />
-        <div className={css.feedbackAction}>
-          <h3 className={css.feedbackActionTitle}>
-            Поділіться своїми враженнями
-          </h3>
 
-          <p className={css.feedbackActionText}>
-            Нам важлива ваша думка. Залиште відгук про нашу роботу.
-          </p>
-
-          <Link href="/feedback/new" className={css.feedbackButton}>
-            Залишити відгук
-          </Link>
-        </div>
         <div className={css.feedback__control_panel}>
           <div className={`${css.feedback__pagination} feedback-pagination`} />
 
@@ -52,6 +40,20 @@ export default async function Feedback() {
               </svg>
             </button>
           </div>
+        </div>
+
+        <div className={css.feedbackAction}>
+          <h3 className={css.feedbackActionTitle}>
+            Поділіться своїми враженнями
+          </h3>
+
+          <p className={css.feedbackActionText}>
+            Нам важлива ваша думка. Залиште відгук про нашу роботу.
+          </p>
+
+          <Link href="/feedback/new" className={css.feedbackButton}>
+            Залишити відгук
+          </Link>
         </div>
       </div>
     </section>

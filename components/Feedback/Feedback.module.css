@@ -8,7 +8,7 @@
 }
 
 .feedback__section {
-  padding: 16px 0;
+  padding: 64px 0;
   background-color: var(--color-surface);
 }
 
@@ -24,22 +24,18 @@
 
 .feedback__title {
   margin-bottom: 24px;
-
   font-family: var(--font-family);
   font-size: 36px;
   font-weight: 700;
   line-height: 1.2;
-
   color: var(--color-text);
 }
 
 .feedback__description {
   margin-bottom: 40px;
-
   font-family: var(--font-family);
   font-size: 18px;
   line-height: 1.6;
-
   color: var(--color-text);
 }
 
@@ -62,18 +58,18 @@
 
 .feedback__stars {
   display: flex;
-
-  gap: 4px;
+  align-items: center;
+  gap: 6px;
 
   padding: 0;
-  margin-bottom: 24px;
+  margin: 0 0 24px;
 
   list-style: none;
 }
 
 .feedback__star {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 
   fill: #d4af37;
 }
@@ -83,7 +79,7 @@
 
   margin-bottom: 24px;
 
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.6;
 
   color: var(--color-text);
@@ -99,7 +95,7 @@
 }
 .feedback__control_panel {
   display: flex;
-
+  margin-top: 16px;
   align-items: center;
   justify-content: space-between;
 }
@@ -120,30 +116,36 @@
   height: 48px;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  border-radius: 999px;
+  border-radius: 50%;
 
-  background-color: #f2f2f2;
+  border: 1px solid var(--color-border);
+
+  background-color: #fff;
+
+  cursor: pointer;
+
+  transition:
+    background-color var(--transition),
+    transform var(--transition),
+    border-color var(--transition);
 }
 
 .feedback__arrow__icon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 
   fill: var(--color-text);
+
+  transition: fill var(--transition);
 }
 .feedbackAction {
-  margin-top: 64px;
-
+  margin-top: 80px;
   padding: 40px;
-
   text-align: center;
-
   border-radius: var(--radius-lg);
-
   background-color: #faf6f5;
 }
 
@@ -183,7 +185,7 @@
   border-radius: 999px;
 
   background-color: var(--color-accent);
-
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   color: #fff;
 
   font-weight: 600;
@@ -198,10 +200,27 @@
 
   transform: translateY(-2px);
 }
+.feedback__arrow:hover {
+  background-color: var(--color-accent);
+
+  border-color: var(--color-accent);
+
+  transform: translateY(-2px);
+}
+.feedback__arrow:hover .feedback__arrow__icon {
+  fill: #fff;
+}
+
 @media (min-width: 768px) {
   .container {
     max-width: 768px;
     padding: 0 32px;
+  }
+  .feedback__section {
+    padding: 80px 0;
+  }
+  .feedback__item {
+    padding: 32px;
   }
 }
 

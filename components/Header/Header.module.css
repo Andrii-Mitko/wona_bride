@@ -24,8 +24,7 @@
 }
 
 .desktopNav,
-.button,
-.cart {
+.button {
   display: none;
 }
 
@@ -72,6 +71,10 @@
 
   text-decoration: none;
   color: #111;
+
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
 }
 
 .cartCount {
@@ -145,8 +148,10 @@
   .container {
     padding: 0 64px;
   }
-  .cart {
-    display: flex;
+  .cart:hover {
+    color: #975052;
+
+    transform: translateY(-2px);
   }
   .burger,
   .mobileMenu {
@@ -163,6 +168,13 @@
     text-decoration: none;
     font-size: 16px;
   }
+  .desktopNav a {
+    transition: color var(--transition);
+  }
+
+  .desktopNav a:hover {
+    color: #975052;
+  }
 
   .button {
     display: inline-flex;
@@ -171,5 +183,15 @@
     background: #975052;
     color: white;
     text-decoration: none;
+
+    transition:
+      background-color 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .button:hover {
+    background-color: #7d3f41;
+
+    transform: translateY(-2px);
   }
 }

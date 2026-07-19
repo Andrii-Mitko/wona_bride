@@ -40,7 +40,7 @@ export default function Header() {
           Переглянути сукні
         </Link>
 
-        <Link href="/cart" className={css.cart}>
+        <Link href="/cart" className={css.cart} onClick={closeMenu}>
           🛒
           {cartCount > 0 && <span className={css.cartCount}>{cartCount}</span>}
         </Link>
