@@ -10,19 +10,25 @@ export default function ShareButton({ title }: Props) {
   const handleShare = async () => {
     const url = window.location.href;
 
-    if (navigator.share) {
-      await navigator.share({
-        title,
-        text: `Весільна сукня ${title}`,
-        url,
-      });
+    try {
+      if (navigator.share && window.innerWidth < 768) {
+        await navigator.share({
+          title,
+          text: `Весільна сукня ${title}`,
+          url,
+        });
 
-      return;
+        return;
+      }
+
+      await navigator.clipboard.writeText(url);
+
+      alert("Посилання скопійовано ✅");
+    } catch (error) {
+      console.error(error);
+
+      alert("Не вдалося скопіювати посилання");
     }
-
-    await navigator.clipboard.writeText(url);
-
-    alert("Посилання скопійовано");
   };
 
   return (

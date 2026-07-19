@@ -10,6 +10,57 @@
   width: 100%;
   border-radius: 12px;
   overflow: hidden;
+  cursor: zoom-in;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.85);
+
+  padding: 20px;
+}
+
+.lightboxImage {
+  max-width: 90vw;
+  max-height: 90vh;
+
+  object-fit: contain;
+}
+
+.close,
+.prev,
+.next {
+  position: absolute;
+
+  border: none;
+  background: transparent;
+
+  color: white;
+
+  font-size: 40px;
+
+  cursor: pointer;
+}
+
+.close {
+  top: 20px;
+  right: 30px;
+}
+
+.prev {
+  left: 30px;
+}
+
+.next {
+  right: 30px;
 }
 
 .image {

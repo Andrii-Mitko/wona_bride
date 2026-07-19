@@ -61,6 +61,19 @@
   opacity: 0.9;
 }
 
+.relatedSection {
+  margin-top: 80px;
+}
+
+.relatedTitle {
+  margin-bottom: 32px;
+
+  text-align: center;
+
+  font-size: 32px;
+  font-weight: 600;
+}
+
 @media (min-width: 768px) {
   .product {
     grid-template-columns: 1fr 1fr;

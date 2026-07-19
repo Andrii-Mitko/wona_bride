@@ -1,0 +1,22 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  padding: 14px 24px;
+
+  border-radius: 30px;
+
+  background: #229ed9;
+  color: white;
+
+  text-decoration: none;
+
+  transition: opacity 0.3s ease;
+}
+
+.button:hover {
+  opacity: 0.85;
+}

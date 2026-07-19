@@ -60,7 +60,7 @@ export default function Contacts() {
 
           <div className={css.social}>
             <Link
-              href="https://t.me/li_lelii"
+              href="https://t.me/USERNAME_TELEGRAM"
               target="_blank"
               rel="noopener noreferrer"
               className={css.socialLink}

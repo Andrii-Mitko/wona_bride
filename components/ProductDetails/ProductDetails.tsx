@@ -9,6 +9,8 @@ import { useState } from "react";
 import { useCartStore } from "@/store/cartStore";
 import toast from "react-hot-toast";
 import ShareButton from "@/components/ShareButton/ShareButton";
+import ProductTrust from "@/components/ProductTrust/ProductTrust";
+import AskQuestionButton from "@/components/AskQuestionButton/AskQuestionButton";
 
 type Props = {
   dress: Dress;
@@ -96,6 +98,8 @@ export default function ProductDetails({ dress }: Props) {
         </button>
       )}
       <ShareButton title={dress.name} />
+      <ProductTrust />
+      <AskQuestionButton dressName={dress.name} />
       {dress.availability === "available" && (
         <AppointmentModal
           dressName={dress.name}
