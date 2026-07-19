@@ -81,8 +81,15 @@ export default async function DressPage({ params }: Props) {
       name: "WONA Bride",
     },
 
+    seller: {
+      "@type": "Organization",
+      name: "WONA Bride",
+    },
+
     offers: {
       "@type": "Offer",
+
+      url: `https://wona-bride.com.ua/catalog/${dress.slug}`,
 
       price: dress.price,
 
@@ -97,12 +104,46 @@ export default async function DressPage({ params }: Props) {
     },
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Головна",
+        item: "https://wona-bride.com.ua",
+      },
+
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Каталог",
+        item: "https://wona-bride.com.ua/catalog",
+      },
+
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: dress.name,
+        item: `https://wona-bride.com.ua/catalog/${dress.slug}`,
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(jsonLd),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd),
         }}
       />
       <section className={css.section}>
