@@ -21,19 +21,34 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!dress) {
     return {
-      title: "Сукню не знайдено",
+      title: "Сукню не знайдено | WONA Bride",
     };
   }
 
   return {
-    title: `${dress.name} | WONA Bride`,
-    description: dress.description,
+    title: `${dress.name} — весільна сукня WONA Bride`,
+
+    description:
+      `${dress.description} Купити весільну сукню ${dress.name}. ` +
+      `Ціна ${dress.price.toLocaleString("uk-UA")} грн.`,
 
     openGraph: {
-      title: `${dress.name} | WONA Bride`,
-      description: dress.description,
-      images: [dress.images[0]],
+      title: `${dress.name} — весільна сукня WONA Bride`,
+
+      description: `${dress.description} Ціна ${dress.price.toLocaleString(
+        "uk-UA",
+      )} грн.`,
+
+      images: [
+        {
+          url: dress.images[0],
+          width: 800,
+          height: 1200,
+          alt: dress.name,
+        },
+      ],
     },
+
     alternates: {
       canonical: `https://wona-bride.com.ua/catalog/${dress.slug}`,
     },
