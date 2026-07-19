@@ -7,6 +7,7 @@ import css from "./ProductDetails.module.css";
 import SizeSelector from "@/components/SizeSelector/SizeSelector";
 import { useState } from "react";
 import { useCartStore } from "@/store/cartStore";
+import toast from "react-hot-toast";
 
 type Props = {
   dress: Dress;
@@ -84,7 +85,11 @@ export default function ProductDetails({ dress }: Props) {
           type="button"
           className={css.addToCart}
           disabled={!selectedSize}
-          onClick={() => addToCart(dress, selectedSize)}
+          onClick={() => {
+            addToCart(dress, selectedSize);
+
+            toast.success("Сукню додано в кошик 🛒");
+          }}
         >
           🛒 Додати в кошик
         </button>

@@ -134,13 +134,13 @@ const Footer = () => {
           </li> */}
         </ul>
         <div className={css.contacts}>
-          <a href="tel:+380XXXXXXXXX" className={css.contact}>
+          <Link href="tel:+380XXXXXXXXX" className={css.contact}>
             +38 (096) 671 57 46
-          </a>
+          </Link>
 
-          <a href="mailto:wona.bride@gmail.com" className={css.contact}>
+          {/* <a href="mailto:wona.bride@gmail.com" className={css.contact}>
             wona.bride@gmail.com
-          </a>
+          </a> */}
 
           <p className={css.address}>м. Бар, Вінницька область</p>
         </div>

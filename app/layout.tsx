@@ -56,9 +56,17 @@ export default function RootLayout({
     <html lang="uk" data-scroll-behavior="smooth">
       <body className={raleway.variable}>
         <TanStackProvider>
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              duration: 5000,
+              style: {
+                borderRadius: "12px",
+                fontSize: "16px",
+              },
+            }}
+          />
           {children}
-
-          <Toaster position="top-center" />
         </TanStackProvider>
       </body>
     </html>
