@@ -93,8 +93,11 @@
   border-radius: 30px;
   font-size: 16px;
   font-weight: 600;
-  transition: 250ms ease;
   text-decoration: none;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
 }
 
 .button {
