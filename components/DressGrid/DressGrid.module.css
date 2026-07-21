@@ -7,10 +7,6 @@
   list-style: none;
 }
 
-.item {
-  min-width: 0;
-}
-
 .empty {
   margin: 0;
 

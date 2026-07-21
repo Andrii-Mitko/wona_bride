@@ -13,7 +13,7 @@ export default async function AdminFeedbackPage() {
       createdAt: -1,
     })
     .lean();
-  console.log("Feedbacks:", feedbacks);
+
   return (
     <main className={css.page}>
       <h1 className={css.title}>Відгуки клієнтів</h1>

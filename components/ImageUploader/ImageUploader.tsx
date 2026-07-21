@@ -35,13 +35,10 @@ export default function ImageUploader({ images, onChange }: Props) {
         if (!response.ok) {
           const error = await response.json();
 
-          console.log("UPLOAD ERROR:", error);
-
           throw new Error(error.error || "Помилка завантаження фото");
         }
 
         const data = await response.json();
-        console.log("UPLOAD RESPONSE:", data);
 
         uploaded.push(data.url);
       }
@@ -69,9 +66,15 @@ export default function ImageUploader({ images, onChange }: Props) {
       <div className={css.preview}>
         {images.filter(Boolean).map((image) => (
           <div key={image} className={css.item}>
-            <Image src={image} alt="dress" width={150} height={200} />
+            <div className={css.imageWrapper}>
+              <Image src={image} alt="dress" fill sizes="150px" />
+            </div>
 
-            <button type="button" onClick={() => removeImage(image)}>
+            <button
+              type="button"
+              className={css.remove}
+              onClick={() => removeImage(image)}
+            >
               ✕
             </button>
           </div>

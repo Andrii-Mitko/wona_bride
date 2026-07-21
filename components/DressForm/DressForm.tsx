@@ -60,8 +60,6 @@ export default function DressForm({ initialData }: Props) {
 
   const onSubmit = async (data: DressFormData) => {
     try {
-      console.log("Відправляємо:", data);
-
       const response = await fetch(
         isEdit ? `/api/dress/${initialData!._id}` : "/api/dress",
         {
@@ -76,11 +74,7 @@ export default function DressForm({ initialData }: Props) {
         },
       );
 
-      console.log("Status:", response.status);
-
       const result = await response.json();
-
-      console.log("Response:", result);
 
       if (!response.ok) {
         alert(result.error || result.message || "Помилка");
