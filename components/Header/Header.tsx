@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import css from "./Header.module.css";
 import { useCartStore } from "@/store/cartStore";
+import { navigation } from "@/constants/navigation";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,11 +30,11 @@ export default function Header() {
         </Link>
 
         <nav className={css.desktopNav}>
-          <Link href="/catalog">Наші сукні</Link>
-          <Link href="/#about">Про нас</Link>
-          <Link href="/#popular">Популярні</Link>
-          <Link href="/#feedback">Відгуки</Link>
-          <Link href="/#contacts">Контакти</Link>
+          {navigation.map((item) => (
+            <Link key={item.href} href={item.href} onClick={closeMenu}>
+              {item.label}
+            </Link>
+          ))}
         </nav>
 
         <Link href="/catalog" className={css.button}>
@@ -48,7 +49,9 @@ export default function Header() {
         <button
           className={`${css.burger} ${isOpen ? css.active : ""}`}
           onClick={() => setIsOpen(!isOpen)}
-          aria-label="Меню"
+          aria-label={isOpen ? "Закрити меню" : "Відкрити меню"}
+          aria-expanded={isOpen}
+          aria-controls="mobile-menu"
         >
           <span />
           <span />
@@ -56,26 +59,16 @@ export default function Header() {
         </button>
       </div>
 
-      <div className={`${css.mobileMenu} ${isOpen ? css.show : ""}`}>
+      <div
+        id="mobile-menu"
+        className={`${css.mobileMenu} ${isOpen ? css.show : ""}`}
+      >
         <nav className={css.mobileNav}>
-          <Link href="/catalog" onClick={closeMenu}>
-            Наші сукні
-          </Link>
-
-          <Link href="/#about" onClick={closeMenu}>
-            Про нас
-          </Link>
-
-          <Link href="/#popular" onClick={closeMenu}>
-            Популярні
-          </Link>
-
-          <Link href="/#feedback" onClick={closeMenu}>
-            Відгуки
-          </Link>
-          <Link href="/#contacts" onClick={closeMenu}>
-            Контакти
-          </Link>
+          {navigation.map((item) => (
+            <Link key={item.href} href={item.href} onClick={closeMenu}>
+              {item.label}
+            </Link>
+          ))}
 
           <Link
             href="/catalog"
