@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-
+import { revalidatePath } from "next/cache";
 import { connectDB } from "@/lib/mongodb";
 import Feedback from "@/models/Feedback";
 
@@ -39,6 +39,8 @@ export async function PATCH(
     );
   }
 
+  revalidatePath("/");
+
   return NextResponse.json(feedback);
 }
 
@@ -67,6 +69,8 @@ export async function DELETE(
       },
     );
   }
+
+  revalidatePath("/");
 
   return NextResponse.json({
     message: "Відгук видалено",

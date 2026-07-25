@@ -28,28 +28,39 @@ export default function FeedbackEditForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    console.log("Submit clicked");
     setLoading(true);
 
-    await fetch(`/api/feedback/${id}`, {
-      method: "PATCH",
+    try {
+      const response = await fetch(`/api/feedback/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          text,
+          rating,
+        }),
+      });
 
-      headers: {
-        "Content-Type": "application/json",
-      },
+      if (!response.ok) {
+        const error = await response.json();
 
-      body: JSON.stringify({
-        name,
-        text,
-        rating,
-      }),
-    });
+        console.error(error);
+        alert("Не вдалося оновити відгук");
 
-    setLoading(false);
+        return;
+      }
 
-    router.push("/admin/feedback");
-
-    router.refresh();
+      router.push("/admin/feedback");
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+      alert("Помилка сервера");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
