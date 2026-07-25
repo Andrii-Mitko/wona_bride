@@ -4,10 +4,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { feedbackSchema, FeedbackFormData } from "@/lib/validation/feedback";
-
+import { useRouter } from "next/navigation";
 import css from "./FeedbackForm.module.css";
 
 export default function FeedbackForm() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -46,11 +47,16 @@ export default function FeedbackForm() {
       setMessage(
         "Дякуємо за ваш відгук! Незабаром він з'явиться на нашому сайті.",
       );
+
       reset({
         name: "",
         text: "",
         rating: 5,
       });
+
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
     } catch {
       setMessage("Не вдалося відправити відгук. Спробуйте ще раз.");
     } finally {
