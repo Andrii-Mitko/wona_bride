@@ -1,9 +1,20 @@
 import Link from "next/link";
 import css from "./Hero.module.css";
+import Image from "next/image";
 
 const Hero = () => {
   return (
     <section className={css.hero}>
+      <Image
+        src="/images/IMG_4598.webp"
+        alt="Весільна сукня WONA Bride"
+        fill
+        priority
+        sizes="100vw"
+        className={css.heroImage}
+      />
+
+      <div className={css.overlay} />
       <div className={`${css.container} ${css.heroContainer}`}>
         <div className={css.heroContent}>
           <p className={css.badge}>WONA Bride — весільні сукні</p>

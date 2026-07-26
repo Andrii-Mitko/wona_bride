@@ -3,16 +3,20 @@
   min-height: 560px;
   display: flex;
   align-items: center;
-  background-image: url("/images/IMG_4598.JPG");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   overflow: hidden;
 }
-.hero::before {
-  content: "";
+
+.heroImage {
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+.overlay {
   position: absolute;
   inset: 0;
+  z-index: 1;
+
   background: linear-gradient(
     90deg,
     rgba(20, 10, 10, 0.75) 0%,
@@ -32,7 +36,7 @@
 
 .heroContainer {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 
   display: flex;
   align-items: center;
