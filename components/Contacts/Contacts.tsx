@@ -1,5 +1,7 @@
 import Link from "next/link";
 import css from "./Contacts.module.css";
+import Map from "@/components/Map/Map";
+import { contacts } from "@/constants/contacts";
 
 export default function Contacts() {
   return (
@@ -16,13 +18,14 @@ export default function Contacts() {
           <ul className={css.list}>
             <li>
               📍
-              <Link
-                href="https://maps.google.com/?q=вулиця+Соборна+23+Бар"
+              <a
+                className={css.button}
+                href={contacts.mapLink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                вулиця Соборна 23, м. Бар, Вінницька область
-              </Link>
+                Прокласти маршрут
+              </a>
             </li>
 
             <li>
@@ -79,16 +82,7 @@ export default function Contacts() {
           </div>
         </div>
         <div className={css.map}>
-          <iframe
-            src="https://www.google.com/maps?q=вулиця%20Соборна%2023%20Бар&output=embed"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            loading="lazy"
-            allowFullScreen
-            referrerPolicy="no-referrer-when-downgrade"
-            title="WONA Bride location"
-          />
+          <Map />
         </div>
       </div>
     </section>
