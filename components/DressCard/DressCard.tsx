@@ -18,11 +18,7 @@ const DressCard = ({ dress, priority = false }: Props) => {
           src={dress.images[0]}
           alt={dress.name}
           fill
-          sizes="
-    (min-width:1440px) 300px,
-    (min-width:768px) 350px,
-    100vw
-  "
+          sizes="(min-width: 1440px) 300px, (min-width: 768px) 350px, 100vw"
           className={css.image}
           priority={priority}
         />
@@ -39,7 +35,11 @@ const DressCard = ({ dress, priority = false }: Props) => {
 
         <p className={css.price}>{dress.price.toLocaleString("uk-UA")} ₴</p>
 
-        <Link href={`/catalog/${dress.slug}`} className={css.button}>
+        <Link
+          href={`/catalog/${dress.slug}`}
+          className={css.button}
+          aria-label={`Детальніше про сукню ${dress.name}`}
+        >
           Детальніше
         </Link>
       </div>

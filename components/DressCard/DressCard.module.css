@@ -10,11 +10,6 @@
     box-shadow 0.3s ease;
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-}
-
 .imageLink {
   display: block;
   overflow: hidden;
@@ -29,11 +24,6 @@
   transition:
     transform 0.4s ease,
     filter 0.4s ease;
-}
-
-.card:hover .image {
-  transform: scale(1.05);
-  filter: brightness(1.05);
 }
 
 .content {
@@ -92,8 +82,25 @@
     box-shadow 0.3s ease;
 }
 
-.button:hover,
-.button:focus {
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .card:hover .image {
+    transform: scale(1.05);
+    filter: brightness(1.05);
+  }
+
+  .button:hover {
+    background-color: #6b0609;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(151, 80, 82, 0.3);
+  }
+}
+
+.button:focus-visible {
   background-color: #6b0609;
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(151, 80, 82, 0.3);

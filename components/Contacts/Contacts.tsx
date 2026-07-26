@@ -1,7 +1,6 @@
-import Link from "next/link";
 import css from "./Contacts.module.css";
-import Map from "@/components/Map/Map";
 import { contacts } from "@/constants/contacts";
+import LazyMap from "./LazyMap";
 
 export default function Contacts() {
   return (
@@ -19,22 +18,21 @@ export default function Contacts() {
             <li>
               📍
               <a
-                className={css.button}
                 href={contacts.mapLink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Прокласти маршрут
+                вул. Соборна, 23, м. Бар
               </a>
             </li>
 
             <li>
               📞
-              <Link href="tel:+380966715746">+38 (096) 671 57 46</Link>
+              <a href="tel:+380966715746">+38 (096) 671 57 46</a>
             </li>
 
             <li>
-              <Link
+              <a
                 href="https://www.tiktok.com/@wona_bride"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -44,7 +42,7 @@ export default function Contacts() {
                   <use href="/icons/icons.svg#icon-tiktok"></use>
                 </svg>{" "}
                 TikTok
-              </Link>
+              </a>
             </li>
 
             <li>🕒 Вт–Сб: 09:00–17:00</li>
@@ -52,37 +50,37 @@ export default function Contacts() {
             <li>🕒Пн: вихідний</li>
           </ul>
 
-          <Link
+          <a
             className={css.button}
-            href="https://www.google.com.ua/maps/dir//Bar+Soborna23,+%D0%B2%D1%83%D0%BB%D0%B8%D1%86%D1%8F+%D0%A1%D0%BE%D0%B1%D0%BE%D1%80%D0%BD%D0%B0,+23,+%D0%91%D0%B0%D1%80,+%D0%92%D1%96%D0%BD%D0%BD%D0%B8%D1%86%D1%8C%D0%BA%D0%B0+%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C,+23000/@49.07561,27.6694121,17z/data=!4m17!1m8!3m7!1s0x473289003b8ca357:0xfeff1fb08f9ea93f!2sBar+Soborna23!8m2!3d49.0762724!4d27.6713551!15sClPQstGD0LvQuNGG0Y8g0KHQvtCx0L7RgNGM0YHRjNC60LAgMjMsINC8LiDQkdCw0YAsINCS0ZbQvdC9０LjRhtGM０rQsCDQvtCx０LvQsNGB０YLRjJIBEmFwYX０bWVudF9idWlsZGluZ-ABAA!１6s%2Fg%2F１１lnst０665!４m７!１m０!１m５!１m１!１s０x４７３２８９００3b８ca３57:０xfeff１fb０８f９ea９3f!２m２!１d２７.６713551!２d４９.0762724?hl=ru&entry=ttu&g_ep=EgoyMDI2MDcwOC4wIKXMDSoASAFQAw%3D%3D"
+            href={contacts.mapLink}
             target="_blank"
             rel="noopener noreferrer"
           >
             Прокласти маршрут
-          </Link>
+          </a>
 
           <div className={css.social}>
-            <Link
+            <a
               href="https://t.me/USERNAME_TELEGRAM"
               target="_blank"
               rel="noopener noreferrer"
               className={css.socialLink}
             >
               Telegram
-            </Link>
+            </a>
 
-            <Link
+            <a
               href="viber://chat?number=+380966715746"
               target="_blank"
               rel="noopener noreferrer"
               className={css.socialLink}
             >
               Viber
-            </Link>
+            </a>
           </div>
         </div>
         <div className={css.map}>
-          <Map />
+          <LazyMap />
         </div>
       </div>
     </section>

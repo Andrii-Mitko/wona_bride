@@ -9,7 +9,7 @@
 
 .heroImage {
   object-fit: cover;
-  object-position: center;
+  object-position: center 80%;
   z-index: 0;
 }
 
@@ -140,6 +140,9 @@
   .heroTitle {
     font-size: 48px;
   }
+  .heroImage {
+    object-position: center 60%;
+  }
 }
 
 /* desktop */
@@ -161,5 +164,8 @@
 
   .heroText {
     font-size: 20px;
+  }
+  .heroImage {
+    object-position: center 70%;
   }
 }

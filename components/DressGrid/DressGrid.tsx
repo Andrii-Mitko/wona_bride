@@ -16,7 +16,9 @@ const DressGrid = ({ dresses }: DressGridProps) => {
   return (
     <ul className={css.grid}>
       {dresses.map((dress, index) => (
-        <DressCard key={dress._id} dress={dress} priority={index === 0} />
+        <li key={dress._id}>
+          <DressCard dress={dress} priority={index < 2} />
+        </li>
       ))}
     </ul>
   );
