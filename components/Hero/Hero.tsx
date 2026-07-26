@@ -10,6 +10,7 @@ const Hero = () => {
         alt="Весільна сукня WONA Bride"
         fill
         priority
+        fetchPriority="high"
         sizes="100vw"
         className={css.heroImage}
       />
