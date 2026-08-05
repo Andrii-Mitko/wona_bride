@@ -22,8 +22,8 @@ export type GetDressesResponse = {
 
 function normalizeDress(dress: {
   _id: unknown;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   name: string;
   slug: string;
   article: string;
@@ -41,8 +41,13 @@ function normalizeDress(dress: {
 }): Dress {
   return {
     _id: String(dress._id),
-    createdAt: dress.createdAt.toISOString(),
-    updatedAt: dress.updatedAt.toISOString(),
+    createdAt: dress.createdAt
+      ? dress.createdAt.toISOString()
+      : new Date().toISOString(),
+
+    updatedAt: dress.updatedAt
+      ? dress.updatedAt.toISOString()
+      : new Date().toISOString(),
     name: dress.name,
     slug: dress.slug,
     article: dress.article,
