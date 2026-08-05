@@ -1,27 +1,22 @@
 .page {
   max-width: 1200px;
-  margin: 40px auto;
-  padding: 20px;
+  margin: 0 auto;
+  padding: 20px 16px;
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  margin-bottom: 24px;
 }
 
-.table th,
-.table td {
-  border: 1px solid #ddd;
-  padding: 12px;
-  text-align: left;
-}
-
-.table th {
-  background: #f6f6f6;
-}
 .button {
-  display: inline-block;
-  margin: 20px 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
   padding: 10px 20px;
 
   background-color: #975052;
@@ -30,39 +25,97 @@
   border-radius: 8px;
 
   text-decoration: none;
-
-  transition: 0.25s;
 }
 
-.button:hover {
-  opacity: 0.85;
+.tableWrapper {
+  overflow-x: auto;
 }
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
+
+.table {
+  width: 100%;
+  min-width: 900px;
+
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+
+  border: 1px solid #ddd;
+
+  text-align: left;
+}
+
+.table th {
+  background-color: #f6f6f6;
 }
 
 .image {
-  width: 70px;
-  height: 90px;
+  width: 60px;
+  height: 80px;
+
   object-fit: cover;
+
   border-radius: 8px;
-}
-
-.edit {
-  color: #975052;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.edit:hover {
-  text-decoration: underline;
 }
 
 .viewButton {
   color: #975052;
+
   text-decoration: none;
   font-weight: 600;
+}
+
+.mobileCards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  padding: 16px;
+
+  border: 1px solid #ddd;
+  border-radius: 12px;
+
+  background-color: #ffffff;
+}
+
+.cardImage {
+  width: 120px;
+  height: 160px;
+
+  object-fit: cover;
+
+  border-radius: 8px;
+}
+
+.desktopTable {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: 30px 24px;
+  }
+
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .mobileCards {
+    display: none;
+  }
+
+  .desktopTable {
+    display: block;
+  }
+}
+
+@media (min-width: 1200px) {
+  .page {
+    padding: 40px 20px;
+  }
 }

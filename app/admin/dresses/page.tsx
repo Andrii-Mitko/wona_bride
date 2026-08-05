@@ -1,12 +1,14 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+
 import { connectDB } from "@/lib/mongodb";
 import DressModel from "@/models/DressModel";
-import Link from "next/link";
+
+import type { Dress } from "@/types/dress";
 
 import css from "./dresses.module.css";
-import type { Dress } from "@/types/dress";
-import Image from "next/image";
 
 export default async function AdminDressesPage() {
   const cookieStore = await cookies();
@@ -20,7 +22,9 @@ export default async function AdminDressesPage() {
   await connectDB();
 
   const dresses = (await DressModel.find()
-    .sort({ createdAt: -1 })
+    .sort({
+      createdAt: -1,
+    })
     .lean()) as Dress[];
 
   return (
@@ -33,58 +37,107 @@ export default async function AdminDressesPage() {
         </Link>
       </div>
 
-      <table className={css.table}>
-        <thead>
-          <tr>
-            <th>Фото</th>
-            <th>Назва</th>
-            <th>Категорія</th>
-            <th>Розміри</th>
-            <th>Ціна</th>
-            <th>Популярне</th>
-            <th></th>
-          </tr>
-        </thead>
+      {/* MOBILE */}
 
-        <tbody>
-          {dresses.map((dress) => (
-            <tr key={dress._id.toString()}>
-              <td>
-                {dress.images?.[0] ? (
-                  <Image
-                    width={100}
-                    height={100}
-                    src={dress.images[0]}
-                    alt={dress.name}
-                    className={css.image}
-                  />
-                ) : (
-                  "—"
-                )}
-              </td>
+      <div className={css.mobileCards}>
+        {dresses.map((dress) => (
+          <article key={dress._id.toString()} className={css.card}>
+            {dress.images?.[0] && (
+              <Image
+                width={120}
+                height={160}
+                src={dress.images[0]}
+                alt={dress.name}
+                className={css.cardImage}
+              />
+            )}
 
-              <td>{dress.name}</td>
+            <h2>{dress.name}</h2>
 
-              <td>{dress.category?.join(", ")}</td>
+            <p>
+              <strong>Категорія:</strong> {dress.category?.join(", ")}
+            </p>
 
-              <td>{dress.sizes?.join(", ")}</td>
+            <p>
+              <strong>Розміри:</strong> {dress.sizes?.join(", ")}
+            </p>
 
-              <td>{dress.price} грн</td>
+            <p>
+              <strong>Ціна:</strong> {dress.price} грн
+            </p>
 
-              <td>{dress.isPopular ? "✅" : "—"}</td>
+            <p>{dress.isPopular ? "⭐ Популярне" : ""}</p>
 
-              <td>
-                <Link
-                  href={`/admin/dresses/${dress._id}`}
-                  className={css.viewButton}
-                >
-                  Переглянути
-                </Link>
-              </td>
+            <Link
+              href={`/admin/dresses/${dress._id}`}
+              className={css.viewButton}
+            >
+              Переглянути
+            </Link>
+          </article>
+        ))}
+      </div>
+
+      {/* DESKTOP */}
+
+      <div className={css.desktopTable}>
+        <table className={css.table}>
+          <thead>
+            <tr>
+              <th>Фото</th>
+
+              <th>Назва</th>
+
+              <th>Категорія</th>
+
+              <th>Розміри</th>
+
+              <th>Ціна</th>
+
+              <th>Популярне</th>
+
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {dresses.map((dress) => (
+              <tr key={dress._id.toString()}>
+                <td>
+                  {dress.images?.[0] && (
+                    <Image
+                      width={70}
+                      height={90}
+                      src={dress.images[0]}
+                      alt={dress.name}
+                      className={css.image}
+                    />
+                  )}
+                </td>
+
+                <td>{dress.name}</td>
+
+                <td>{dress.category?.join(", ")}</td>
+
+                <td>{dress.sizes?.join(", ")}</td>
+
+                <td>{dress.price} грн</td>
+
+                <td>{dress.isPopular ? "✅" : "—"}</td>
+
+                <td>
+                  <Link
+                    href={`/admin/dresses/${dress._id}`}
+                    className={css.viewButton}
+                  >
+                    Переглянути
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </main>
   );
 }

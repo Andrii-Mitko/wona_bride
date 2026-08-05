@@ -1,78 +1,128 @@
 .header {
   width: 100%;
-  background: #fff;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #ffffff;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  width: 100%;
+  padding: 12px 16px;
 }
 
 .logo {
-  color: #975052;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
-  text-decoration: none;
+  white-space: nowrap;
 }
 
 .nav {
+  display: none;
+}
+
+.actions {
+  display: none;
+}
+
+.menuButton {
   display: flex;
-  gap: 25px;
   align-items: center;
-}
+  justify-content: center;
 
-.nav a {
-  color: #333;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s ease;
-}
-.nav a span {
-  margin-left: 2px;
-  color: #942e32;
-  font-size: 17px;
-  font-weight: 700;
-}
+  width: 40px;
+  height: 40px;
 
-.nav a:hover {
-  color: #975052;
-}
-.logout {
   border: none;
-  background: #975052;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 8px;
+  background-color: transparent;
+
+  font-size: 26px;
   cursor: pointer;
 }
-.actions {
+
+.overlay {
+  position: fixed;
+  inset: 0;
+
+  background-color: rgba(0, 0, 0, 0.4);
+
+  z-index: 20;
+}
+
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  width: 280px;
+  height: 100vh;
+
+  padding: 24px;
+
+  background-color: #ffffff;
+
+  z-index: 30;
+}
+
+.mobileMenu a {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  font-size: 18px;
+  color: #111827;
 }
 
-.siteLink {
-  padding: 8px 16px;
+.closeButton {
+  align-self: flex-end;
 
-  border: 1px solid #975052;
-  border-radius: 8px;
+  border: none;
+  background-color: transparent;
 
-  color: #975052;
-
-  text-decoration: none;
-
-  font-weight: 500;
-
-  transition: 0.2s ease;
+  font-size: 24px;
+  cursor: pointer;
 }
 
-.siteLink:hover {
-  background: #975052;
-  color: white;
+/* tablet */
+
+@media (min-width: 768px) {
+  .container {
+    padding: 16px 24px;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+}
+
+/* desktop */
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .menuButton,
+  .overlay,
+  .mobileMenu {
+    display: none;
+  }
+
+  .actions {
+    display: flex;
+  }
 }

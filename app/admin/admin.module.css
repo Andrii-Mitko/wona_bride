@@ -1,22 +1,28 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 20px 16px;
 }
 
 .title {
-  font-size: 32px;
-  margin-bottom: 30px;
+  font-size: 26px;
+
+  margin-bottom: 24px;
 }
 
 .tableWrapper {
+  width: 100%;
   overflow-x: auto;
 }
 
 .table {
   width: 100%;
+
+  min-width: 900px;
+
   border-collapse: collapse;
-  background: #fff;
+
+  background-color: white;
 }
 
 .table th,
@@ -45,6 +51,7 @@
 
 .searchForm {
   display: flex;
+  flex-direction: column;
   gap: 12px;
   margin: 24px 0;
 }
@@ -91,4 +98,134 @@
 
 .statusCancelled {
   background-color: #ffe8e8;
+}
+.mobileOrders {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.orderCard {
+  padding: 16px;
+
+  border: 1px solid #ddd;
+  border-radius: 12px;
+
+  background-color: #ffffff;
+}
+
+.desktopOrders {
+  display: none;
+}
+
+.mobileAppointments {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.appointmentCard {
+  padding: 16px;
+
+  border: 1px solid #ddd;
+  border-radius: 12px;
+
+  background-color: #ffffff;
+}
+
+.desktopAppointments {
+  display: none;
+}
+
+.dashboard {
+  padding: 20px 16px;
+}
+
+.subtitle {
+  margin-bottom: 30px;
+
+  color: #666;
+}
+
+.stats {
+  display: grid;
+
+  grid-template-columns: 1fr;
+
+  gap: 16px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  padding: 20px;
+
+  border-radius: 16px;
+
+  background-color: #ffffff;
+
+  border: 1px solid #ddd;
+}
+
+.card span {
+  font-size: 32px;
+}
+
+.card h2 {
+  margin: 0;
+
+  font-size: 18px;
+}
+
+.card strong {
+  font-size: 36px;
+
+  color: #975052;
+}
+
+@media (min-width: 768px) {
+  .searchForm {
+    flex-direction: row;
+  }
+
+  .searchInput {
+    flex: 1;
+  }
+  .mobileOrders {
+    display: none;
+  }
+
+  .desktopOrders {
+    display: block;
+  }
+  .mobileAppointments {
+    display: none;
+  }
+
+  .desktopAppointments {
+    display: block;
+  }
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    padding: 40px 20px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+  .dashboard {
+    padding: 40px 20px;
+  }
+
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
