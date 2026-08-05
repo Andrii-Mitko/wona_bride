@@ -9,6 +9,7 @@ export type GetDressesParams = {
   page?: number;
   limit?: number;
   category?: DressCategory;
+  query?: string;
 };
 
 export type GetDressesResponse = {
@@ -21,6 +22,8 @@ export type GetDressesResponse = {
 
 function normalizeDress(dress: {
   _id: unknown;
+  createdAt: Date;
+  updatedAt: Date;
   name: string;
   slug: string;
   article: string;
@@ -38,6 +41,8 @@ function normalizeDress(dress: {
 }): Dress {
   return {
     _id: String(dress._id),
+    createdAt: dress.createdAt.toISOString(),
+    updatedAt: dress.updatedAt.toISOString(),
     name: dress.name,
     slug: dress.slug,
     article: dress.article,
@@ -63,11 +68,46 @@ export async function getDresses(
   const page = params?.page ?? 1;
   const limit = params?.limit ?? 8;
 
-  const filter = params?.category
-    ? {
-        category: params.category,
-      }
-    : {};
+  const filter: Record<string, unknown> = {};
+
+  if (params?.category) {
+    filter.category = params.category;
+  }
+
+  if (params?.query) {
+    filter.$or = [
+      {
+        name: {
+          $regex: params.query,
+          $options: "i",
+        },
+      },
+      {
+        article: {
+          $regex: params.query,
+          $options: "i",
+        },
+      },
+      {
+        style: {
+          $regex: params.query,
+          $options: "i",
+        },
+      },
+      {
+        fabric: {
+          $regex: params.query,
+          $options: "i",
+        },
+      },
+      {
+        color: {
+          $regex: params.query,
+          $options: "i",
+        },
+      },
+    ];
+  }
 
   const totalItems = await DressModel.countDocuments(filter);
 

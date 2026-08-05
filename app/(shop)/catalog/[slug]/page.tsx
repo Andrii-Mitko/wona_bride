@@ -80,17 +80,50 @@ export default async function DressPage({ params }: Props) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
+    "@id": `https://wona-bride.com.ua/catalog/${dress.slug}`,
 
     name: dress.name,
 
-    image: dress.images,
+    image: dress.images.map((image) => `https://wona-bride.com.ua${image}`),
 
     description: dress.description,
+    category: dress.category.join(", "),
+    url: `https://wona-bride.com.ua/catalog/${dress.slug}`,
+
+    additionalProperty: [
+      {
+        "@type": "PropertyValue",
+        name: "Колір",
+        value: dress.color,
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Тканина",
+        value: dress.fabric.join(", "),
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Стиль",
+        value: dress.style.join(", "),
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Розміри",
+        value: dress.sizes.join(", "),
+      },
+    ],
 
     sku: dress.article,
 
+    mpn: dress.article,
+
     brand: {
       "@type": "Brand",
+      name: "WONA Bride",
+    },
+
+    manufacturer: {
+      "@type": "Organization",
       name: "WONA Bride",
     },
 
@@ -99,13 +132,19 @@ export default async function DressPage({ params }: Props) {
       name: "WONA Bride",
     },
 
+    itemOffered: {
+      "@type": "Product",
+      name: dress.name,
+    },
+
     offers: {
       "@type": "Offer",
-
+      itemCondition: "https://schema.org/NewCondition",
       url: `https://wona-bride.com.ua/catalog/${dress.slug}`,
+      image: `https://wona-bride.com.ua${dress.images[0]}`,
 
       price: dress.price,
-
+      priceValidUntil: `${new Date().getFullYear() + 1}-12-31`,
       priceCurrency: "UAH",
 
       availability:

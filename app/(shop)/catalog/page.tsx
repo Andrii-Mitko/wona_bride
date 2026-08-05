@@ -12,11 +12,14 @@ type Props = {
   searchParams: Promise<{
     category?: string;
     page?: string;
+    query?: string;
   }>;
 };
 
 export default async function CatalogPage({ searchParams }: Props) {
   const params = await searchParams;
+
+  const searchQuery = params.query?.trim();
 
   const activeCategory =
     params.category && isDressCategory(params.category)
@@ -29,6 +32,7 @@ export default async function CatalogPage({ searchParams }: Props) {
     getDresses({
       category: activeCategory,
       page: currentPage,
+      query: searchQuery,
     }),
   ]);
 

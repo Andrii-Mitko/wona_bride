@@ -9,7 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const products = dresses.map((dress) => ({
     url: `https://wona-bride.com.ua/catalog/${dress.slug}`,
-    lastModified: new Date(),
+    lastModified: dress.updatedAt ? new Date(dress.updatedAt) : new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));

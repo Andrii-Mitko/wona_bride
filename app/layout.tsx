@@ -1,6 +1,6 @@
 import { Toaster } from "react-hot-toast";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
-
+import Script from "next/script";
 import type { Metadata } from "next";
 
 import "./globals.css";
@@ -16,9 +16,56 @@ const raleway = Raleway({
 export const metadata: Metadata = {
   metadataBase: new URL("https://wona-bride.com.ua"),
 
+  applicationName: "WONA Bride",
+
   title: "WONA Bride — весільні сукні",
   description:
     "Елегантні весільні сукні WONA Bride. Створіть свій ідеальний образ нареченої.",
+
+  authors: [
+    {
+      name: "WONA Bride",
+      url: "https://wona-bride.com.ua",
+    },
+  ],
+
+  creator: "WONA Bride",
+
+  publisher: "WONA Bride",
+
+  keywords: [
+    "cerys",
+    "платья",
+    "сукня",
+    "сукні",
+    "вона",
+    "WONA",
+    "WONA Bride",
+    "весільні сукні",
+    "весільний салон",
+    "купити весільну сукню",
+    "весільна сукня",
+    "салон наречених",
+    "весільні сукні Україна",
+    "сукні Бар",
+    "весільні сукні Бар",
+    "весільні сукні Вінницька область",
+  ],
+
+  robots: {
+    index: true,
+    follow: true,
+
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+
+  category: "Wedding",
 
   openGraph: {
     title: "WONA Bride — Твоя ідеальна сукня",
@@ -47,6 +94,73 @@ export const metadata: Metadata = {
   },
 };
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "WONA Bride",
+  url: "https://wona-bride.com.ua",
+  logo: "https://wona-bride.com.ua/images/logo.png",
+  telephone: "+380966715746",
+  sameAs: ["https://www.tiktok.com/@wona_bride"],
+};
+
+const bridalShopSchema = {
+  "@context": "https://schema.org",
+  "@type": "BridalShop",
+  name: "WONA Bride",
+  image: "https://wona-bride.com.ua/images/logo.png",
+  url: "https://wona-bride.com.ua",
+  telephone: "+380966715746",
+
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "вул. Соборна, 23",
+    addressLocality: "Бар",
+    addressRegion: "Вінницька область",
+    postalCode: "23000",
+    addressCountry: "UA",
+  },
+
+  openingHours: ["Tu-Sa 09:00-17:00", "Su 09:00-14:00"],
+
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 49.0762724,
+    longitude: 27.6713551,
+  },
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+
+  name: "WONA Bride",
+
+  url: "https://wona-bride.com.ua",
+
+  description:
+    "Весільний салон WONA Bride. Весільні сукні, примірка та консультації.",
+
+  inLanguage: "uk-UA",
+
+  publisher: {
+    "@type": "Organization",
+    name: "WONA Bride",
+  },
+
+  potentialAction: {
+    "@type": "SearchAction",
+
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate:
+        "https://wona-bride.com.ua/catalog?query={search_term_string}",
+    },
+
+    "query-input": "required name=search_term_string",
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -66,6 +180,31 @@ export default function RootLayout({
               },
             }}
           />
+
+          <Script
+            id="organization-schema"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(organizationSchema),
+            }}
+          />
+
+          <Script
+            id="bridalshop-schema"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(bridalShopSchema),
+            }}
+          />
+
+          <Script
+            id="website-schema"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(websiteSchema),
+            }}
+          />
+
           {children}
         </TanStackProvider>
       </body>

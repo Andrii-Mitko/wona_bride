@@ -15,6 +15,9 @@ export type DressAvailability = "available" | "order" | "waiting";
 export type Dress = {
   _id: string;
 
+  createdAt: string;
+  updatedAt: string;
+
   name: string;
 
   slug: string;
