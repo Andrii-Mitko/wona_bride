@@ -31,13 +31,52 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(dress, {
       status: 201,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error(error);
+
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      error.code === 11000
+    ) {
+      const mongoError = error as {
+        keyPattern?: Record<string, unknown>;
+      };
+
+      const duplicateField = mongoError.keyPattern
+        ? Object.keys(mongoError.keyPattern)[0]
+        : "полем";
+
+      const fieldNames: Record<string, string> = {
+        slug: "назвою",
+        article: "артикулом",
+      };
+
+      return NextResponse.json(
+        {
+          error: `Сукня з таким ${fieldNames[duplicateField] ?? duplicateField} вже існує.`,
+        },
+        {
+          status: 409,
+        },
+      );
+    }
+
+    if (error instanceof Error) {
+      return NextResponse.json(
+        {
+          error: error.message,
+        },
+        {
+          status: 400,
+        },
+      );
+    }
 
     return NextResponse.json(
       {
-        error:
-          error instanceof Error ? error.message : "Помилка створення сукні",
+        error: "Помилка створення сукні",
       },
       {
         status: 500,

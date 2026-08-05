@@ -27,7 +27,7 @@ export default function DressForm({ initialData }: Props) {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isDirty },
   } = useForm<DressFormData>({
     resolver: zodResolver(dressSchema),
 
@@ -243,9 +243,13 @@ export default function DressForm({ initialData }: Props) {
       <button
         type="submit"
         className={css.submitButton}
-        disabled={isSubmitting}
+        disabled={isSubmitting || (isEdit && !isDirty)}
       >
-        {isSubmitting ? "Збереження..." : "Зберегти"}
+        {isSubmitting
+          ? "Збереження..."
+          : isEdit
+            ? "Зберегти зміни"
+            : "Створити сукню"}
       </button>
     </form>
   );

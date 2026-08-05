@@ -144,7 +144,7 @@
 
 /* ---------- DESKTOP ---------- */
 
-@media (min-width: 1440px) {
+@media (min-width: 1200px) {
   .container {
     padding: 0 64px;
   }
