@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-
+import Link from "next/link";
 import { connectDB } from "@/lib/mongodb";
 
 import DressModel from "@/models/DressModel";
@@ -45,37 +45,29 @@ export default async function AdminPage() {
       <p className={css.subtitle}>Керування магазином весільних суконь</p>
 
       <section className={css.stats}>
-        <article className={css.card}>
+        <Link href="/admin/dresses" className={css.card}>
           <span>👗</span>
-
-          <h2>Всього суконь</h2>
-
+          <h2>Всьго Суконь</h2>
           <strong>{dressesCount}</strong>
-        </article>
+        </Link>
 
-        <article className={css.card}>
+        <Link href="/admin/orders" className={css.card}>
           <span>🛒</span>
-
           <h2>Нові замовлення</h2>
-
           <strong>{newOrdersCount}</strong>
-        </article>
+        </Link>
 
-        <article className={css.card}>
+        <Link href="/admin/appointments?status=new" className={css.card}>
           <span>👰</span>
-
           <h2>Нові примірки</h2>
-
           <strong>{newAppointmentsCount}</strong>
-        </article>
+        </Link>
 
-        <article className={css.card}>
+        <Link href="/admin/feedback" className={css.card}>
           <span>⭐</span>
-
           <h2>Нові відгуки</h2>
-
           <strong>{feedbackCount}</strong>
-        </article>
+        </Link>
       </section>
     </main>
   );

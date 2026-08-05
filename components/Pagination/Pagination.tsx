@@ -5,13 +5,15 @@ import css from "./Pagination.module.css";
 type PaginationProps = {
   totalPages: number;
   currentPage: number;
-  category?: string;
+  pathname: string;
+  query?: Record<string, string | number | undefined>;
 };
 
 export default function Pagination({
   totalPages,
   currentPage,
-  category,
+  pathname,
+  query,
 }: PaginationProps) {
   if (totalPages <= 1) {
     return null;
@@ -24,16 +26,18 @@ export default function Pagination({
 
         const params = new URLSearchParams();
 
-        params.set("page", String(page));
+        Object.entries(query ?? {}).forEach(([key, value]) => {
+          if (value !== undefined && value !== "") {
+            params.set(key, String(value));
+          }
+        });
 
-        if (category) {
-          params.set("category", category);
-        }
+        params.set("page", String(page));
 
         return (
           <li key={page} className={page === currentPage ? css.active : ""}>
             <Link
-              href={`/catalog?${params.toString()}`}
+              href={`${pathname}?${params.toString()}`}
               className={css.pageLink}
             >
               {page}

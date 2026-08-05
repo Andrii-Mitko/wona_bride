@@ -64,7 +64,11 @@ export default async function CatalogPage({ searchParams }: Props) {
         <Pagination
           totalPages={totalPages}
           currentPage={page}
-          category={activeCategory}
+          pathname="/catalog"
+          query={{
+            category: activeCategory,
+            query: searchQuery,
+          }}
         />
       </div>
     </section>
