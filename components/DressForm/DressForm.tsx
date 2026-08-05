@@ -12,6 +12,8 @@ import css from "./DressForm.module.css";
 import SizeSelectorAdmin from "@/components/SizeSelectorAdmin/SizeSelectorAdmin";
 import { dressCategories, dressStyles, dressFabrics } from "@/data/options";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import FormError from "@/components/FormError/FormError";
 
 type Props = {
   initialData?: Dress;
@@ -25,7 +27,7 @@ export default function DressForm({ initialData }: Props) {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<DressFormData>({
     resolver: zodResolver(dressSchema),
 
@@ -77,16 +79,22 @@ export default function DressForm({ initialData }: Props) {
       const result = await response.json();
 
       if (!response.ok) {
-        alert(result.error || result.message || "Помилка");
+        console.error("Server error:", result);
+
+        toast.error(
+          result.error ?? result.message ?? "Не вдалося зберегти сукню",
+        );
+
         return;
       }
 
-      alert(isEdit ? "Сукню оновлено!" : "Сукню створено!");
+      toast.success(isEdit ? "Сукню оновлено!" : "Сукню створено!");
       router.push("/admin/dresses");
       router.refresh();
     } catch (error) {
       console.error(error);
-      alert("Помилка запиту");
+
+      toast.error(error instanceof Error ? error.message : "Помилка запиту");
     }
   };
 
@@ -97,7 +105,7 @@ export default function DressForm({ initialData }: Props) {
 
         <input {...register("name")} />
 
-        {errors.name && <span>{errors.name.message}</span>}
+        <FormError message={errors.name?.message} />
       </div>
 
       <div className={css.field}>
@@ -105,7 +113,7 @@ export default function DressForm({ initialData }: Props) {
 
         <input {...register("article")} />
 
-        {errors.article && <span>{errors.article.message}</span>}
+        <FormError message={errors.article?.message} />
       </div>
 
       <div className={css.field}>
@@ -118,7 +126,7 @@ export default function DressForm({ initialData }: Props) {
           })}
         />
 
-        {errors.price && <span>{errors.price.message}</span>}
+        <FormError message={errors.price?.message} />
       </div>
 
       <div className={css.field}>
@@ -126,7 +134,7 @@ export default function DressForm({ initialData }: Props) {
 
         <input {...register("color")} />
 
-        {errors.color && <span>{errors.color.message}</span>}
+        <FormError message={errors.color?.message} />
       </div>
       <CheckboxGroup
         title="Матеріали"
@@ -139,7 +147,7 @@ export default function DressForm({ initialData }: Props) {
         }
       />
 
-      {errors.fabric && <span>{errors.fabric.message}</span>}
+      <FormError message={errors.fabric?.message} />
 
       <CheckboxGroup
         title="Категорії"
@@ -152,7 +160,7 @@ export default function DressForm({ initialData }: Props) {
         }
       />
 
-      {errors.category && <span>{errors.category.message}</span>}
+      <FormError message={errors.category?.message} />
       <CheckboxGroup
         title="Стилі"
         options={dressStyles}
@@ -164,7 +172,7 @@ export default function DressForm({ initialData }: Props) {
         }
       />
 
-      {errors.style && <span>{errors.style.message}</span>}
+      <FormError message={errors.style?.message} />
 
       <ImageUploader
         images={selectedImages}
@@ -175,7 +183,7 @@ export default function DressForm({ initialData }: Props) {
         }
       />
 
-      {errors.images && <span>{errors.images.message}</span>}
+      <FormError message={errors.images?.message} />
 
       <div className={css.field}>
         <label>Тип розміру</label>
@@ -188,7 +196,7 @@ export default function DressForm({ initialData }: Props) {
           <option value="kids">Дитячий</option>
         </select>
 
-        {errors.sizeType && <span>{errors.sizeType.message}</span>}
+        <FormError message={errors.sizeType?.message} />
       </div>
 
       <SizeSelectorAdmin
@@ -201,14 +209,14 @@ export default function DressForm({ initialData }: Props) {
         }
       />
 
-      {errors.sizes && <span>{errors.sizes.message}</span>}
+      <FormError message={errors.sizes?.message} />
 
       <div className={css.field}>
         <label>Опис</label>
 
         <textarea rows={5} {...register("description")} />
 
-        {errors.description && <span>{errors.description.message}</span>}
+        <FormError message={errors.description?.message} />
       </div>
 
       <div className={css.field}>
@@ -222,7 +230,7 @@ export default function DressForm({ initialData }: Props) {
           <option value="waiting">🔴 Модель очікується</option>
         </select>
 
-        {errors.availability && <span>{errors.availability.message}</span>}
+        <FormError message={errors.availability?.message} />
       </div>
 
       <div className={css.field}>
@@ -232,7 +240,13 @@ export default function DressForm({ initialData }: Props) {
         </label>
       </div>
 
-      <button type="submit">Зберегти</button>
+      <button
+        type="submit"
+        className={css.submitButton}
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? "Збереження..." : "Зберегти"}
+      </button>
     </form>
   );
 }

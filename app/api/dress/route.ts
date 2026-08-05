@@ -36,7 +36,8 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       {
-        message: "Не вдалося створити сукню",
+        error:
+          error instanceof Error ? error.message : "Помилка створення сукні",
       },
       {
         status: 500,

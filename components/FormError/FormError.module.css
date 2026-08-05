@@ -1,0 +1,9 @@
+.error {
+  display: block;
+
+  margin-top: 6px;
+
+  font-size: 14px;
+
+  color: #dc2626;
+}

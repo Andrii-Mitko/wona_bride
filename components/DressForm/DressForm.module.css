@@ -19,14 +19,42 @@
 }
 
 .field span {
-  color: red;
+  color: #dc2626;
   font-size: 14px;
+  margin-top: 4px;
 }
 
-.form button {
-  width: fit-content;
-  padding: 12px 24px;
+.submitButton {
+  width: 100%;
+
+  padding: 14px 24px;
+
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
+
+  background-color: #2563eb;
+
+  color: #ffffff;
+
+  font-size: 18px;
+  font-weight: 600;
+
   cursor: pointer;
+
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.submitButton:hover {
+  background-color: #1d4ed8;
+}
+
+.submitButton:active {
+  transform: scale(0.98);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
