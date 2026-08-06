@@ -13,7 +13,7 @@ export const dressSchema = z.object({
     })
     .positive("Ціна повинна бути більше 0"),
 
-  description: z.string().min(10, "Опис повинен містити мінімум 10 символів"),
+  description: z.string().optional(),
 
   color: z.string().min(2, "Колір повинен містити мінімум 2 символи"),
 

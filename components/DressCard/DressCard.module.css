@@ -40,15 +40,19 @@
 
   overflow: hidden;
 
+  display: -webkit-box;
+  display: box;
+
+  -webkit-box-orient: vertical;
+
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+
   font-size: 22px;
   font-weight: 700;
   line-height: 1.2;
 
   color: #080c09;
-
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
 }
 
 .category {

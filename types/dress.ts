@@ -26,7 +26,7 @@ export type Dress = {
 
   price: number;
 
-  description: string;
+  description?: string;
 
   images: string[];
 
