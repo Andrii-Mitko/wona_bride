@@ -2,7 +2,7 @@ import { Toaster } from "react-hot-toast";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import Script from "next/script";
 import type { Metadata } from "next";
-
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { Raleway } from "next/font/google";
 
@@ -206,6 +206,7 @@ export default function RootLayout({
           />
 
           {children}
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
         </TanStackProvider>
       </body>
     </html>

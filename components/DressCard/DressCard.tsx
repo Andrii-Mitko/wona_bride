@@ -12,8 +12,6 @@ type Props = {
 };
 
 const DressCard = ({ dress, priority = false, activeCategory }: Props) => {
-  const category = dress.category.at(0);
-
   const displayCategory =
     activeCategory && dress.category.includes(activeCategory)
       ? activeCategory
