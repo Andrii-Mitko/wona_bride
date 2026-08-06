@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-
+import Pagination from "@/components/Pagination/Pagination";
 import { connectDB } from "@/lib/mongodb";
 import Appointment from "@/models/Appointment";
 
@@ -11,6 +11,7 @@ import AppointmentStatus from "@/components/AppointmentStatus/AppointmentStatus"
 type AdminSearchParams = {
   search?: string;
   status?: string;
+  page?: string;
 };
 
 export default async function AdminPage({
@@ -28,9 +29,15 @@ export default async function AdminPage({
 
   await connectDB();
 
-  const { search = "", status = "" } = await searchParams;
+  const { search = "", status = "", page = "1" } = await searchParams;
 
-  const appointments = await Appointment.find({
+  const currentPage = Number(page) || 1;
+
+  const limit = 20;
+
+  const skip = (currentPage - 1) * limit;
+
+  const filter = {
     ...(status && { status }),
 
     $or: [
@@ -40,14 +47,12 @@ export default async function AdminPage({
           $options: "i",
         },
       },
-
       {
         phone: {
           $regex: search,
           $options: "i",
         },
       },
-
       {
         dressName: {
           $regex: search,
@@ -55,9 +60,18 @@ export default async function AdminPage({
         },
       },
     ],
-  }).sort({
-    createdAt: -1,
-  });
+  };
+
+  const totalAppointments = await Appointment.countDocuments(filter);
+
+  const appointments = await Appointment.find(filter)
+    .sort({
+      createdAt: -1,
+    })
+    .skip(skip)
+    .limit(limit);
+
+  const totalPages = Math.ceil(totalAppointments / limit);
 
   return (
     <main className={css.container}>
@@ -175,6 +189,15 @@ export default async function AdminPage({
           </table>
         </div>
       </div>
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        pathname="/admin/appointments"
+        query={{
+          search,
+          status,
+        }}
+      />
     </main>
   );
 }

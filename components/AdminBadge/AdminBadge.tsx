@@ -1,31 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useAdminNotifications } from "@/components/AdminNotificationsProvider/AdminNotificationsProvider";
 
 type Props = {
   type: "orders" | "appointments" | "feedbacks";
 };
 
 export default function AdminBadge({ type }: Props) {
-  const [count, setCount] = useState(0);
+  const notifications = useAdminNotifications();
 
-  useEffect(() => {
-    const load = async () => {
-      const res = await fetch("/api/admin/notifications");
+  const count = notifications[type];
 
-      const data = await res.json();
-
-      setCount(data[type]);
-    };
-
-    load();
-
-    const interval = setInterval(load, 30000);
-
-    return () => clearInterval(interval);
-  }, [type]);
-
-  if (!count) return null;
+  if (!count) {
+    return null;
+  }
 
   return <span>{count}</span>;
 }

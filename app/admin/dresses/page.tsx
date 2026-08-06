@@ -2,15 +2,27 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-
+import Pagination from "@/components/Pagination/Pagination";
 import { connectDB } from "@/lib/mongodb";
 import DressModel from "@/models/DressModel";
-
+import { getCategories } from "@/lib/api/categories";
 import type { Dress } from "@/types/dress";
-
+import AdminDressSearch from "@/components/AdminDressSearch/AdminDressSearch";
 import css from "./dresses.module.css";
+import AdminFilterSelect from "@/components/AdminFilterSelect/AdminFilterSelect";
 
-export default async function AdminDressesPage() {
+type Props = {
+  searchParams: Promise<{
+    page?: string;
+    search?: string;
+    category?: string;
+    popular?: string;
+    availability?: string;
+    sort?: string;
+  }>;
+};
+
+export default async function AdminDressesPage({ searchParams }: Props) {
   const cookieStore = await cookies();
 
   const adminAuth = cookieStore.get("admin-auth");
@@ -21,21 +33,188 @@ export default async function AdminDressesPage() {
 
   await connectDB();
 
-  const dresses = (await DressModel.find()
-    .sort({
-      createdAt: -1,
-    })
-    .lean()) as Dress[];
+  const params = await searchParams;
+
+  const currentPage = Number(params.page) || 1;
+
+  const search = params.search?.trim() ?? "";
+
+  const category = params.category ?? "";
+
+  const popular = params.popular ?? "";
+  const availability = params.availability ?? "";
+  const sort = params.sort ?? "newest";
+  const limit = 20;
+
+  const skip = (currentPage - 1) * limit;
+
+  const filter = {
+    ...(search && {
+      $or: [
+        {
+          name: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          article: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+      ],
+    }),
+
+    ...(category && {
+      category,
+    }),
+
+    ...(availability && {
+      availability,
+    }),
+
+    ...(popular === "true" && {
+      isPopular: true,
+    }),
+    ...(popular === "false" && {
+      isPopular: false,
+    }),
+  };
+
+  const sortOptions = {
+    newest: { createdAt: -1 },
+    oldest: { createdAt: 1 },
+    priceAsc: { price: 1 },
+    priceDesc: { price: -1 },
+    nameAsc: { name: 1 },
+    nameDesc: { name: -1 },
+  } as const;
+
+  const sortBy =
+    sortOptions[sort as keyof typeof sortOptions] ?? sortOptions.newest;
+
+  const [categories, totalDresses, dressesResult] = await Promise.all([
+    getCategories(),
+
+    DressModel.countDocuments(filter),
+
+    DressModel.find(filter).sort(sortBy).skip(skip).limit(limit).lean(),
+  ]);
+
+  const dresses = dressesResult as Dress[];
+
+  const totalPages = Math.ceil(totalDresses / limit);
 
   return (
     <main className={css.page}>
       <div className={css.header}>
-        <h1>Весільні сукні</h1>
+        <h1>Усі сукні</h1>
 
         <Link href="/admin/dresses/new" className={css.button}>
           + Додати сукню
         </Link>
       </div>
+      <form method="GET" className={css.searchForm}>
+        <AdminDressSearch defaultValue={search} />
+
+        <AdminFilterSelect
+          name="category"
+          value={category}
+          options={[
+            {
+              value: "",
+              label: "Усі категорії",
+            },
+
+            ...categories.map((item) => ({
+              value: item.slug,
+              label: item.name,
+            })),
+          ]}
+        />
+
+        <AdminFilterSelect
+          name="availability"
+          value={availability}
+          options={[
+            {
+              value: "",
+              label: "Уся наявність",
+            },
+            {
+              value: "available",
+              label: "В наявності",
+            },
+            {
+              value: "order",
+              label: "Під замовлення",
+            },
+            {
+              value: "waiting",
+              label: "Очікується",
+            },
+          ]}
+        />
+
+        <AdminFilterSelect
+          name="sort"
+          value={sort}
+          options={[
+            {
+              value: "newest",
+              label: "Нові спочатку",
+            },
+            {
+              value: "oldest",
+              label: "Старі спочатку",
+            },
+            {
+              value: "priceAsc",
+              label: "Ціна ↑",
+            },
+            {
+              value: "priceDesc",
+              label: "Ціна ↓",
+            },
+            {
+              value: "nameAsc",
+              label: "Назва А-Я",
+            },
+            {
+              value: "nameDesc",
+              label: "Назва Я-А",
+            },
+          ]}
+        />
+
+        <Link href="/admin/dresses" className={css.resetButton}>
+          Скинути фільтри
+        </Link>
+
+        <AdminFilterSelect
+          name="popular"
+          value={popular}
+          options={[
+            {
+              value: "",
+              label: "Усі",
+            },
+            {
+              value: "true",
+              label: "Популярні",
+            },
+            {
+              value: "false",
+              label: "Не популярні",
+            },
+          ]}
+        />
+
+        <button type="submit" className={css.button}>
+          Пошук
+        </button>
+      </form>
 
       {/* MOBILE */}
 
@@ -53,7 +232,9 @@ export default async function AdminDressesPage() {
             )}
 
             <h2>{dress.name}</h2>
-
+            <p>
+              <strong>Артикул:</strong> {dress.article}
+            </p>
             <p>
               <strong>Категорія:</strong> {dress.category?.join(", ")}
             </p>
@@ -85,9 +266,8 @@ export default async function AdminDressesPage() {
           <thead>
             <tr>
               <th>Фото</th>
-
+              <th>Артикул</th>
               <th>Назва</th>
-
               <th>Категорія</th>
 
               <th>Розміри</th>
@@ -115,6 +295,8 @@ export default async function AdminDressesPage() {
                   )}
                 </td>
 
+                <td>{dress.article}</td>
+
                 <td>{dress.name}</td>
 
                 <td>{dress.category?.join(", ")}</td>
@@ -138,6 +320,18 @@ export default async function AdminDressesPage() {
           </tbody>
         </table>
       </div>
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        pathname="/admin/dresses"
+        query={{
+          search,
+          category,
+          availability,
+          popular,
+          sort,
+        }}
+      />
     </main>
   );
 }

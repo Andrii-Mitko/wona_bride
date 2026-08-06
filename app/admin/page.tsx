@@ -44,26 +44,35 @@ export default async function AdminPage() {
 
       <p className={css.subtitle}>Керування магазином весільних суконь</p>
 
-      <section className={css.stats}>
-        <Link href="/admin/dresses" className={css.card}>
+      <section className={css.card}>
+        <Link
+          href="/admin/dresses"
+          className={`${css.card} ${css.cardDresses}`}
+        >
           <span>👗</span>
-          <h2>Всьго Суконь</h2>
+          <h2>Всього суконь</h2>
           <strong>{dressesCount}</strong>
         </Link>
 
-        <Link href="/admin/orders" className={css.card}>
+        <Link href="/admin/orders" className={`${css.card} ${css.cardOrders}`}>
           <span>🛒</span>
           <h2>Нові замовлення</h2>
           <strong>{newOrdersCount}</strong>
         </Link>
 
-        <Link href="/admin/appointments?status=new" className={css.card}>
+        <Link
+          href="/admin/appointments?status=new"
+          className={`${css.card} ${css.cardAppointments}`}
+        >
           <span>👰</span>
           <h2>Нові примірки</h2>
           <strong>{newAppointmentsCount}</strong>
         </Link>
 
-        <Link href="/admin/feedback" className={css.card}>
+        <Link
+          href="/admin/feedback?status=new"
+          className={`${css.card} ${css.cardFeedback}`}
+        >
           <span>⭐</span>
           <h2>Нові відгуки</h2>
           <strong>{feedbackCount}</strong>

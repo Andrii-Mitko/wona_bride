@@ -4,11 +4,17 @@ import { connectDB } from "@/lib/mongodb";
 import Order from "@/models/Order";
 import OrderStatus from "@/components/OrderStatus/OrderStatus";
 import css from "../admin.module.css";
-
+import Pagination from "@/components/Pagination/Pagination";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default async function OrdersPage() {
+type Props = {
+  searchParams: Promise<{
+    page?: string;
+  }>;
+};
+
+export default async function OrdersPage({ searchParams }: Props) {
   const cookieStore = await cookies();
 
   const adminAuth = cookieStore.get("admin-auth");
@@ -19,9 +25,24 @@ export default async function OrdersPage() {
 
   await connectDB();
 
-  const orders = await Order.find().sort({
-    createdAt: -1,
-  });
+  const params = await searchParams;
+
+  const currentPage = Number(params.page) || 1;
+
+  const limit = 20;
+
+  const skip = (currentPage - 1) * limit;
+
+  const totalOrders = await Order.countDocuments();
+
+  const orders = await Order.find()
+    .sort({
+      createdAt: -1,
+    })
+    .skip(skip)
+    .limit(limit);
+
+  const totalPages = Math.ceil(totalOrders / limit);
 
   return (
     <main className={css.container}>
@@ -149,6 +170,11 @@ export default async function OrdersPage() {
           </table>
         </div>
       </div>
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        pathname="/admin/orders"
+      />
     </main>
   );
 }

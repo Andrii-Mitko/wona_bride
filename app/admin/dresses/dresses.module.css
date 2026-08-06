@@ -95,6 +95,81 @@
   display: none;
 }
 
+.searchSection {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 20px;
+}
+
+.searchInput {
+  width: 100%;
+
+  padding: 12px 16px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+
+  font-size: 16px;
+}
+
+.filtersRow {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  margin-bottom: 24px;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sortGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.searchSelect {
+  width: 100%;
+
+  padding: 12px 16px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+
+  background-color: white;
+
+  font-size: 16px;
+}
+
+.resetButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 10px 18px;
+
+  border: 1px solid #975052;
+  border-radius: 10px;
+
+  background-color: transparent;
+
+  color: #975052;
+
+  text-decoration: none;
+
+  transition: 0.2s;
+}
+
+.resetButton:hover {
+  background-color: #975052;
+  color: white;
+}
+
 @media (min-width: 768px) {
   .page {
     padding: 30px 24px;
@@ -111,6 +186,19 @@
 
   .desktopTable {
     display: block;
+  }
+  .filtersRow {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .filterGroup {
+    flex: 1;
+  }
+
+  .sortGroup {
+    width: 240px;
   }
 }
 

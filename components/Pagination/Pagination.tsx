@@ -6,7 +6,7 @@ type PaginationProps = {
   totalPages: number;
   currentPage: number;
   pathname: string;
-  query?: Record<string, string | number | undefined>;
+  query?: Record<string, string | number | boolean | undefined>;
 };
 
 export default function Pagination({
