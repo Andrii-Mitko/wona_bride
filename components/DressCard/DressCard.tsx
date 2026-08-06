@@ -28,9 +28,7 @@ const DressCard = ({ dress, priority = false }: Props) => {
         <h3 className={css.title}>{dress.name}</h3>
 
         <p className={css.category}>
-          {dress.category
-            .map((category) => categoryLabels[category])
-            .join(", ")}
+          {dress.category.at(0) ? categoryLabels[dress.category[0]] : ""}
         </p>
 
         <p className={css.price}>{dress.price.toLocaleString("uk-UA")} ₴</p>
