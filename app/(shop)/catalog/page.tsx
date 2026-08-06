@@ -1,6 +1,6 @@
 import DressCategories from "@/components/DressCategories/DressCategories";
 import DressGrid from "@/components/DressGrid/DressGrid";
-
+import type { Metadata } from "next";
 import { getDresses } from "@/lib/api/dresses";
 
 import css from "./catalog.module.css";
@@ -15,6 +15,91 @@ type Props = {
     query?: string;
   }>;
 };
+
+export async function generateMetadata({
+  searchParams,
+}: Props): Promise<Metadata> {
+  const params = await searchParams;
+
+  const category =
+    params.category && isDressCategory(params.category)
+      ? params.category
+      : undefined;
+
+  const query = params.query?.trim();
+
+  const page = Number(params.page) || 1;
+
+  const url = new URL("https://wona-bride.com.ua/catalog");
+
+  if (category) {
+    url.searchParams.set("category", category);
+  }
+
+  if (query) {
+    url.searchParams.set("query", query);
+  }
+
+  if (page > 1) {
+    url.searchParams.set("page", String(page));
+  }
+
+  const seo = {
+    all: {
+      title: "Каталог суконь — WONA Bride",
+      description:
+        "Каталог весільних, вечірніх, випускних та дитячих суконь WONA Bride.",
+    },
+
+    wedding: {
+      title: "Весільні сукні — WONA Bride",
+      description:
+        "Весільні сукні WONA Bride. Великий вибір моделей, різні розміри та примірка у салоні.",
+    },
+
+    evening: {
+      title: "Вечірні сукні — WONA Bride",
+      description: "Елегантні вечірні сукні WONA Bride для особливих подій.",
+    },
+
+    cocktail: {
+      title: "Коктейльні сукні — WONA Bride",
+      description: "Стильні коктейльні сукні для святкових заходів.",
+    },
+
+    holiday: {
+      title: "Святкові сукні — WONA Bride",
+      description: "Святкові сукні для будь-яких урочистих подій.",
+    },
+
+    graduation: {
+      title: "Випускні сукні — WONA Bride",
+      description: "Випускні сукні WONA Bride для незабутнього вечора.",
+    },
+
+    kids: {
+      title: "Дитячі сукні — WONA Bride",
+      description: "Дитячі святкові сукні для маленьких принцес.",
+    },
+  };
+
+  const meta = seo[category ?? "all"];
+
+  return {
+    title: meta.title,
+    description: meta.description,
+
+    alternates: {
+      canonical: url.toString(),
+    },
+
+    openGraph: {
+      title: meta.title,
+      description: meta.description,
+      url: url.toString(),
+    },
+  };
+}
 
 export default async function CatalogPage({ searchParams }: Props) {
   const params = await searchParams;
@@ -50,27 +135,68 @@ export default async function CatalogPage({ searchParams }: Props) {
 
   const title = titles[activeCategory ?? "all"];
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Головна",
+        item: "https://wona-bride.com.ua",
+      },
+
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Каталог",
+        item: "https://wona-bride.com.ua/catalog",
+      },
+
+      ...(activeCategory
+        ? [
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: title,
+              item: `https://wona-bride.com.ua/catalog?category=${activeCategory}`,
+            },
+          ]
+        : []),
+    ],
+  };
+
   return (
-    <section className={css.section}>
-      <div className={css.container}>
-        <h1 className={css.title}>{title}</h1>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd),
+        }}
+      />
+      <section className={css.section}>
+        <div className={css.container}>
+          <h1 className={css.title}>{title}</h1>
 
-        <DressCategories
-          categories={categories}
-          activeCategory={activeCategory ?? "all"}
-        />
+          <DressCategories
+            categories={categories}
+            activeCategory={activeCategory ?? "all"}
+          />
 
-        <DressGrid dresses={dresses} />
-        <Pagination
-          totalPages={totalPages}
-          currentPage={page}
-          pathname="/catalog"
-          query={{
-            category: activeCategory,
-            query: searchQuery,
-          }}
-        />
-      </div>
-    </section>
+          <DressGrid dresses={dresses} activeCategory={activeCategory} />
+
+          <Pagination
+            totalPages={totalPages}
+            currentPage={page}
+            pathname="/catalog"
+            query={{
+              category: activeCategory,
+              query: searchQuery,
+            }}
+          />
+        </div>
+      </section>
+    </>
   );
 }

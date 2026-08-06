@@ -154,7 +154,7 @@ const websiteSchema = {
     target: {
       "@type": "EntryPoint",
       urlTemplate:
-        "https://wona-bride.com.ua/catalog?query={search_term_string}",
+        "https://wona-bride.com.ua/catalog?search={search_term_string}",
     },
 
     "query-input": "required name=search_term_string",

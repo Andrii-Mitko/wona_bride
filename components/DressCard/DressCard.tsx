@@ -1,17 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Dress } from "@/types/dress";
+import { Dress, DressCategory } from "@/types/dress";
 import { categoryLabels } from "@/lib/utils/dress";
 import css from "./DressCard.module.css";
 
 type Props = {
   dress: Dress;
   priority?: boolean;
+  activeCategory?: DressCategory;
 };
 
-const DressCard = ({ dress, priority = false }: Props) => {
+const DressCard = ({ dress, priority = false, activeCategory }: Props) => {
   const category = dress.category.at(0);
+
+  const displayCategory =
+    activeCategory && dress.category.includes(activeCategory)
+      ? activeCategory
+      : dress.category[0];
   return (
     <article className={css.card}>
       <Link href={`/catalog/${dress.slug}`} className={css.imageLink}>
@@ -28,9 +34,9 @@ const DressCard = ({ dress, priority = false }: Props) => {
       <div className={css.content}>
         <h3 className={css.title}>{dress.name}</h3>
 
-       <p className={css.category}>
-  {category ? `${categoryLabels[category]} сукня` : ""}
-</p>
+        <p className={css.category}>
+          {displayCategory ? categoryLabels[displayCategory] : ""} сукня
+        </p>
 
         <p className={css.price}>{dress.price.toLocaleString("uk-UA")} ₴</p>
 
