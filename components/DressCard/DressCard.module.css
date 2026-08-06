@@ -30,16 +30,25 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
+  flex: 1;
 }
 
 .title {
   margin: 0 0 8px;
+
+  min-height: 2.4em;
+
+  overflow: hidden;
 
   font-size: 22px;
   font-weight: 700;
   line-height: 1.2;
 
   color: #080c09;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .category {
@@ -61,21 +70,17 @@
 }
 
 .button {
+  margin-top: auto;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-
   min-height: 44px;
   padding: 0 24px;
-
   border-radius: 100px;
-
   background-color: #975052;
   color: #ffffff;
-
   font-size: 16px;
   font-weight: 500;
-
   transition:
     background-color 0.3s ease,
     transform 0.2s ease,
