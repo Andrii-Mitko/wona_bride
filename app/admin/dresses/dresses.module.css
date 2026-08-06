@@ -170,6 +170,38 @@
   color: white;
 }
 
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  margin-top: 20px;
+  margin-bottom: 24px;
+}
+
+.filters,
+.sort {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  padding: 20px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  background-color: #ffffff;
+}
+
+.groupTitle {
+  margin: 0 0 4px;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  color: #4e2829;
+}
+
 @media (min-width: 768px) {
   .page {
     padding: 30px 24px;
@@ -199,6 +231,18 @@
 
   .sortGroup {
     width: 240px;
+  }
+  .toolbar {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .filters {
+    flex: 1;
+  }
+
+  .sort {
+    width: 280px;
   }
 }
 

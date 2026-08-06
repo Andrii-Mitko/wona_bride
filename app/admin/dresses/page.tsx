@@ -118,102 +118,65 @@ export default async function AdminDressesPage({ searchParams }: Props) {
       <form method="GET" className={css.searchForm}>
         <AdminDressSearch defaultValue={search} />
 
-        <AdminFilterSelect
-          name="category"
-          value={category}
-          options={[
-            {
-              value: "",
-              label: "Усі категорії",
-            },
+        <div className={css.toolbar}>
+          <div className={css.filters}>
+            <h3 className={css.groupTitle}>Фільтри</h3>
 
-            ...categories.map((item) => ({
-              value: item.slug,
-              label: item.name,
-            })),
-          ]}
-        />
+            <AdminFilterSelect
+              name="category"
+              value={category}
+              options={[
+                { value: "", label: "Усі категорії" },
+                ...categories.map((item) => ({
+                  value: item.slug,
+                  label: item.name,
+                })),
+              ]}
+            />
 
-        <AdminFilterSelect
-          name="availability"
-          value={availability}
-          options={[
-            {
-              value: "",
-              label: "Уся наявність",
-            },
-            {
-              value: "available",
-              label: "В наявності",
-            },
-            {
-              value: "order",
-              label: "Під замовлення",
-            },
-            {
-              value: "waiting",
-              label: "Очікується",
-            },
-          ]}
-        />
+            <AdminFilterSelect
+              name="availability"
+              value={availability}
+              options={[
+                { value: "", label: "Уся наявність" },
+                { value: "available", label: "В наявності" },
+                { value: "order", label: "Під замовлення" },
+                { value: "waiting", label: "Очікується" },
+              ]}
+            />
 
-        <AdminFilterSelect
-          name="sort"
-          value={sort}
-          options={[
-            {
-              value: "newest",
-              label: "Нові спочатку",
-            },
-            {
-              value: "oldest",
-              label: "Старі спочатку",
-            },
-            {
-              value: "priceAsc",
-              label: "Ціна ↑",
-            },
-            {
-              value: "priceDesc",
-              label: "Ціна ↓",
-            },
-            {
-              value: "nameAsc",
-              label: "Назва А-Я",
-            },
-            {
-              value: "nameDesc",
-              label: "Назва Я-А",
-            },
-          ]}
-        />
+            <AdminFilterSelect
+              name="popular"
+              value={popular}
+              options={[
+                { value: "", label: "Усі по популярності" },
+                { value: "true", label: "Популярні" },
+                { value: "false", label: "Не популярні" },
+              ]}
+            />
 
-        <Link href="/admin/dresses" className={css.resetButton}>
-          Скинути фільтри
-        </Link>
+            <Link href="/admin/dresses" className={css.resetButton}>
+              Скинути
+            </Link>
+          </div>
 
-        <AdminFilterSelect
-          name="popular"
-          value={popular}
-          options={[
-            {
-              value: "",
-              label: "Усі",
-            },
-            {
-              value: "true",
-              label: "Популярні",
-            },
-            {
-              value: "false",
-              label: "Не популярні",
-            },
-          ]}
-        />
+          <div className={css.sort}>
+            <h3 className={css.groupTitle}>Сортування</h3>
 
-        <button type="submit" className={css.button}>
-          Пошук
-        </button>
+            <AdminFilterSelect
+              name="sort"
+              value={sort}
+              options={[
+                { value: "newest", label: "Нові спочатку" },
+                { value: "oldest", label: "Старі спочатку" },
+                { value: "priceAsc", label: "Ціна ↑" },
+                { value: "priceDesc", label: "Ціна ↓" },
+                { value: "nameAsc", label: "Назва А-Я" },
+                { value: "nameDesc", label: "Назва Я-А" },
+              ]}
+            />
+          </div>
+        </div>
       </form>
 
       {/* MOBILE */}
