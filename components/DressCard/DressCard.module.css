@@ -56,12 +56,16 @@
 }
 
 .category {
-  margin: 0 0 12px;
+  margin: 0 0 8px;
 
-  font-size: 14px;
-  line-height: 1.4;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
 
   color: rgba(8, 12, 9, 0.6);
+
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .price {

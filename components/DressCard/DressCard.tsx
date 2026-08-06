@@ -11,6 +11,7 @@ type Props = {
 };
 
 const DressCard = ({ dress, priority = false }: Props) => {
+  const category = dress.category.at(0);
   return (
     <article className={css.card}>
       <Link href={`/catalog/${dress.slug}`} className={css.imageLink}>
@@ -27,9 +28,9 @@ const DressCard = ({ dress, priority = false }: Props) => {
       <div className={css.content}>
         <h3 className={css.title}>{dress.name}</h3>
 
-        <p className={css.category}>
-          {dress.category.at(0) ? categoryLabels[dress.category[0]] : ""}
-        </p>
+       <p className={css.category}>
+  {category ? `${categoryLabels[category]} сукня` : ""}
+</p>
 
         <p className={css.price}>{dress.price.toLocaleString("uk-UA")} ₴</p>
 
