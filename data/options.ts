@@ -31,7 +31,7 @@ export const dressStyles = [
 ];
 
 export const dressFabrics = [
-  { value: "satin", label: "Атлас" },
+  { value: "satin", label: "Сатін" },
   { value: "mikado", label: "Мікадо" },
   { value: "lace", label: "Мереживо" },
   { value: "tulle", label: "Фатин" },
@@ -47,4 +47,10 @@ export const dressFabrics = [
   { value: "beads", label: "Бісер" },
   { value: "pearls", label: "Перлини" },
   { value: "feathers", label: "Пір`я" },
+  { value: "shine", label: "Шайн" },
+  { value: "diamont", label: "Діамонт" },
+  { value: "viscose", label: "Віскоза" },
+  { value: "suiting", label: "Костюмка" },
+  { value: "polished-suiting", label: "Полірована костюмка" },
+  { value: "cotton", label: "Бавовна" },
 ];

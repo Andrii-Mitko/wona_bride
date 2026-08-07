@@ -80,11 +80,12 @@ export default async function DressPage({ params }: Props) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
+    inLanguage: "uk-UA",
     "@id": `https://wona-bride.com.ua/catalog/${dress.slug}`,
 
     name: dress.name,
 
-    image: dress.images.map((image) => `https://wona-bride.com.ua${image}`),
+    image: dress.images,
 
     description: dress.description,
     category: dress.category.join(", "),
@@ -141,10 +142,10 @@ export default async function DressPage({ params }: Props) {
       "@type": "Offer",
       itemCondition: "https://schema.org/NewCondition",
       url: `https://wona-bride.com.ua/catalog/${dress.slug}`,
-      image: `https://wona-bride.com.ua${dress.images[0]}`,
-
+      image: dress.images[0],
       price: dress.price,
       priceValidUntil: `${new Date().getFullYear() + 1}-12-31`,
+
       priceCurrency: "UAH",
 
       availability:
@@ -153,6 +154,10 @@ export default async function DressPage({ params }: Props) {
           : dress.availability === "order"
             ? "https://schema.org/PreOrder"
             : "https://schema.org/OutOfStock",
+      seller: {
+        "@type": "Organization",
+        name: "WONA Bride",
+      },
     },
   };
 
