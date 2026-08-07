@@ -114,9 +114,8 @@ export default async function DressPage({ params }: Props) {
       },
     ],
 
-    sku: dress.article,
-
-    mpn: dress.article,
+    sku: dress.article.trim(),
+    mpn: dress.article.trim(),
 
     brand: {
       "@type": "Brand",
@@ -133,17 +132,12 @@ export default async function DressPage({ params }: Props) {
       name: "WONA Bride",
     },
 
-    itemOffered: {
-      "@type": "Product",
-      name: dress.name,
-    },
-
     offers: {
       "@type": "Offer",
       itemCondition: "https://schema.org/NewCondition",
       url: `https://wona-bride.com.ua/catalog/${dress.slug}`,
       image: dress.images[0],
-      price: dress.price,
+      price: dress.price.toString(),
       priceValidUntil: `${new Date().getFullYear() + 1}-12-31`,
 
       priceCurrency: "UAH",
@@ -159,6 +153,12 @@ export default async function DressPage({ params }: Props) {
         name: "WONA Bride",
       },
     },
+    priceSpecification: {
+      "@type": "UnitPriceSpecification",
+      price: dress.price.toString(),
+      priceCurrency: "UAH",
+    },
+    availabilityStarts: new Date().toISOString(),
   };
 
   const breadcrumbJsonLd = {
