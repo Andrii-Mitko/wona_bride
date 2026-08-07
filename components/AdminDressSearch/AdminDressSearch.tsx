@@ -16,13 +16,17 @@ export default function AdminDressSearch({ defaultValue }: Props) {
 
   const searchParams = useSearchParams();
 
-  const searchParamsString = searchParams.toString();
+  const currentSearch = searchParams.get("search") ?? "";
 
-  const [value, setValue] = useState(() => defaultValue);
+  const [value, setValue] = useState(defaultValue);
 
   useEffect(() => {
+    if (value === currentSearch) {
+      return;
+    }
+
     const timer = setTimeout(() => {
-      const params = new URLSearchParams(searchParamsString);
+      const params = new URLSearchParams(searchParams.toString());
 
       if (value.trim()) {
         params.set("search", value.trim());
@@ -32,17 +36,11 @@ export default function AdminDressSearch({ defaultValue }: Props) {
 
       params.delete("page");
 
-      const next = params.toString();
-
-      if (next === searchParamsString) {
-        return;
-      }
-
-      router.replace(`${pathname}?${next}`);
+      router.replace(`${pathname}?${params.toString()}`);
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [value, pathname, router, searchParamsString]);
+  }, [value, currentSearch, pathname, router, searchParams]);
 
   return (
     <input

@@ -32,7 +32,7 @@ export default function AdminFilterSelect({ name, value, options }: Props) {
     }
 
     params.delete("page");
-
+    console.log("FILTER replace", params.toString());
     router.replace(`${pathname}?${params.toString()}`);
   }
 
