@@ -1,3 +1,5 @@
+// components\Contacts\Contacts.tsx
+
 import css from "./Contacts.module.css";
 import { contacts } from "@/constants/contacts";
 import LazyMap from "./LazyMap";
@@ -61,7 +63,7 @@ export default function Contacts() {
 
           <div className={css.social}>
             <a
-              href="https://t.me/USERNAME_TELEGRAM"
+              href={`https://t.me/${process.env.NEXT_PUBLIC_TELEGRAM_USERNAME}`}
               target="_blank"
               rel="noopener noreferrer"
               className={css.socialLink}

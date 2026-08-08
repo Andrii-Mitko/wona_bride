@@ -1,3 +1,5 @@
+// components\Footer\Footer.tsx
+
 import Link from "next/link";
 import css from "./Footer.module.css";
 import Image from "next/image";
@@ -63,8 +65,7 @@ const Footer = () => {
           <li className={css["footer__social-item"]}>
             <Link
               className={css["footer__social-link"]}
-              href="https://vt.tiktok.com/ZSXByLKy6/
-"
+              href="https://vt.tiktok.com/ZSXByLKy6/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="tiktok"
@@ -134,7 +135,7 @@ const Footer = () => {
           </li> */}
         </ul>
         <div className={css.contacts}>
-          <Link href="tel:+380XXXXXXXXX" className={css.contact}>
+          <Link href="tel:+380966715746" className={css.contact}>
             +38 (096) 671 57 46
           </Link>
 
