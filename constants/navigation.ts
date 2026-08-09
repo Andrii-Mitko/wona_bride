@@ -1,3 +1,5 @@
+// constants\navigation.ts
+
 export type NavigationItem = {
   href: string;
   label: string;
@@ -15,6 +17,10 @@ export const navigation: NavigationItem[] = [
   {
     href: "/#popular",
     label: "Популярні",
+  },
+  {
+    href: "/#faq",
+    label: "Часті питання",
   },
   {
     href: "/#feedback",

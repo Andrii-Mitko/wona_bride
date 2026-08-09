@@ -3,6 +3,7 @@
 import Link from "next/link";
 import css from "./Footer.module.css";
 import Image from "next/image";
+import { navigation } from "@/constants/navigation";
 const Footer = () => {
   return (
     <footer className={css.footer} id="footer">
@@ -28,36 +29,13 @@ const Footer = () => {
 
         <nav className={css["footer__nav"]} aria-label="Навігація в футері">
           <ul className={css["footer__nav-list"]}>
-            <li className={css["footer__nav-item"]}>
-              <Link className={css["footer__nav-link"]} href="/#furniture">
-                Наші сукні
-              </Link>
-            </li>
-            <li className={css["footer__nav-item"]}>
-              <Link className={css["footer__nav-link"]} href="/#about">
-                Про нас
-              </Link>
-            </li>
-            <li className={css["footer__nav-item"]}>
-              <Link className={css["footer__nav-link"]} href="/#popular">
-                Популярні
-              </Link>
-            </li>
-            <li className={css["footer__nav-item"]}>
-              <Link className={css["footer__nav-link"]} href="/#faq">
-                Часті питання
-              </Link>
-            </li>
-            <li className={css["footer__nav-item"]}>
-              <Link className={css["footer__nav-link"]} href="/#feedback">
-                Відгуки
-              </Link>
-            </li>
-            <li className={css["footer__nav-item"]}>
-              <Link className={css["footer__nav-link"]} href="/#contacts">
-                Контакти
-              </Link>
-            </li>
+            {navigation.map((item) => (
+              <li key={item.href} className={css["footer__nav-item"]}>
+                <Link className={css["footer__nav-link"]} href={item.href}>
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
 
