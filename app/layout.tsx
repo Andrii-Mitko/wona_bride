@@ -1,3 +1,5 @@
+// app\layout.tsx
+
 import { Toaster } from "react-hot-toast";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import Script from "next/script";
@@ -34,7 +36,6 @@ export const metadata: Metadata = {
   publisher: "WONA Bride",
 
   keywords: [
-    "cerys",
     "платья",
     "сукня",
     "сукні",

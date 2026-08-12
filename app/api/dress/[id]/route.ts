@@ -1,3 +1,5 @@
+// app\api\dress\[id]\route.ts
+
 import { NextResponse } from "next/server";
 
 import { connectDB } from "@/lib/mongodb";
@@ -51,21 +53,12 @@ export async function PATCH(request: Request, { params }: Props) {
 
     const body = await request.json();
 
+    delete body.slug;
+
     const dress = await DressModel.findByIdAndUpdate(id, body, {
       new: true,
       runValidators: true,
     });
-
-    if (!dress) {
-      return NextResponse.json(
-        {
-          error: "Сукню не знайдено",
-        },
-        {
-          status: 404,
-        },
-      );
-    }
 
     return NextResponse.json(dress);
   } catch (error: unknown) {

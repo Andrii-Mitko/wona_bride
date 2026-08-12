@@ -1,3 +1,5 @@
+// lib\utils\slug.ts
+
 const translitMap: Record<string, string> = {
   а: "a",
   б: "b",
@@ -32,6 +34,10 @@ const translitMap: Record<string, string> = {
   ь: "",
   ю: "yu",
   я: "ya",
+  ё: "yo",
+  ъ: "",
+  ы: "y",
+  э: "e",
   "'": "",
   "’": "",
 };

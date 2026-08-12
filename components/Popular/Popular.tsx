@@ -1,14 +1,15 @@
+// components\Popular\Popular.tsx
+
 import DressGrid from "@/components/DressGrid/DressGrid";
 import { getDresses } from "@/lib/api/dresses";
 
 import css from "./Popular.module.css";
 
 export default async function Popular() {
-  const { dresses } = await getDresses({
+  const { dresses: popularDresses } = await getDresses({
+    isPopular: true,
     limit: 8,
   });
-
-  const popularDresses = dresses.filter((dress) => dress.isPopular);
 
   return (
     <section className={css.section} id="popular">

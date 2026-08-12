@@ -1,3 +1,5 @@
+// components\Feedback\Feedback.tsx
+
 import { getApprovedFeedbacks } from "@/lib/api/feedback";
 import Link from "next/link";
 import FeedbackSwiper from "./FeedbackSwiper";

@@ -1,3 +1,5 @@
+// lib\api\dresses.ts
+
 import "server-only";
 
 import { connectDB } from "@/lib/mongodb";
@@ -10,6 +12,7 @@ export type GetDressesParams = {
   limit?: number;
   category?: DressCategory;
   query?: string;
+  isPopular?: boolean;
 };
 
 export type GetDressesResponse = {
@@ -77,6 +80,10 @@ export async function getDresses(
 
   if (params?.category) {
     filter.category = params.category;
+  }
+
+  if (params?.isPopular !== undefined) {
+    filter.isPopular = params.isPopular;
   }
 
   if (params?.query) {

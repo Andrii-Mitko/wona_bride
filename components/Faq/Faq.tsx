@@ -1,3 +1,5 @@
+// components\Faq\Faq.tsx
+
 import React from "react";
 import css from "./Faq.module.css";
 

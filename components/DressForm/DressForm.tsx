@@ -1,3 +1,5 @@
+// components\DressForm\DressForm.tsx
+
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -69,10 +71,14 @@ export default function DressForm({ initialData }: Props) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            ...data,
-            slug: createSlug(data.name),
-          }),
+          body: JSON.stringify(
+            isEdit
+              ? data
+              : {
+                  ...data,
+                  slug: createSlug(data.name),
+                },
+          ),
         },
       );
 
