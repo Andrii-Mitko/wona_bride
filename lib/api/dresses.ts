@@ -13,6 +13,9 @@ export type GetDressesParams = {
   category?: DressCategory;
   query?: string;
   isPopular?: boolean;
+  minPrice?: number;
+  maxPrice?: number;
+  size?: string;
 };
 
 export type GetDressesResponse = {
@@ -84,6 +87,24 @@ export async function getDresses(
 
   if (params?.isPopular !== undefined) {
     filter.isPopular = params.isPopular;
+  }
+
+  if (params?.size) {
+    filter.sizes = params.size;
+  }
+
+  if (params?.minPrice !== undefined || params?.maxPrice !== undefined) {
+    const priceFilter: Record<string, number> = {};
+
+    if (params.minPrice !== undefined) {
+      priceFilter.$gte = params.minPrice;
+    }
+
+    if (params.maxPrice !== undefined) {
+      priceFilter.$lte = params.maxPrice;
+    }
+
+    filter.price = priceFilter;
   }
 
   if (params?.query) {

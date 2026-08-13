@@ -1,5 +1,7 @@
+// app\(shop)\catalog\[slug]\page.tsx
+
 import { notFound } from "next/navigation";
-import { getDressBySlug, getDresses } from "@/lib/api/dresses";
+import { getDressBySlug, getSimilarDresses } from "@/lib/api/dresses";
 import DressGallery from "@/components/DressGallery/DressGallery";
 import ProductDetails from "@/components/ProductDetails/ProductDetails";
 import BackButton from "@/components/BackButton/BackButton";
@@ -7,13 +9,13 @@ import css from "./page.module.css";
 import type { Metadata } from "next";
 import DressGrid from "@/components/DressGrid/DressGrid";
 
-export const dynamic = "force-dynamic";
-
 type Props = {
   params: Promise<{
     slug: string;
   }>;
 };
+
+export const revalidate = 3600;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -65,17 +67,7 @@ export default async function DressPage({ params }: Props) {
     notFound();
   }
 
-  const { dresses } = await getDresses({
-    limit: 100,
-  });
-
-  const relatedDresses = dresses
-    .filter(
-      (item) =>
-        item._id !== dress._id &&
-        item.category.some((category) => dress.category.includes(category)),
-    )
-    .slice(0, 4);
+  const relatedDresses = await getSimilarDresses(dress.slug, 4);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -152,13 +144,13 @@ export default async function DressPage({ params }: Props) {
         "@type": "Organization",
         name: "WONA Bride",
       },
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: dress.price.toString(),
+        priceCurrency: "UAH",
+      },
+      availabilityStarts: new Date().toISOString(),
     },
-    priceSpecification: {
-      "@type": "UnitPriceSpecification",
-      price: dress.price.toString(),
-      priceCurrency: "UAH",
-    },
-    availabilityStarts: new Date().toISOString(),
   };
 
   const breadcrumbJsonLd = {

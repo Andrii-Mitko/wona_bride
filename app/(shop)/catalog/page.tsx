@@ -1,8 +1,10 @@
+// app\(shop)\catalog\page.tsx
+
 import DressCategories from "@/components/DressCategories/DressCategories";
 import DressGrid from "@/components/DressGrid/DressGrid";
 import type { Metadata } from "next";
 import { getDresses } from "@/lib/api/dresses";
-
+import DressFilters from "@/components/DressFilters/DressFilters";
 import css from "./catalog.module.css";
 import { isDressCategory } from "@/lib/utils/dress";
 import { getCategories } from "@/lib/api/categories";
@@ -13,6 +15,9 @@ type Props = {
     category?: string;
     page?: string;
     query?: string;
+    minPrice?: string;
+    maxPrice?: string;
+    size?: string;
   }>;
 };
 
@@ -112,12 +117,19 @@ export default async function CatalogPage({ searchParams }: Props) {
       : undefined;
   const currentPage = Number(params.page) || 1;
 
+  const minPrice = params.minPrice ? Number(params.minPrice) : undefined;
+  const maxPrice = params.maxPrice ? Number(params.maxPrice) : undefined;
+  const activeSize = params.size?.trim() || undefined;
+
   const [categories, dressesResponse] = await Promise.all([
     getCategories(),
     getDresses({
       category: activeCategory,
       page: currentPage,
       query: searchQuery,
+      minPrice,
+      maxPrice,
+      size: activeSize,
     }),
   ]);
 
@@ -184,6 +196,12 @@ export default async function CatalogPage({ searchParams }: Props) {
             activeCategory={activeCategory ?? "all"}
           />
 
+          <DressFilters
+            initialMinPrice={params.minPrice}
+            initialMaxPrice={params.maxPrice}
+            activeSize={params.size ?? ""}
+          />
+
           <DressGrid dresses={dresses} activeCategory={activeCategory} />
 
           <Pagination
@@ -193,6 +211,9 @@ export default async function CatalogPage({ searchParams }: Props) {
             query={{
               category: activeCategory,
               query: searchQuery,
+              minPrice: params.minPrice,
+              maxPrice: params.maxPrice,
+              size: params.size,
             }}
           />
         </div>

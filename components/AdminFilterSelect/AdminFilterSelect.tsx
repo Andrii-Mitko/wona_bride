@@ -1,3 +1,5 @@
+// components\AdminFilterSelect\AdminFilterSelect.tsx
+
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -32,7 +34,7 @@ export default function AdminFilterSelect({ name, value, options }: Props) {
     }
 
     params.delete("page");
-    console.log("FILTER replace", params.toString());
+
     router.replace(`${pathname}?${params.toString()}`);
   }
 

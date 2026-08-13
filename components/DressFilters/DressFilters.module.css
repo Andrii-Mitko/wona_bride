@@ -1,0 +1,47 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+
+  margin-bottom: 24px;
+}
+
+.priceGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.priceInput {
+  width: 110px;
+  padding: 10px 14px;
+
+  border: 1px solid rgba(8, 12, 9, 0.15);
+  border-radius: 30px;
+
+  font-size: 15px;
+}
+
+.priceDivider {
+  color: rgba(8, 12, 9, 0.4);
+}
+
+.applyButton {
+  padding: 10px 20px;
+
+  border: none;
+  border-radius: 30px;
+
+  background: #6b0609;
+  color: #fff;
+
+  font-size: 15px;
+  cursor: pointer;
+
+  transition: 250ms ease;
+}
+
+.applyButton:hover {
+  background: #975052;
+}
