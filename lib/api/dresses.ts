@@ -16,6 +16,7 @@ export type GetDressesParams = {
   minPrice?: number;
   maxPrice?: number;
   size?: string;
+  sort?: string;
 };
 
 export type GetDressesResponse = {
@@ -144,7 +145,17 @@ export async function getDresses(
 
   const totalItems = await DressModel.countDocuments(filter);
 
+  const sortMap: Record<string, Record<string, 1 | -1>> = {
+    price_asc: { price: 1 },
+    price_desc: { price: -1 },
+    popular: { isPopular: -1, createdAt: -1 },
+    newest: { createdAt: -1 },
+  };
+
+  const sortOption = sortMap[params?.sort ?? "newest"] ?? sortMap.newest;
+
   const dresses = await DressModel.find(filter)
+    .sort(sortOption)
     .skip((page - 1) * limit)
     .limit(limit)
     .lean();

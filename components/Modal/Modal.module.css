@@ -1,3 +1,5 @@
+/* components\Modal\Modal.module.css */
+
 .backdrop {
   position: fixed;
   inset: 0;
@@ -33,30 +35,6 @@
   animation: scaleIn 250ms ease;
 }
 
-.close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-
-  width: 36px;
-  height: 36px;
-
-  border: none;
-  border-radius: 50%;
-
-  background: transparent;
-
-  font-size: 30px;
-  line-height: 1;
-
-  cursor: pointer;
-
-  transition: background-color 0.25s;
-}
-
-.close:hover {
-  background: #f5f5f5;
-}
 .close {
   position: absolute;
   top: 16px;

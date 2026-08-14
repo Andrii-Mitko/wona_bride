@@ -1,6 +1,8 @@
+// components\DressGallery\DressGallery.tsx
+
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import css from "./DressGallery.module.css";
 
@@ -14,10 +16,26 @@ export default function DressGallery({ name, images }: Props) {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const nextImage = useCallback(() => {
+    setCurrentImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  }, [images.length]);
+
+  const prevImage = useCallback(() => {
+    setCurrentImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  }, [images.length]);
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setIsOpen(false);
+      }
+
+      if (event.key === "ArrowRight") {
+        nextImage();
+      }
+
+      if (event.key === "ArrowLeft") {
+        prevImage();
       }
     };
 
@@ -34,18 +52,9 @@ export default function DressGallery({ name, images }: Props) {
 
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isOpen]);
-
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  };
-
-  const prevImage = () => {
-    setCurrentImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
-
+  }, [isOpen, nextImage, prevImage]);
   return (
-    <div className={css.gallery}>
+    <div className={`${css.gallery} ${images.length <= 1 ? css.single : ""}`}>
       {images.length > 1 && (
         <div className={css.thumbnails}>
           {images.map((image, index) => (

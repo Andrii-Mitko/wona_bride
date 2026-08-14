@@ -9,6 +9,7 @@ import css from "./catalog.module.css";
 import { isDressCategory } from "@/lib/utils/dress";
 import { getCategories } from "@/lib/api/categories";
 import Pagination from "@/components/Pagination/Pagination";
+import AdminFilterSelect from "@/components/AdminFilterSelect/AdminFilterSelect";
 
 type Props = {
   searchParams: Promise<{
@@ -18,6 +19,7 @@ type Props = {
     minPrice?: string;
     maxPrice?: string;
     size?: string;
+    sort?: string;
   }>;
 };
 
@@ -130,6 +132,7 @@ export default async function CatalogPage({ searchParams }: Props) {
       minPrice,
       maxPrice,
       size: activeSize,
+      sort: params.sort,
     }),
   ]);
 
@@ -196,11 +199,24 @@ export default async function CatalogPage({ searchParams }: Props) {
             activeCategory={activeCategory ?? "all"}
           />
 
-          <DressFilters
-            initialMinPrice={params.minPrice}
-            initialMaxPrice={params.maxPrice}
-            activeSize={params.size ?? ""}
-          />
+          <div className={css.toolbar}>
+            <DressFilters
+              initialMinPrice={params.minPrice}
+              initialMaxPrice={params.maxPrice}
+              activeSize={params.size ?? ""}
+            />
+
+            <AdminFilterSelect
+              name="sort"
+              value={params.sort ?? "newest"}
+              options={[
+                { value: "newest", label: "Спочатку нові" },
+                { value: "popular", label: "Спочатку популярні" },
+                { value: "price_asc", label: "Дешевші спочатку" },
+                { value: "price_desc", label: "Дорожчі спочатку" },
+              ]}
+            />
+          </div>
 
           <DressGrid dresses={dresses} activeCategory={activeCategory} />
 

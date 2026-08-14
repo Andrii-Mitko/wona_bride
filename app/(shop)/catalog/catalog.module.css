@@ -26,6 +26,16 @@
   color: #080c09;
 }
 
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+
+  margin-bottom: 32px;
+}
+
 @media (min-width: 768px) {
   .section {
     padding: 48px 0;

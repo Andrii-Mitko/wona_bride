@@ -1,3 +1,5 @@
+// components\DressGrid\DressGrid.tsx
+
 import { Dress, DressCategory } from "@/types/dress";
 
 import DressCard from "@/components/DressCard/DressCard";
@@ -20,7 +22,7 @@ const DressGrid = ({ dresses, activeCategory }: DressGridProps) => {
         <li key={dress._id}>
           <DressCard
             dress={dress}
-            priority={index < 2}
+            priority={index < 4}
             activeCategory={activeCategory}
           />
         </li>

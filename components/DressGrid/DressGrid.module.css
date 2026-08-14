@@ -1,3 +1,5 @@
+/* components\DressGrid\DressGrid.module.css */
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;
