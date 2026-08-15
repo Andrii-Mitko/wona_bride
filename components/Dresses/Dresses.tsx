@@ -16,6 +16,8 @@ const Dresses = async () => {
     <section className={css.section} id="dresses">
       <div className={css.container}>
         <div className={css.head}>
+          <hr className="section-divider" />
+
           <h2 className={css.title}>Колекція суконь</h2>
 
           <p className={css.subtitle}>

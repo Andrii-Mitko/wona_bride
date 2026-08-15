@@ -10,6 +10,8 @@ export default function About() {
         <div className={css.aboutContent}>
           <p className={css.label}>Про наш салон</p>
 
+          <hr className="section-divider" />
+
           <h2 className={css.aboutTitle}>
             Допомагаємо знайти сукню вашої мрії
           </h2>

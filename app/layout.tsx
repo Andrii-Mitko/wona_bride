@@ -6,12 +6,19 @@ import Script from "next/script";
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
-import { Raleway } from "next/font/google";
+import { Raleway, Cormorant_Garamond } from "next/font/google";
 
 const raleway = Raleway({
   subsets: ["latin", "cyrillic"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-raleway",
+  display: "swap",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin", "cyrillic"],
+  weight: ["500", "600", "700"],
+  variable: "--font-cormorant",
   display: "swap",
 });
 
@@ -169,7 +176,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uk" data-scroll-behavior="smooth">
-      <body className={raleway.variable}>
+      <body className={`${raleway.variable} ${cormorant.variable}`}>
         <TanStackProvider>
           <Toaster
             position="top-right"

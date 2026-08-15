@@ -51,6 +51,8 @@ export default function Faq() {
   return (
     <section className={css["faq-section"]} id="faq">
       <div className={css["faq-container"]}>
+        <hr className="section-divider" style={{ margin: "0 auto 16px" }} />
+
         <h2 className={css["section-faq__title"]}>
           Відповіді на часті питання
         </h2>

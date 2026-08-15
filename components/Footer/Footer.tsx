@@ -76,10 +76,10 @@ const Footer = () => {
             </Link>
           </li> */}
 
-          {/* <li className={css["footer__social-item"]}>
+          <li className={css["footer__social-item"]}>
             <Link
               className={css["footer__social-link"]}
-              href="https://www.instagram.com/"
+              href="https://www.instagram.com/wona_bride"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -91,8 +91,9 @@ const Footer = () => {
               >
                 <use href="/icons/icons.svg#icon-instagram"></use>
               </svg>
+              Instagram
             </Link>
-          </li> */}
+          </li>
 
           {/* <li className={css["footer__social-item"]}>
             <Link

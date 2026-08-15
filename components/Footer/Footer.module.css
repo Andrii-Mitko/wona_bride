@@ -80,8 +80,13 @@
 
 .footer__social-link:hover,
 .footer__social-link:focus-visible {
-  opacity: 0.8;
-  transform: translateY(-1px);
+  opacity: 1;
+  transform: translateY(-2px) scale(1.05);
+}
+
+.footer__social-link:hover .footer__social-icon,
+.footer__social-link:focus-visible .footer__social-icon {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
 }
 
 .footer__social-icon {

@@ -11,6 +11,8 @@ type Props = {
 };
 
 export default function WishlistButton({ dress, variant = "overlay" }: Props) {
+  const hasHydrated = useWishlistStore((state) => state.hasHydrated);
+
   const isInWishlist = useWishlistStore((state) =>
     state.isInWishlist(dress._id),
   );
@@ -26,9 +28,13 @@ export default function WishlistButton({ dress, variant = "overlay" }: Props) {
         toggleWishlist(dress);
       }}
       className={`${css.button} ${css[variant]} ${
-        isInWishlist ? css.active : ""
+        hasHydrated && isInWishlist ? css.active : ""
       }`}
-      aria-label={isInWishlist ? "Видалити з обраного" : "Додати до обраного"}
+      aria-label={
+        hasHydrated && isInWishlist
+          ? "Видалити з обраного"
+          : "Додати до обраного"
+      }
     >
       <svg width="22" height="22" viewBox="0 0 24 24" className={css.icon}>
         <path

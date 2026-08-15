@@ -8,6 +8,7 @@ import Link from "next/link";
 import css from "./Header.module.css";
 import { useCartStore } from "@/store/cartStore";
 import { navigation } from "@/constants/navigation";
+import { useWishlistStore } from "@/store/wishlistStore";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +16,12 @@ export default function Header() {
   const items = useCartStore((state) => state.items);
 
   const cartCount = items.length;
+
+const hasHydrated = useWishlistStore((state) => state.hasHydrated);
+
+const wishlistItems = useWishlistStore((state) => state.items);
+
+const wishlistCount = hasHydrated ? wishlistItems.length : 0;
 
   const closeMenu = () => setIsOpen(false);
 
@@ -42,6 +49,13 @@ export default function Header() {
         <Link href="/catalog" className={css.button}>
           Переглянути сукні
         </Link>
+
+        <Link href="/wishlist" className={css.cart} onClick={closeMenu}>
+  ❤️
+  {wishlistCount > 0 && (
+    <span className={css.cartCount}>{wishlistCount}</span>
+  )}
+</Link>
 
         <Link href="/cart" className={css.cart} onClick={closeMenu}>
           🛒

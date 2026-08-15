@@ -2,6 +2,7 @@
   /* fonts */
   --font-family: var(--font-raleway), sans-serif;
   --font-primary: var(--font-family);
+  --font-display: var(--font-cormorant), "Georgia", serif;
 
   /* base */
   --font-base: 16px;
@@ -19,6 +20,8 @@
   --color-accent: #6b0609;
   --color-accent-light: #975052;
 
+  --color-champagne: #c9a35f;
+
   --color-dark: #241b17;
 
   /* radius */
@@ -35,7 +38,6 @@
   /* layout */
   --anchor-offset: 80px;
 }
-
 /* smooth scroll anchors */
 
 #about,
@@ -93,6 +95,14 @@ h5,
 h6,
 p {
   margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 /* elements */
@@ -165,4 +175,35 @@ button {
   clip: rect(0 0 0 0);
 
   overflow: hidden;
+}
+
+/* helpers */
+
+.section-divider {
+  width: 48px;
+  height: 2px;
+
+  margin-bottom: 16px;
+
+  background: var(--color-champagne);
+
+  border: none;
+}
+
+@media screen and (min-width: 768px) {
+  .section-divider {
+    width: 64px;
+    height: 3px;
+
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .section-divider {
+    width: 80px;
+    height: 3px;
+
+    margin-bottom: 24px;
+  }
 }

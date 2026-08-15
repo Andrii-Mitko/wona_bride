@@ -6,6 +6,7 @@ import { Dress } from "@/types/dress";
 
 type WishlistStore = {
   items: Dress[];
+  hasHydrated: boolean;
 
   addToWishlist: (dress: Dress) => void;
 
@@ -14,12 +15,15 @@ type WishlistStore = {
   isInWishlist: (id: string) => boolean;
 
   toggleWishlist: (dress: Dress) => void;
+
+  setHasHydrated: (state: boolean) => void;
 };
 
 export const useWishlistStore = create<WishlistStore>()(
   persist(
     (set, get) => ({
       items: [],
+      hasHydrated: false,
 
       addToWishlist: (dress) =>
         set((state) => {
@@ -50,9 +54,14 @@ export const useWishlistStore = create<WishlistStore>()(
           get().addToWishlist(dress);
         }
       },
+
+      setHasHydrated: (state) => set({ hasHydrated: state }),
     }),
     {
       name: "wona-wishlist",
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true);
+      },
     },
   ),
 );
