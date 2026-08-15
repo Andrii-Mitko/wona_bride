@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-
+import WishlistButton from "@/components/WishlistButton/WishlistButton";
 import { Dress, DressCategory } from "@/types/dress";
 import { categoryLabels } from "@/lib/utils/dress";
 import css from "./DressCard.module.css";
@@ -29,6 +29,8 @@ const DressCard = ({ dress, priority = false, activeCategory }: Props) => {
           className={css.image}
           priority={priority}
         />
+
+        <WishlistButton dress={dress} />
       </Link>
 
       <div className={css.content}>

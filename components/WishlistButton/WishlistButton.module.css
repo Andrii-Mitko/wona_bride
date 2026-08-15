@@ -1,0 +1,51 @@
+.button {
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  transition:
+    background-color 250ms ease,
+    transform 150ms ease;
+}
+
+.overlay {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.inline {
+  position: static;
+
+  background: #f5f0f0;
+}
+.button:hover {
+  transform: scale(1.08);
+}
+
+.icon {
+  fill: none;
+  stroke: #080c09;
+  stroke-width: 1.8;
+
+  transition:
+    fill 250ms ease,
+    stroke 250ms ease;
+}
+
+.active .icon {
+  fill: #975052;
+  stroke: #975052;
+}

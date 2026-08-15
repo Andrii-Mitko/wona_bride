@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import ShareButton from "@/components/ShareButton/ShareButton";
 import ProductTrust from "@/components/ProductTrust/ProductTrust";
 import AskQuestionButton from "@/components/AskQuestionButton/AskQuestionButton";
+import WishlistButton from "@/components/WishlistButton/WishlistButton";
 
 type Props = {
   dress: Dress;
@@ -21,7 +22,11 @@ export default function ProductDetails({ dress }: Props) {
   const addToCart = useCartStore((state) => state.addToCart);
   return (
     <div className={css.content}>
-      <h1 className={css.title}>{dress.name}</h1>
+      <div className={css.titleRow}>
+        <h1 className={css.title}>{dress.name}</h1>
+
+        <WishlistButton dress={dress} variant="inline" />
+      </div>
 
       <p className={css.price}>{dress.price.toLocaleString("uk-UA")} ₴</p>
 

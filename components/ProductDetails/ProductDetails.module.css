@@ -125,3 +125,10 @@
 
   font-weight: 600;
 }
+
+.titleRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
