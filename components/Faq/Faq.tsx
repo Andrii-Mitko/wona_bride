@@ -1,5 +1,4 @@
-// components\Faq\Faq.tsx
-
+import RevealOnScroll from "@/components/RevealOnScroll/RevealOnScroll";
 import React from "react";
 import css from "./Faq.module.css";
 
@@ -50,36 +49,38 @@ const faqItems = [
 export default function Faq() {
   return (
     <section className={css["faq-section"]} id="faq">
-      <hr className="section-divider" style={{ margin: "0 auto 16px" }} />
-      <div className={css["faq-container"]}>
-        <h2 className={css["section-faq__title"]}>
-          Відповіді на часті питання
-        </h2>
+      <RevealOnScroll>
+        <hr className="section-divider" style={{ margin: "0 auto 16px" }} />
+        <div className={css["faq-container"]}>
+          <h2 className={css["section-faq__title"]}>
+            Відповіді на часті питання
+          </h2>
 
-        <ul className={css["faq__list"]}>
-          {faqItems.map((item) => (
-            <li key={item.question} className={css["faq__list-item"]}>
-              <details className={css["faq__item"]}>
-                <summary className={css["faq__question"]}>
-                  <span className={css["faq-text"]}>{item.question}</span>
+          <ul className={css["faq__list"]}>
+            {faqItems.map((item) => (
+              <li key={item.question} className={css["faq__list-item"]}>
+                <details className={css["faq__item"]}>
+                  <summary className={css["faq__question"]}>
+                    <span className={css["faq-text"]}>{item.question}</span>
 
-                  <span className={css["faq__icons"]}>
-                    <svg
-                      className={css["faq-icon-down"]}
-                      width="24"
-                      height="24"
-                    >
-                      <use href="/icons/icons.svg#icon-chevron-down" />
-                    </svg>
-                  </span>
-                </summary>
+                    <span className={css["faq__icons"]}>
+                      <svg
+                        className={css["faq-icon-down"]}
+                        width="24"
+                        height="24"
+                      >
+                        <use href="/icons/icons.svg#icon-chevron-down" />
+                      </svg>
+                    </span>
+                  </summary>
 
-                <p className={css["faq__answer"]}>{item.answer}</p>
-              </details>
-            </li>
-          ))}
-        </ul>
-      </div>
+                  <p className={css["faq__answer"]}>{item.answer}</p>
+                </details>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </RevealOnScroll>
     </section>
   );
 }

@@ -1,5 +1,3 @@
-// components\Feedback\FeedbackSwiper.tsx
-
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";

@@ -1,5 +1,3 @@
-/* components\Faq\Faq.module.css */
-
 .faq-section {
   padding: 64px 20px;
   background-color: var(--color-surface);
@@ -17,7 +15,7 @@
   font-size: 36px;
   line-height: 1.2;
   letter-spacing: 0.01em;
-  text-align: center;
+  text-align: start;
   color: var(--color-text);
   margin-bottom: 32px;
 }

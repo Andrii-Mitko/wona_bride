@@ -231,4 +231,7 @@
     max-width: 1440px;
     padding: 0 64px;
   }
+  .feedback__title {
+    font-size: 48px;
+  }
 }
