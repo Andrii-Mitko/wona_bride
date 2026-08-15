@@ -15,9 +15,8 @@ export default async function Popular() {
     <section className={css.section} id="popular">
       <div className={css.container}>
         <div className={css.header}>
-          <p className={css.label}>Обрані моделі</p>
-
           <hr className="section-divider" />
+          <p className={css.label}>Обрані моделі</p>
 
           <h2 className={css.title}>Популярні сукні</h2>
 

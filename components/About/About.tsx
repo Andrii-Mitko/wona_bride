@@ -8,9 +8,9 @@ export default function About() {
     <section className={css.aboutSection} id="about">
       <div className={`${css.container} ${css.aboutContainer}`}>
         <div className={css.aboutContent}>
-          <p className={css.label}>Про наш салон</p>
-
           <hr className="section-divider" />
+
+          <p className={css.label}>Про наш салон</p>
 
           <h2 className={css.aboutTitle}>
             Допомагаємо знайти сукню вашої мрії

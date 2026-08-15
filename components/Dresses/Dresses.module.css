@@ -24,8 +24,6 @@
 }
 
 .title {
-  margin: 0;
-
   font-family: "Raleway", sans-serif;
   font-size: 36px;
   font-weight: 700;
@@ -35,10 +33,6 @@
 }
 
 .subtitle {
-  max-width: 600px;
-
-  margin: 0;
-
   font-size: 18px;
   line-height: 1.6;
 
