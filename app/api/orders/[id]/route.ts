@@ -1,13 +1,18 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 import { connectDB } from "@/lib/mongodb";
 import Order from "@/models/Order";
+import { isAdminAuthenticated } from "@/lib/auth";
 
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    if (!(await isAdminAuthenticated())) {
+      return NextResponse.json({ message: "Немає доступу" }, { status: 401 });
+    }
+
     await connectDB();
 
     const { id } = await params;

@@ -5,23 +5,26 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/store/cartStore";
 import css from "./cart.module.css";
+import { useTransition } from "react";
+import Spinner from "@/components/Spinner/Spinner";
 
 export default function CartPage() {
   const router = useRouter();
 
   const { items, removeFromCart } = useCartStore();
 
- const total = items.reduce(
-  (sum, item) => sum + item.dress.price,
-  0,
-);
+  const [isPending, startTransition] = useTransition();
+
+  const total = items.reduce((sum, item) => sum + item.dress.price, 0);
 
   const handleCheckout = () => {
     if (items.length === 0) {
       return;
     }
 
-    router.push("/checkout");
+    startTransition(() => {
+      router.push("/checkout");
+    });
   };
 
   if (items.length === 0) {
@@ -65,8 +68,6 @@ export default function CartPage() {
 
                 <p>{item.dress.price.toLocaleString("uk-UA")} ₴</p>
 
-               
-
                 <button
                   className={css.remove}
                   onClick={() =>
@@ -85,8 +86,19 @@ export default function CartPage() {
           <strong> {total.toLocaleString("uk-UA")} ₴</strong>
         </div>
 
-        <button className={css.checkout} onClick={handleCheckout}>
-          Оформити замовлення
+        <button
+          className={css.checkout}
+          onClick={handleCheckout}
+          disabled={isPending}
+        >
+          {isPending ? (
+            <span className={css.buttonContent}>
+              <Spinner size={18} />
+              Перехід...
+            </span>
+          ) : (
+            "Оформити замовлення"
+          )}
         </button>
       </div>
     </section>

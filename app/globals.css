@@ -222,6 +222,65 @@ a.button:active {
   }
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  border-radius: var(--radius-sm);
+
+  background: linear-gradient(
+    90deg,
+    var(--color-border) 25%,
+    #f5efe9 50%,
+    var(--color-border) 75%
+  );
+  background-size: 200% 100%;
+
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    background: var(--color-border);
+  }
+}
+
+.mb-8 {
+  margin-bottom: 8px;
+}
+
+.mb-32 {
+  margin-bottom: 32px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  animation: spin 800ms linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 1600ms;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .section-divider {
     width: 64px;

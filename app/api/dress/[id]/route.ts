@@ -1,9 +1,8 @@
-// app\api\dress\[id]\route.ts
-
 import { NextResponse } from "next/server";
-
+import { isAdminAuthenticated } from "@/lib/auth";
 import { connectDB } from "@/lib/mongodb";
 import DressModel from "@/models/DressModel";
+import { dressSchema } from "@/lib/validation/dress";
 
 type Props = {
   params: Promise<{
@@ -47,6 +46,10 @@ export async function GET(request: Request, { params }: Props) {
 
 export async function PATCH(request: Request, { params }: Props) {
   try {
+    if (!(await isAdminAuthenticated())) {
+      return NextResponse.json({ error: "Немає доступу" }, { status: 401 });
+    }
+
     await connectDB();
 
     const { id } = await params;
@@ -55,7 +58,19 @@ export async function PATCH(request: Request, { params }: Props) {
 
     delete body.slug;
 
-    const dress = await DressModel.findByIdAndUpdate(id, body, {
+    const result = dressSchema.partial().safeParse(body);
+
+    if (!result.success) {
+      return NextResponse.json(
+        {
+          error: "Некоректні дані",
+          errors: result.error.flatten(),
+        },
+        { status: 400 },
+      );
+    }
+
+    const dress = await DressModel.findByIdAndUpdate(id, result.data, {
       new: true,
       runValidators: true,
     });
@@ -117,6 +132,10 @@ export async function PATCH(request: Request, { params }: Props) {
 
 export async function DELETE(request: Request, { params }: Props) {
   try {
+    if (!(await isAdminAuthenticated())) {
+      return NextResponse.json({ error: "Немає доступу" }, { status: 401 });
+    }
+
     await connectDB();
 
     const { id } = await params;

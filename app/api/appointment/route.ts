@@ -1,9 +1,25 @@
 import { connectDB } from "@/lib/mongodb";
 import Appointment from "@/models/Appointment";
+import { appointmentSchema } from "@/lib/validation/appointment";
 
 export async function POST(req: Request) {
   try {
-    const data = await req.json();
+    const body = await req.json();
+
+    const result = appointmentSchema.safeParse(body);
+
+    if (!result.success) {
+      return Response.json(
+        {
+          success: false,
+          errors: result.error.flatten(),
+        },
+        { status: 400 },
+      );
+    }
+
+    const data = result.data;
+
     await connectDB();
 
     await Appointment.create({

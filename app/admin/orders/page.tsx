@@ -1,5 +1,3 @@
-// app/admin/orders/page.tsx
-
 import { connectDB } from "@/lib/mongodb";
 import Order from "@/models/Order";
 import OrderStatus from "@/components/OrderStatus/OrderStatus";

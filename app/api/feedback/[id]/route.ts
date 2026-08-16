@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { connectDB } from "@/lib/mongodb";
 import Feedback from "@/models/Feedback";
+import { isAdminAuthenticated } from "@/lib/auth";
 
 // изменить отзыв
 export async function PATCH(
@@ -12,6 +13,10 @@ export async function PATCH(
     }>;
   },
 ) {
+  if (!(await isAdminAuthenticated())) {
+    return NextResponse.json({ message: "Немає доступу" }, { status: 401 });
+  }
+
   await connectDB();
 
   const { id } = await context.params;
@@ -53,6 +58,10 @@ export async function DELETE(
     }>;
   },
 ) {
+  if (!(await isAdminAuthenticated())) {
+    return NextResponse.json({ message: "Немає доступу" }, { status: 401 });
+  }
+
   await connectDB();
 
   const { id } = await context.params;

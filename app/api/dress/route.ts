@@ -1,9 +1,8 @@
-// app\api\dress\route.ts
-
 import { NextRequest, NextResponse } from "next/server";
-
+import { isAdminAuthenticated } from "@/lib/auth";
 import { connectDB } from "@/lib/mongodb";
 import DressModel from "@/models/DressModel";
+import { dressSchema } from "@/lib/validation/dress";
 
 export async function GET() {
   try {
@@ -24,11 +23,30 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    if (!(await isAdminAuthenticated())) {
+      return NextResponse.json({ error: "Немає доступу" }, { status: 401 });
+    }
+
     await connectDB();
 
     const body = await request.json();
 
-    const dress = await DressModel.create(body);
+    const result = dressSchema.safeParse(body);
+
+    if (!result.success) {
+      return NextResponse.json(
+        {
+          error: "Некоректні дані",
+          errors: result.error.flatten(),
+        },
+        { status: 400 },
+      );
+    }
+
+    const dress = await DressModel.create({
+      ...result.data,
+      slug: body.slug,
+    });
 
     return NextResponse.json(dress, {
       status: 201,

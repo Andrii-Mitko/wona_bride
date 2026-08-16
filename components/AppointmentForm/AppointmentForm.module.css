@@ -193,3 +193,9 @@
   font-size: 14px;
   color: #b00020;
 }
+
+.buttonContent {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}

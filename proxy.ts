@@ -9,9 +9,10 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const auth = request.cookies.get("admin-auth");
+  const isAdminAuthenticated =
+    request.cookies.get("admin-auth")?.value === "true";
 
-  if (!auth && pathname.startsWith("/admin")) {
+  if (!isAdminAuthenticated && pathname.startsWith("/admin")) {
     return NextResponse.redirect(new URL("/admin/login", request.url));
   }
 

@@ -1,5 +1,3 @@
-// components\DressForm\DressForm.tsx
-
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -16,6 +14,7 @@ import { dressCategories, dressStyles, dressFabrics } from "@/data/options";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import FormError from "@/components/FormError/FormError";
+import Spinner from "@/components/Spinner/Spinner";
 
 type Props = {
   initialData?: Dress;
@@ -251,11 +250,16 @@ export default function DressForm({ initialData }: Props) {
         className={css.submitButton}
         disabled={isSubmitting || (isEdit && !isDirty)}
       >
-        {isSubmitting
-          ? "Збереження..."
-          : isEdit
-            ? "Зберегти зміни"
-            : "Створити сукню"}
+        {isSubmitting ? (
+          <span className={css.buttonContent}>
+            <Spinner size={18} />
+            Збереження...
+          </span>
+        ) : isEdit ? (
+          "Зберегти зміни"
+        ) : (
+          "Створити сукню"
+        )}
       </button>
     </form>
   );

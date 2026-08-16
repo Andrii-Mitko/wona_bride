@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import css from "./AppointmentForm.module.css";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import Spinner from "@/components/Spinner/Spinner";
 import {
   appointmentSchema,
   type AppointmentFormData,
@@ -23,10 +23,11 @@ const sizeTypeLabel: Record<"letter" | "women" | "kids", string> = {
 
 export default function AppointmentForm({ dressName, sizes, sizeType }: Props) {
   const router = useRouter();
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<AppointmentFormData>({
     resolver: zodResolver(appointmentSchema),
     defaultValues: {
@@ -130,8 +131,15 @@ export default function AppointmentForm({ dressName, sizes, sizeType }: Props) {
           <span>Я погоджуюся з Політикою конфіденційності</span>
         </label>
 
-        <button type="submit" className={css.button}>
-          Записатися на примірку
+        <button type="submit" className={css.button} disabled={isSubmitting}>
+          {isSubmitting ? (
+            <span className={css.buttonContent}>
+              <Spinner size={18} />
+              Відправка...
+            </span>
+          ) : (
+            "Записатися на примірку"
+          )}
         </button>
       </form>
     </section>

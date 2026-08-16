@@ -92,6 +92,12 @@
   color: #975052;
 }
 
+.buttonContent {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
 /* ---------- TABLET ---------- */
 
 @media only screen and (min-width: 768px) {
