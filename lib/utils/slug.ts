@@ -43,7 +43,7 @@ const translitMap: Record<string, string> = {
 };
 
 export function createSlug(text: string) {
-  return text
+  const slug = text
     .toLowerCase()
     .trim()
     .split("")
@@ -53,4 +53,6 @@ export function createSlug(text: string) {
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "");
+
+  return slug || `dress-${Date.now()}`;
 }

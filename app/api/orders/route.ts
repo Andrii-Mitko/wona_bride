@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { sendTelegram } from "@/lib/telegram";
 import { connectDB } from "@/lib/mongodb";
 import Order from "@/models/Order";
+import { createOrderSchema } from "@/lib/validation/order";
 
 type OrderItem = {
   name: string;
@@ -13,14 +14,29 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
+    const result = createOrderSchema.safeParse(body);
+
+    if (!result.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Некоректні дані замовлення",
+          errors: result.error.flatten(),
+        },
+        { status: 400 },
+      );
+    }
+
+    const data = result.data;
+
     await connectDB();
 
     const order = await Order.create({
-      ...body,
+      ...data,
       status: "new",
     });
 
-    const items = body.items
+    const items = data.items
       .map(
         (item: OrderItem) =>
           `👗 ${item.name}
@@ -32,16 +48,16 @@ export async function POST(request: Request) {
     const message = `
 🛒 Нове замовлення на ПОКУПКУ
 👤 Клієнт:
-${body.customer.name}
+${data.customer.name}
 📞 Телефон:
-${body.customer.phone}
+${data.customer.phone}
 📧 Email:
-${body.customer.email}
+${data.customer.email}
 ${items}
 💰 Разом:
-${body.total} ₴
+${data.total} ₴
 💬 Коментар:
-${body.customer.comment || "-"}
+${data.customer.comment || "-"}
 🆕 Статус:
 Нове замовлення
 `;
