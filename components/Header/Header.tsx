@@ -1,5 +1,3 @@
-// components\Header\Header.tsx
-
 "use client";
 
 import { useState } from "react";
@@ -9,6 +7,7 @@ import css from "./Header.module.css";
 import { useCartStore } from "@/store/cartStore";
 import { navigation } from "@/constants/navigation";
 import { useWishlistStore } from "@/store/wishlistStore";
+import SearchBar from "@/components/SearchBar/SearchBar";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,17 +16,17 @@ export default function Header() {
 
   const cartCount = items.length;
 
-const hasHydrated = useWishlistStore((state) => state.hasHydrated);
+  const hasHydrated = useWishlistStore((state) => state.hasHydrated);
 
-const wishlistItems = useWishlistStore((state) => state.items);
+  const wishlistItems = useWishlistStore((state) => state.items);
 
-const wishlistCount = hasHydrated ? wishlistItems.length : 0;
+  const wishlistCount = hasHydrated ? wishlistItems.length : 0;
 
   const closeMenu = () => setIsOpen(false);
 
   return (
     <header className={css.header}>
-      <div className={css.container}>
+      <div className={css.topRow}>
         <Link href="/" className={css.logo} onClick={closeMenu}>
           <Image
             src="/images/logo.png"
@@ -50,18 +49,6 @@ const wishlistCount = hasHydrated ? wishlistItems.length : 0;
           Переглянути сукні
         </Link>
 
-        <Link href="/wishlist" className={css.cart} onClick={closeMenu}>
-  ❤️
-  {wishlistCount > 0 && (
-    <span className={css.cartCount}>{wishlistCount}</span>
-  )}
-</Link>
-
-        <Link href="/cart" className={css.cart} onClick={closeMenu}>
-          🛒
-          {cartCount > 0 && <span className={css.cartCount}>{cartCount}</span>}
-        </Link>
-
         <button
           className={`${css.burger} ${isOpen ? css.active : ""}`}
           onClick={() => setIsOpen(!isOpen)}
@@ -73,6 +60,26 @@ const wishlistCount = hasHydrated ? wishlistItems.length : 0;
           <span />
           <span />
         </button>
+      </div>
+
+      <div className={css.secondRow}>
+        <Link href="/catalog" className={css.catalogLink} onClick={closeMenu}>
+          Каталог
+        </Link>
+
+        <SearchBar />
+
+        <Link href="/wishlist" className={css.cart} onClick={closeMenu}>
+          ❤️
+          {wishlistCount > 0 && (
+            <span className={css.cartCount}>{wishlistCount}</span>
+          )}
+        </Link>
+
+        <Link href="/cart" className={css.cart} onClick={closeMenu}>
+          🛒
+          {cartCount > 0 && <span className={css.cartCount}>{cartCount}</span>}
+        </Link>
       </div>
 
       <div
