@@ -1,5 +1,5 @@
 import Link from "next/link";
-// import RevealOnScroll from "@/components/RevealOnScroll/RevealOnScroll";
+
 import DressGrid from "@/components/DressGrid/DressGrid";
 import { getDresses } from "@/lib/api/dresses";
 
@@ -13,7 +13,6 @@ const Dresses = async () => {
   return (
     <section className={css.section} id="dresses">
       <div className={css.container}>
-        {/* <RevealOnScroll> */}
         <div className={css.head}>
           <hr className="section-divider" />
 
@@ -54,7 +53,6 @@ const Dresses = async () => {
             Переглянути всю колекцію
           </Link>
         </div>
-        {/* </RevealOnScroll> */}
       </div>
     </section>
   );
