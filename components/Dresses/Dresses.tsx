@@ -1,5 +1,5 @@
 import Link from "next/link";
-import RevealOnScroll from "@/components/RevealOnScroll/RevealOnScroll";
+// import RevealOnScroll from "@/components/RevealOnScroll/RevealOnScroll";
 import DressGrid from "@/components/DressGrid/DressGrid";
 import { getDresses } from "@/lib/api/dresses";
 
@@ -13,48 +13,48 @@ const Dresses = async () => {
   return (
     <section className={css.section} id="dresses">
       <div className={css.container}>
-        <RevealOnScroll>
-          <div className={css.head}>
-            <hr className="section-divider" />
+        {/* <RevealOnScroll> */}
+        <div className={css.head}>
+          <hr className="section-divider" />
 
-            <h2 className={css.title}>Колекція суконь</h2>
+          <h2 className={css.title}>Колекція суконь</h2>
 
-            <p className={css.subtitle}>
-              Вишукані сукні для наречених та особливих подій. Оберіть свій
-              стиль, фасон і створіть образ, який запам`ятається назавжди.
-            </p>
-          </div>
+          <p className={css.subtitle}>
+            Вишукані сукні для наречених та особливих подій. Оберіть свій стиль,
+            фасон і створіть образ, який запам`ятається назавжди.
+          </p>
+        </div>
 
-          <div className={css.categories}>
-            <Link href="/catalog" className={css.categoryActive}>
-              Всі
-            </Link>
+        <div className={css.categories}>
+          <Link href="/catalog" className={css.categoryActive}>
+            Всі
+          </Link>
 
-            <Link href="/catalog?category=wedding" className={css.category}>
-              Весільні
-            </Link>
+          <Link href="/catalog?category=wedding" className={css.category}>
+            Весільні
+          </Link>
 
-            <Link href="/catalog?category=evening" className={css.category}>
-              Вечірні
-            </Link>
+          <Link href="/catalog?category=evening" className={css.category}>
+            Вечірні
+          </Link>
 
-            <Link href="/catalog?category=cocktail" className={css.category}>
-              Коктейльні
-            </Link>
+          <Link href="/catalog?category=cocktail" className={css.category}>
+            Коктейльні
+          </Link>
 
-            <Link href="/catalog?category=holiday" className={css.category}>
-              Святкові
-            </Link>
-          </div>
+          <Link href="/catalog?category=holiday" className={css.category}>
+            Святкові
+          </Link>
+        </div>
 
-          <DressGrid dresses={dresses} />
+        <DressGrid dresses={dresses} />
 
-          <div className={css.actions}>
-            <Link href="/catalog" className={css.button}>
-              Переглянути всю колекцію
-            </Link>
-          </div>
-        </RevealOnScroll>
+        <div className={css.actions}>
+          <Link href="/catalog" className={css.button}>
+            Переглянути всю колекцію
+          </Link>
+        </div>
+        {/* </RevealOnScroll> */}
       </div>
     </section>
   );
