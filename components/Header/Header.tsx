@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import css from "./Header.module.css";
@@ -11,6 +11,10 @@ import SearchBar from "@/components/SearchBar/SearchBar";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const [isCatalogOpen, setIsCatalogOpen] = useState(false);
+
+  const catalogRef = useRef<HTMLDivElement>(null);
 
   const items = useCartStore((state) => state.items);
 
@@ -23,6 +27,47 @@ export default function Header() {
   const wishlistCount = hasHydrated ? wishlistItems.length : 0;
 
   const closeMenu = () => setIsOpen(false);
+
+  const closeCatalog = () => setIsCatalogOpen(false);
+
+ useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        catalogRef.current &&
+        !catalogRef.current.contains(event.target as Node)
+      ) {
+        setIsCatalogOpen(false);
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsCatalogOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1200) {
+        setIsCatalogOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <header className={css.header}>
@@ -63,9 +108,86 @@ export default function Header() {
       </div>
 
       <div className={css.secondRow}>
-        <Link href="/catalog" className={css.catalogLink} onClick={closeMenu}>
-          Каталог
-        </Link>
+        <div
+          ref={catalogRef}
+          className={`${css.catalogWrapper} ${
+            isCatalogOpen ? css.catalogWrapperOpen : ""
+          }`}
+          onMouseEnter={() => setIsCatalogOpen(true)}
+          onMouseLeave={() => setIsCatalogOpen(false)}
+        >
+          <button
+            type="button"
+            className={css.catalogLink}
+           onClick={() => {
+  setIsCatalogOpen((prev) => !prev);
+  setIsOpen(false);
+}}
+            aria-expanded={isCatalogOpen}
+            aria-haspopup="menu"
+          >
+            Каталог
+            <span
+              className={`${css.catalogArrow} ${
+                isCatalogOpen ? css.catalogArrowOpen : ""
+              }`}
+            >
+              ▾
+            </span>
+          </button>
+
+          {isCatalogOpen && (
+            <div className={css.catalogDropdown}>
+              <Link
+                href="/catalog"
+                className={css.catalogItem}
+                onClick={closeCatalog}
+              >
+                Всі сукні
+              </Link>
+
+              <Link
+                href="/catalog?category=wedding"
+                className={css.catalogItem}
+                onClick={closeCatalog}
+              >
+                Весільні
+              </Link>
+
+              <Link
+                href="/catalog?category=evening"
+                className={css.catalogItem}
+                onClick={closeCatalog}
+              >
+                Вечірні
+              </Link>
+
+              <Link
+                href="/catalog?category=cocktail"
+                className={css.catalogItem}
+                onClick={closeCatalog}
+              >
+                Коктейльні
+              </Link>
+
+              <Link
+                href="/catalog?category=holiday"
+                className={css.catalogItem}
+                onClick={closeCatalog}
+              >
+                Святкові
+              </Link>
+
+              <Link
+                href="/catalog?category=graduation"
+                className={css.catalogItem}
+                onClick={closeCatalog}
+              >
+                Випускні
+              </Link>
+            </div>
+          )}
+        </div>
 
         <SearchBar />
 
