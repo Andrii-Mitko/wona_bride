@@ -30,7 +30,7 @@ export default function Header() {
 
   const closeCatalog = () => setIsCatalogOpen(false);
 
- useEffect(() => {
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         catalogRef.current &&
@@ -119,10 +119,10 @@ export default function Header() {
           <button
             type="button"
             className={css.catalogLink}
-           onClick={() => {
-  setIsCatalogOpen((prev) => !prev);
-  setIsOpen(false);
-}}
+            onClick={() => {
+              setIsCatalogOpen((prev) => !prev);
+              setIsOpen(false);
+            }}
             aria-expanded={isCatalogOpen}
             aria-haspopup="menu"
           >
@@ -184,6 +184,14 @@ export default function Header() {
                 onClick={closeCatalog}
               >
                 Випускні
+              </Link>
+
+              <Link
+                href="/catalog?category=kids"
+                className={css.catalogItem}
+                onClick={closeCatalog}
+              >
+                Дитячі
               </Link>
             </div>
           )}
