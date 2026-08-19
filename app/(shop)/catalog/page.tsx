@@ -1,5 +1,3 @@
-// app\(shop)\catalog\page.tsx
-
 import DressCategories from "@/components/DressCategories/DressCategories";
 import DressGrid from "@/components/DressGrid/DressGrid";
 import type { Metadata } from "next";
@@ -230,6 +228,7 @@ export default async function CatalogPage({ searchParams }: Props) {
               minPrice: params.minPrice,
               maxPrice: params.maxPrice,
               size: params.size,
+              sort: params.sort,
             }}
           />
         </div>
