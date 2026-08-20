@@ -1,6 +1,7 @@
-import Link from "next/link";
-import css from "./Hero.module.css";
 import Image from "next/image";
+import Link from "next/link";
+
+import css from "./Hero.module.css";
 
 const Hero = () => {
   return (
@@ -16,19 +17,21 @@ const Hero = () => {
       />
 
       <div className={css.overlay} />
+
       <div className={`${css.container} ${css.heroContainer}`}>
         <div className={css.heroContent}>
-          <p className={css.badge}>WONA Bride — весільні сукні</p>
+          <p className={css.badge}>
+            WONA Bride · весільні та вечірні сукні у Барі
+          </p>
 
           <h1 className={css.heroTitle}>
-            Сукня вашої мрії
+            Весільні та вечірні
             <br />
-            для особливого дня
+            сукні у Барі
           </h1>
 
           <p className={css.heroText}>
-            Елегантні весільні та вечірні сукні, які підкреслять вашу красу,
-            стиль і індивідуальність.
+            Допоможемо знайти сукню, у якій ви почуватиметесь особливою.
           </p>
 
           <div className={css.heroActions}>
