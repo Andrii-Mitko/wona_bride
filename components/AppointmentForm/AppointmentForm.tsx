@@ -8,11 +8,12 @@ import {
   appointmentSchema,
   type AppointmentFormData,
 } from "@/lib/validation/appointment";
+import { z } from "zod";
 
 type Props = {
-  dressName: string;
-  sizes: string[];
-  sizeType: "letter" | "women" | "kids";
+  dressName?: string;
+  sizes?: string[];
+  sizeType?: "letter" | "women" | "kids";
 };
 
 const sizeTypeLabel: Record<"letter" | "women" | "kids", string> = {
@@ -21,15 +22,29 @@ const sizeTypeLabel: Record<"letter" | "women" | "kids", string> = {
   kids: "Дитячі розміри",
 };
 
-export default function AppointmentForm({ dressName, sizes, sizeType }: Props) {
+export default function AppointmentForm({
+  dressName = "",
+  sizes = [],
+  sizeType,
+}: Props) {
   const router = useRouter();
+
+  const schema = appointmentSchema.superRefine((data, ctx) => {
+    if (sizes.length > 0 && (!data.sizes || data.sizes.length === 0)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["sizes"],
+        message: "Оберіть хоча б один розмір",
+      });
+    }
+  });
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<AppointmentFormData>({
-    resolver: zodResolver(appointmentSchema),
+    resolver: zodResolver(schema),
     defaultValues: {
       dressName,
       sizes: [],
@@ -59,29 +74,32 @@ export default function AppointmentForm({ dressName, sizes, sizeType }: Props) {
   return (
     <section className={css.section}>
       <h2 className={css.title}>Запис на примірку</h2>
-      <p className={css.dress}>
-        Сукня: <strong>{dressName}</strong>
-      </p>
+      {dressName && (
+        <p className={css.dress}>
+          Сукня: <strong>{dressName}</strong>
+        </p>
+      )}
       <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
         <input type="hidden" {...register("dressName")} />
-        <div className={css.sizes}>
-          <p className={css.label}>Оберіть розмір *</p>
-
-          <p className={css.sizeInfo}>{sizeTypeLabel[sizeType]}</p>
-
-          <div className={css.sizesGrid}>
-            {sizes.map((size) => (
-              <label key={size} className={css.sizeItem}>
-                <input type="checkbox" value={size} {...register("sizes")} />
-                <span>{size}</span>
-              </label>
-            ))}
+        {sizes.length > 0 && (
+          <div className={css.sizes}>
+            <p className={css.label}>Оберіть розмір *</p>
+            {sizeType && (
+              <p className={css.sizeInfo}>{sizeTypeLabel[sizeType]}</p>
+            )}
+            <div className={css.sizesGrid}>
+              {sizes.map((size) => (
+                <label key={size} className={css.sizeItem}>
+                  <input type="checkbox" value={size} {...register("sizes")} />
+                  <span>{size}</span>
+                </label>
+              ))}
+            </div>
+            {errors.sizes && (
+              <p className={css.error}>{String(errors.sizes.message)}</p>
+            )}
           </div>
-
-          {errors.sizes && (
-            <p className={css.error}>{String(errors.sizes.message)}</p>
-          )}
-        </div>
+        )}
         <label className={css.label}>
           Ім`я *
           <input

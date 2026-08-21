@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import AppointmentModal from "@/components/AppointmentModal/AppointmentModal";
+
 import css from "./Hero.module.css";
 
 const Hero = () => {
@@ -39,9 +41,7 @@ const Hero = () => {
               Переглянути колекцію
             </Link>
 
-            <Link href="/appointment-success" className={css.secondaryButton}>
-              Записатися на примірку
-            </Link>
+            <AppointmentModal className={css.secondaryButton} />
           </div>
         </div>
       </div>

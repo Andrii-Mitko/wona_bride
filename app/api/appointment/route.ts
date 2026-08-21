@@ -31,7 +31,7 @@ export async function POST(req: Request) {
 👗 Сукня:
 ${data.dressName}
 📏 Розмір:
-${data.sizes.join(", ")}
+${data.sizes && data.sizes.length > 0 ? data.sizes.join(", ") : "не вказано"}
 👤 Ім'я:
 ${data.name}
 📞 Телефон:

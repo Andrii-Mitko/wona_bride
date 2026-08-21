@@ -11,8 +11,8 @@ export const appointmentSchema = z.object({
   date: z.string().optional(),
 
   time: z.string().optional(),
-  dressName: z.string(),
-  sizes: z.array(z.string()).min(1, "Оберіть хоча б один розмір"),
+  dressName: z.string().optional(),
+  sizes: z.array(z.string()).optional(),
   message: z.string().max(500).optional(),
 
   privacy: z.boolean().refine((value) => value, {
