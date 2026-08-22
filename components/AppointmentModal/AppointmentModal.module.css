@@ -4,7 +4,7 @@
   border: none;
   border-radius: 30px;
 
-  background: #975052;
+  background-color: #975052;
 
   color: white;
 
@@ -13,9 +13,9 @@
 
   cursor: pointer;
 
-  transition: background 0.25s;
+  transition: background-color 0.25s;
 }
 
 .button:hover {
-  background: #7f3f41;
+  background-color: #7f3f41;
 }

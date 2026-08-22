@@ -120,14 +120,14 @@
 }
 
 .button {
+  border: 1px solid #6b0609;
   background-color: #975052;
   color: #fff;
 }
 
 .secondaryButton {
   border: 1px solid #fff;
-
-  background-color: #fff;
+  background-color: #e8dfd7;
   color: #6b0609;
 }
 
@@ -138,10 +138,11 @@
 
 .button:hover {
   background-color: #6b0609;
+  color: #fff;
 }
 
 .secondaryButton:hover {
-  background-color: transparent;
+  background-color: #6b0609;
   color: #fff;
 }
 

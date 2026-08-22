@@ -1,8 +1,8 @@
-// components\Modal\Modal.tsx
-
 "use client";
 
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
+
 import css from "./Modal.module.css";
 
 type Props = {
@@ -11,18 +11,26 @@ type Props = {
   children: ReactNode;
 };
 
+const emptySubscribe = () => () => {};
+
 export default function Modal({ isOpen, onClose, children }: Props) {
+  const isMounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
+
   useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+    if (!isOpen) return;
+
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
         onClose();
       }
     };
 
-    if (isOpen) {
-      document.addEventListener("keydown", handleEsc);
-      document.body.style.overflow = "hidden";
-    }
+    document.addEventListener("keydown", handleEsc);
+    document.body.style.overflow = "hidden";
 
     return () => {
       document.removeEventListener("keydown", handleEsc);
@@ -30,12 +38,19 @@ export default function Modal({ isOpen, onClose, children }: Props) {
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !isMounted) {
+    return null;
+  }
 
-  return (
+  return createPortal(
     <div className={css.backdrop} onClick={onClose}>
-      <div className={css.modal} onClick={(e) => e.stopPropagation()}>
-        <button className={css.close} onClick={onClose} aria-label="Закрити">
+      <div className={css.modal} onClick={(event) => event.stopPropagation()}>
+        <button
+          type="button"
+          className={css.close}
+          onClick={onClose}
+          aria-label="Закрити"
+        >
           <svg
             width="20"
             height="20"
@@ -48,6 +63,7 @@ export default function Modal({ isOpen, onClose, children }: Props) {
 
         {children}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
