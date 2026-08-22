@@ -1,5 +1,3 @@
-// components\Footer\Footer.tsx
-
 import Link from "next/link";
 import css from "./Footer.module.css";
 import Image from "next/image";
@@ -15,12 +13,12 @@ const Footer = () => {
         >
           <Image
             className={css.logo__img}
-            width={140}
-            height={64}
+            width={160}
+            height={62}
             src="/images/logo.png"
             alt="WONA"
             priority
-          ></Image>
+          />
         </Link>
 
         <p className={css["footer__copy-desk"]}>
@@ -58,23 +56,6 @@ const Footer = () => {
               TikTok
             </Link>
           </li>
-          {/* <li className={css["footer__social-item"]}>
-            <Link
-              className={css["footer__social-link"]}
-              href="https://www.youtube.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="YouTube"
-            >
-              <svg
-                className={css["footer__social-icon"]}
-                width="24"
-                height="24"
-              >
-                <use href="/icons/icons.svg#icon-youtube"></use>
-              </svg>
-            </Link>
-          </li> */}
 
           <li className={css["footer__social-item"]}>
             <Link
@@ -94,33 +75,11 @@ const Footer = () => {
               Instagram
             </Link>
           </li>
-
-          {/* <li className={css["footer__social-item"]}>
-            <Link
-              className={css["footer__social-link"]}
-              href="https://www.facebook.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-            >
-              <svg
-                className={css["footer__social-icon"]}
-                width="24"
-                height="24"
-              >
-                <use href="/icons/icons.svg#icon-facebook"></use>
-              </svg>
-            </Link>
-          </li> */}
         </ul>
         <div className={css.contacts}>
           <Link href="tel:+380966715746" className={css.contact}>
             +38 (096) 671 57 46
           </Link>
-
-          {/* <a href="mailto:wona.bride@gmail.com" className={css.contact}>
-            wona.bride@gmail.com
-          </a> */}
 
           <p className={css.address}>м. Бар, Вінницька область</p>
         </div>

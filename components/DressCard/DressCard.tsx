@@ -1,5 +1,3 @@
-// components\DressCard\DressCard.tsx
-
 import Image from "next/image";
 import Link from "next/link";
 import WishlistButton from "@/components/WishlistButton/WishlistButton";

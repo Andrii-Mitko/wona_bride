@@ -1,5 +1,3 @@
-// app\(shop)\catalog\[slug]\page.tsx
-
 import { notFound } from "next/navigation";
 import { getDressBySlug, getSimilarDresses } from "@/lib/api/dresses";
 import DressGallery from "@/components/DressGallery/DressGallery";

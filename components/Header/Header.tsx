@@ -113,8 +113,6 @@ export default function Header() {
           className={`${css.catalogWrapper} ${
             isCatalogOpen ? css.catalogWrapperOpen : ""
           }`}
-          onMouseEnter={() => setIsCatalogOpen(true)}
-          onMouseLeave={() => setIsCatalogOpen(false)}
         >
           <button
             type="button"

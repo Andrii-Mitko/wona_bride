@@ -1,5 +1,3 @@
-// app\layout.tsx
-
 import { Toaster } from "react-hot-toast";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import Script from "next/script";
@@ -7,6 +5,7 @@ import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { Raleway, Cormorant_Garamond } from "next/font/google";
+import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 
 const raleway = Raleway({
   subsets: ["latin", "cyrillic"],
@@ -175,9 +174,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uk" data-scroll-behavior="smooth">
+    <html lang="uk" className={`${raleway.variable} ${cormorant.variable}`}>
       <body className={`${raleway.variable} ${cormorant.variable}`}>
         <TanStackProvider>
+          <ScrollToTop />
           <Toaster
             position="top-right"
             toastOptions={{

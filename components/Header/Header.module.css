@@ -42,6 +42,8 @@
 }
 
 .burger {
+  position: relative;
+  z-index: 1001;
   flex-shrink: 0;
 
   width: 40px;
@@ -135,10 +137,21 @@
 }
 
 .mobileMenu.show {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100dvh;
+
   display: block;
 
   background-color: #fff;
   border-top: 1px solid #eee;
+
+  overflow-y: auto;
+
+  z-index: 999;
 }
 
 .mobileNav {
@@ -147,7 +160,9 @@
   align-items: center;
   gap: 24px;
 
-  padding: 32px 20px;
+  min-height: 100%;
+
+  padding: 150px 20px 40px;
 }
 
 .mobileNav a {
@@ -267,6 +282,9 @@
   .cart {
     width: 36px;
     font-size: 26px;
+  }
+  .mobileNav {
+    padding-top: 150px;
   }
 }
 
