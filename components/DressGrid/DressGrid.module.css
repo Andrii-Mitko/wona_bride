@@ -1,5 +1,3 @@
-/* components\DressGrid\DressGrid.module.css */
-
 .grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -21,7 +19,7 @@
   color: rgba(8, 12, 9, 0.6);
 }
 
-/* Tablet */
+/* Tablet: 2 колонки */
 @media screen and (min-width: 768px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
@@ -29,10 +27,18 @@
   }
 }
 
-/* Desktop */
+/* Small desktop / великий планшет: 3 колонки */
+@media screen and (min-width: 992px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+}
+
+/* Desktop: 4 колонки */
 @media screen and (min-width: 1200px) {
   .grid {
     grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
+    gap: 32px 24px;
   }
 }

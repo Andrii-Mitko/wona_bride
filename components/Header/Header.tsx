@@ -90,10 +90,6 @@ export default function Header() {
           ))}
         </nav>
 
-        <Link href="/catalog" className={css.button}>
-          Переглянути сукні
-        </Link>
-
         <button
           className={`${css.burger} ${isOpen ? css.active : ""}`}
           onClick={() => setIsOpen(!isOpen)}
@@ -220,14 +216,6 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
-
-          <Link
-            href="/catalog"
-            className={css.mobileButton}
-            onClick={closeMenu}
-          >
-            Переглянути сукні
-          </Link>
         </nav>
       </div>
     </header>

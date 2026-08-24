@@ -1,5 +1,3 @@
-// constants\navigation.ts
-
 export type NavigationItem = {
   href: string;
   label: string;
