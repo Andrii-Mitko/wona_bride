@@ -1,5 +1,3 @@
-// components\About\About.tsx
-
 import Image from "next/image";
 import css from "./About.module.css";
 import RevealOnScroll from "@/components/RevealOnScroll/RevealOnScroll";
