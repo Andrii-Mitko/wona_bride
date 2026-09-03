@@ -1,7 +1,7 @@
 :root {
   /* fonts */
   --font-family: var(--font-raleway), sans-serif;
-  --font-primary: var(--font-family);
+  --font-primary: var(--font-manrope), sans-serif;
   --font-display: var(--font-cormorant), "Georgia", serif;
 
   /* base */
@@ -58,7 +58,7 @@
 }
 
 body {
-  font-family: var(--font-primary);
+  font-family: var(--font-family);
 
   font-size: var(--font-base);
 

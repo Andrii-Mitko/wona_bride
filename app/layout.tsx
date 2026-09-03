@@ -4,7 +4,7 @@ import Script from "next/script";
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
-import { Raleway, Cormorant_Garamond } from "next/font/google";
+import { Raleway, Cormorant_Garamond, Manrope } from "next/font/google";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 
 const raleway = Raleway({
@@ -18,6 +18,13 @@ const cormorant = Cormorant_Garamond({
   subsets: ["latin", "cyrillic"],
   weight: ["500", "600", "700"],
   variable: "--font-cormorant",
+  display: "swap",
+});
+
+const manrope = Manrope({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-manrope",
   display: "swap",
 });
 
@@ -174,8 +181,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uk" className={`${raleway.variable} ${cormorant.variable}`}>
-      <body className={`${raleway.variable} ${cormorant.variable}`}>
+    <html
+      lang="uk"
+      className={`${raleway.variable} ${cormorant.variable} ${manrope.variable}`}
+    >
+      <body
+        className={`${raleway.variable} ${cormorant.variable} ${manrope.variable}`}
+      >
         <TanStackProvider>
           <ScrollToTop />
           <Toaster

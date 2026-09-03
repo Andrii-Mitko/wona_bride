@@ -9,6 +9,7 @@
 }
 
 .price {
+  font-family: var(--font-primary), sans-serif;
   font-size: 28px;
   font-weight: 700;
 }

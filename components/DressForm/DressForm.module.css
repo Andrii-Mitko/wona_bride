@@ -5,6 +5,7 @@
 }
 
 .field {
+  font-family: var(--font-primary), sans-serif;
   display: flex;
   flex-direction: column;
   gap: 8px;
