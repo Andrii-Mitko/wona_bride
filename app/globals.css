@@ -71,6 +71,9 @@ body {
 
   min-height: 100vh;
   min-width: 320px;
+
+  display: flex;
+  flex-direction: column;
 }
 
 body.no-scroll {
@@ -79,6 +82,12 @@ body.no-scroll {
 
 body.is-locked {
   overflow: hidden;
+}
+
+main {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
 }
 
 /* typography */

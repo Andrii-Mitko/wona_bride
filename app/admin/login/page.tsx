@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import css from "./Login.module.css";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -34,11 +35,12 @@ export default function LoginPage() {
   }
 
   return (
-    <main>
-      <h1>Вхід в адмінку</h1>
+    <section className={css.wrapper}>
+      <form className={css.form} onSubmit={handleSubmit}>
+        <h1 className={css.title}>Вхід в адмінку</h1>
 
-      <form onSubmit={handleSubmit}>
         <input
+          className={css.input}
           type="text"
           placeholder="Логін"
           value={login}
@@ -46,16 +48,19 @@ export default function LoginPage() {
         />
 
         <input
+          className={css.input}
           type="password"
           placeholder="Пароль"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        {error && <p>{error}</p>}
+        {error && <p className={css.error}>{error}</p>}
 
-        <button type="submit">Увійти</button>
+        <button className={css.button} type="submit">
+          Увійти
+        </button>
       </form>
-    </main>
+    </section>
   );
 }
