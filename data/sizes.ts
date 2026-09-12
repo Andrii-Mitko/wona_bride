@@ -1,5 +1,3 @@
-// data\sizes.ts
-
 export const dressSizes = {
   letter: ["XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL"],
 
