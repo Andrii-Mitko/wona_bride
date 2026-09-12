@@ -1,5 +1,3 @@
-// components\Contacts\Contacts.tsx
-
 import css from "./Contacts.module.css";
 import { contacts } from "@/constants/contacts";
 import LazyMap from "./LazyMap";
@@ -44,6 +42,19 @@ export default function Contacts() {
                   <use href="/icons/icons.svg#icon-tiktok"></use>
                 </svg>{" "}
                 TikTok
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.instagram.com/wona_bride"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
+                <svg width="24" height="24">
+                  <use href="/icons/icons.svg#icon-instagram"></use>
+                </svg>
+                Instagram
               </a>
             </li>
 

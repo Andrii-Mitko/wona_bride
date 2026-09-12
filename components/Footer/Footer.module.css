@@ -73,7 +73,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  gap: 8px;
+
   color: #fff;
+
   transition:
     opacity 250ms ease,
     transform 250ms ease;

@@ -8,7 +8,7 @@ const Footer = () => {
       <div className={css["footer__container"]}>
         <Link
           href="/#top"
-          className={`${css.footer__logo}  ${css.logo}  ${css["logo--light"]}`}
+          className={css.footer__logo}
           aria-label="WONA — на головну"
         >
           <Image

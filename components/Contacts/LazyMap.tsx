@@ -1,21 +1,11 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import css from "./LazyMap.module.css";
 
 const Map = dynamic(() => import("./Map/Map"), {
   ssr: false,
-  loading: () => (
-    <div
-      style={{
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      Завантаження карти...
-    </div>
-  ),
+  loading: () => <div className={css.loading}>Завантаження карти...</div>,
 });
 
 export default function LazyMap() {
