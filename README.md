@@ -2,8 +2,8 @@
 
 Commercial full-stack e-commerce website for a real bridal salon, offering wedding and evening dresses in Bar, Vinnytsia region, Ukraine.
 
-**Live Demo:** [wona-bride.com.ua](https://wona-bride.com.ua)
-**Repository:** [github.com/wona-bride/wona-bride](https://github.com/Andrii-Mitko/wona_bride)
+**Live Demo:** [https://wona-bride.com.ua/](https://wona-bride.com.ua)
+**Repository:** [https://github.com/Andrii-Mitko/wona_bride](https://github.com/Andrii-Mitko/wona_bride)
 
 ---
 
