@@ -12,7 +12,9 @@
 }
 .product {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 40px;
+  min-width: 0;
 }
 .imageWrapper {
   width: 100%;
@@ -76,7 +78,7 @@
 
 @media (min-width: 768px) {
   .product {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: start;
   }
 }

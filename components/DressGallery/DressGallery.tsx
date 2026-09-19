@@ -1,5 +1,3 @@
-// components\DressGallery\DressGallery.tsx
-
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
@@ -25,6 +23,10 @@ export default function DressGallery({ name, images }: Props) {
   }, [images.length]);
 
   useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setIsOpen(false);
@@ -39,20 +41,15 @@ export default function DressGallery({ name, images }: Props) {
       }
     };
 
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-
+    document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       document.body.style.overflow = "";
-
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, nextImage, prevImage]);
+
   return (
     <div className={`${css.gallery} ${images.length <= 1 ? css.single : ""}`}>
       {images.length > 1 && (

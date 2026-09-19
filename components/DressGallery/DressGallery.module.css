@@ -1,11 +1,10 @@
-/* components\DressGallery\DressGallery.module.css */
-
 .gallery {
   display: grid;
   grid-template-columns: 90px minmax(0, 1fr);
   gap: 20px;
   align-items: start;
   width: 100%;
+  min-width: 0;
 }
 
 .single {
@@ -17,6 +16,7 @@
   border-radius: 12px;
   overflow: hidden;
   cursor: zoom-in;
+  min-width: 0;
 }
 
 .lightbox {
@@ -108,15 +108,20 @@
   .gallery {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   .thumbnails {
+    display: flex;
     flex-direction: row;
+    width: 100%;
+    max-width: 100%;
     overflow-x: auto;
     gap: 10px;
+    padding-bottom: 4px;
   }
 
   .thumbnail {
-    flex: 0 0 auto;
+    flex: 0 0 90px;
   }
 }
