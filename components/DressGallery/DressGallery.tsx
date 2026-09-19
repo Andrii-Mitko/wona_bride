@@ -5,7 +5,9 @@ import {
   useEffect,
   useRef,
   useState,
+  type MouseEvent,
   type TouchEvent,
+  type WheelEvent,
 } from "react";
 import Image from "next/image";
 import css from "./DressGallery.module.css";
@@ -16,7 +18,9 @@ type Props = {
 };
 
 const MIN_ZOOM = 1;
-const MAX_ZOOM = 8;
+const MAX_ZOOM = 7;
+const DOUBLE_TAP_ZOOM = 3;
+const ZOOM_STEP = 0.5;
 const SWIPE_DISTANCE = 50;
 
 export default function DressGallery({ name, images }: Props) {
@@ -24,6 +28,8 @@ export default function DressGallery({ name, images }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [zoom, setZoom] = useState(MIN_ZOOM);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const imageContainerRef = useRef<HTMLDivElement>(null);
 
   const touchStart = useRef<{
     x: number;
@@ -39,6 +45,52 @@ export default function DressGallery({ name, images }: Props) {
   const initialZoom = useRef(MIN_ZOOM);
 
   const lastTapTime = useRef(0);
+
+  const isDragging = useRef(false);
+
+  const lastMousePosition = useRef<{
+    x: number;
+    y: number;
+  } | null>(null);
+
+  const clampPosition = useCallback(
+    (x: number, y: number, nextZoom: number) => {
+      if (nextZoom <= MIN_ZOOM) {
+        return { x: 0, y: 0 };
+      }
+
+      const container = imageContainerRef.current;
+
+      if (!container) {
+        return { x, y };
+      }
+
+      const image = container.querySelector("img");
+
+      if (!image) {
+        return { x, y };
+      }
+
+      const imageWidth = image.offsetWidth;
+      const imageHeight = image.offsetHeight;
+
+      const maxX = Math.max(
+        0,
+        (imageWidth * nextZoom - container.clientWidth) / 2,
+      );
+
+      const maxY = Math.max(
+        0,
+        (imageHeight * nextZoom - container.clientHeight) / 2,
+      );
+
+      return {
+        x: Math.max(-maxX, Math.min(maxX, x)),
+        y: Math.max(-maxY, Math.min(maxY, y)),
+      };
+    },
+    [],
+  );
 
   const resetZoom = useCallback(() => {
     setZoom(MIN_ZOOM);
@@ -59,6 +111,17 @@ export default function DressGallery({ name, images }: Props) {
     setIsOpen(false);
     resetZoom();
   }, [resetZoom]);
+
+  const changeZoom = useCallback(
+    (nextZoom: number) => {
+      const clampedZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, nextZoom));
+
+      setZoom(clampedZoom);
+
+      setPosition((prev) => clampPosition(prev.x, prev.y, clampedZoom));
+    },
+    [clampPosition],
+  );
 
   const getPinchDistance = (touches: TouchEvent<HTMLDivElement>["touches"]) => {
     const first = touches[0];
@@ -109,9 +172,7 @@ export default function DressGallery({ name, images }: Props) {
 
       setZoom(nextZoom);
 
-      if (nextZoom === MIN_ZOOM) {
-        setPosition({ x: 0, y: 0 });
-      }
+      setPosition((prev) => clampPosition(prev.x, prev.y, nextZoom));
 
       return;
     }
@@ -127,10 +188,9 @@ export default function DressGallery({ name, images }: Props) {
         y: clientY,
       };
 
-      setPosition((prev) => ({
-        x: prev.x + deltaX,
-        y: prev.y + deltaY,
-      }));
+      setPosition((prev) =>
+        clampPosition(prev.x + deltaX, prev.y + deltaY, zoom),
+      );
     }
   };
 
@@ -157,13 +217,10 @@ export default function DressGallery({ name, images }: Props) {
     touchStart.current = null;
     lastTouch.current = null;
 
-    // Якщо фото збільшене — рухаємо фото,
-    // а не перемикаємо фотографію.
     if (zoom > MIN_ZOOM) {
       return;
     }
 
-    // Вертикальний рух не є свайпом.
     if (Math.abs(deltaY) > Math.abs(deltaX)) {
       return;
     }
@@ -186,11 +243,57 @@ export default function DressGallery({ name, images }: Props) {
       if (zoom > MIN_ZOOM) {
         resetZoom();
       } else {
-        setZoom(2);
+        changeZoom(DOUBLE_TAP_ZOOM);
       }
     }
 
     lastTapTime.current = now;
+  };
+
+  const handleWheel = (event: WheelEvent<HTMLDivElement>) => {
+    event.preventDefault();
+
+    const direction = event.deltaY > 0 ? -1 : 1;
+
+    changeZoom(zoom + direction * ZOOM_STEP);
+  };
+
+  const handleMouseDown = (event: MouseEvent<HTMLDivElement>) => {
+    if (zoom <= MIN_ZOOM) {
+      return;
+    }
+
+    event.preventDefault();
+
+    isDragging.current = true;
+
+    lastMousePosition.current = {
+      x: event.clientX,
+      y: event.clientY,
+    };
+  };
+
+  const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+    if (!isDragging.current || !lastMousePosition.current) {
+      return;
+    }
+
+    const deltaX = event.clientX - lastMousePosition.current.x;
+    const deltaY = event.clientY - lastMousePosition.current.y;
+
+    lastMousePosition.current = {
+      x: event.clientX,
+      y: event.clientY,
+    };
+
+    setPosition((prev) =>
+      clampPosition(prev.x + deltaX, prev.y + deltaY, zoom),
+    );
+  };
+
+  const stopMouseDrag = () => {
+    isDragging.current = false;
+    lastMousePosition.current = null;
   };
 
   useEffect(() => {
@@ -210,6 +313,18 @@ export default function DressGallery({ name, images }: Props) {
       if (event.key === "ArrowLeft" && zoom === MIN_ZOOM) {
         prevImage();
       }
+
+      if (event.key === "+" || event.key === "=") {
+        changeZoom(zoom + ZOOM_STEP);
+      }
+
+      if (event.key === "-" || event.key === "_") {
+        changeZoom(zoom - ZOOM_STEP);
+      }
+
+      if (event.key === "0") {
+        resetZoom();
+      }
     };
 
     document.body.style.overflow = "hidden";
@@ -220,7 +335,15 @@ export default function DressGallery({ name, images }: Props) {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isOpen, zoom, closeLightbox, nextImage, prevImage]);
+  }, [
+    isOpen,
+    zoom,
+    closeLightbox,
+    nextImage,
+    prevImage,
+    changeZoom,
+    resetZoom,
+  ]);
 
   return (
     <div className={css.gallery}>
@@ -296,11 +419,17 @@ export default function DressGallery({ name, images }: Props) {
           )}
 
           <div
+            ref={imageContainerRef}
             className={css.imageContainer}
             onClick={(event) => {
               event.stopPropagation();
               handleDoubleTap();
             }}
+            onWheel={handleWheel}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={stopMouseDrag}
+            onMouseLeave={stopMouseDrag}
           >
             <Image
               src={images[currentImage]}
