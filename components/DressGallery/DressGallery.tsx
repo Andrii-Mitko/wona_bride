@@ -1,6 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type TouchEvent,
+} from "react";
 import Image from "next/image";
 import css from "./DressGallery.module.css";
 
@@ -9,49 +15,160 @@ type Props = {
   images: string[];
 };
 
+const MIN_ZOOM = 1;
+const MAX_ZOOM = 3;
+const SWIPE_DISTANCE = 50;
+
 export default function DressGallery({ name, images }: Props) {
   const [currentImage, setCurrentImage] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [zoom, setZoom] = useState(MIN_ZOOM);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
 
-  const touchStartX = useRef<number | null>(null);
-  const touchStartY = useRef<number | null>(null);
+  const touchStart = useRef<{
+    x: number;
+    y: number;
+  } | null>(null);
+
+  const lastTouch = useRef<{
+    x: number;
+    y: number;
+  } | null>(null);
+
+  const initialPinchDistance = useRef<number | null>(null);
+  const initialZoom = useRef(MIN_ZOOM);
+
+  const lastTapTime = useRef(0);
+
+  const resetZoom = useCallback(() => {
+    setZoom(MIN_ZOOM);
+    setPosition({ x: 0, y: 0 });
+  }, []);
 
   const nextImage = useCallback(() => {
     setCurrentImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  }, [images.length]);
+    resetZoom();
+  }, [images.length, resetZoom]);
 
   const prevImage = useCallback(() => {
     setCurrentImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  }, [images.length]);
+    resetZoom();
+  }, [images.length, resetZoom]);
 
-  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
-    touchStartX.current = event.touches[0].clientX;
-    touchStartY.current = event.touches[0].clientY;
+  const closeLightbox = useCallback(() => {
+    setIsOpen(false);
+    resetZoom();
+  }, [resetZoom]);
+
+  const getPinchDistance = (touches: TouchEvent<HTMLDivElement>["touches"]) => {
+    const first = touches[0];
+    const second = touches[1];
+
+    return Math.hypot(
+      second.clientX - first.clientX,
+      second.clientY - first.clientY,
+    );
   };
 
-  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
-    if (touchStartX.current === null || touchStartY.current === null) {
+  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    if (event.touches.length === 2) {
+      initialPinchDistance.current = getPinchDistance(event.touches);
+      initialZoom.current = zoom;
+
+      touchStart.current = null;
+      lastTouch.current = null;
+
       return;
     }
 
-    const touchEndX = event.changedTouches[0].clientX;
-    const touchEndY = event.changedTouches[0].clientY;
+    if (event.touches.length === 1) {
+      const { clientX, clientY } = event.touches[0];
 
-    const deltaX = touchEndX - touchStartX.current;
-    const deltaY = touchEndY - touchStartY.current;
+      touchStart.current = {
+        x: clientX,
+        y: clientY,
+      };
 
-    touchStartX.current = null;
-    touchStartY.current = null;
+      lastTouch.current = {
+        x: clientX,
+        y: clientY,
+      };
+    }
+  };
 
-    const minSwipeDistance = 50;
+  const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
+    if (event.touches.length === 2 && initialPinchDistance.current !== null) {
+      const currentDistance = getPinchDistance(event.touches);
 
-    // Не реагируем на вертикальный свайп.
+      const scale = currentDistance / initialPinchDistance.current;
+
+      const nextZoom = Math.min(
+        MAX_ZOOM,
+        Math.max(MIN_ZOOM, initialZoom.current * scale),
+      );
+
+      setZoom(nextZoom);
+
+      if (nextZoom === MIN_ZOOM) {
+        setPosition({ x: 0, y: 0 });
+      }
+
+      return;
+    }
+
+    if (event.touches.length === 1 && zoom > MIN_ZOOM && lastTouch.current) {
+      const { clientX, clientY } = event.touches[0];
+
+      const deltaX = clientX - lastTouch.current.x;
+      const deltaY = clientY - lastTouch.current.y;
+
+      lastTouch.current = {
+        x: clientX,
+        y: clientY,
+      };
+
+      setPosition((prev) => ({
+        x: prev.x + deltaX,
+        y: prev.y + deltaY,
+      }));
+    }
+  };
+
+  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    if (initialPinchDistance.current !== null) {
+      initialPinchDistance.current = null;
+
+      if (zoom < 1.05) {
+        resetZoom();
+      }
+
+      return;
+    }
+
+    if (!touchStart.current) {
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+
+    const deltaX = touch.clientX - touchStart.current.x;
+    const deltaY = touch.clientY - touchStart.current.y;
+
+    touchStart.current = null;
+    lastTouch.current = null;
+
+    // Якщо фото збільшене — рухаємо фото,
+    // а не перемикаємо фотографію.
+    if (zoom > MIN_ZOOM) {
+      return;
+    }
+
+    // Вертикальний рух не є свайпом.
     if (Math.abs(deltaY) > Math.abs(deltaX)) {
       return;
     }
 
-    // Слишком короткое движение — это не свайп.
-    if (Math.abs(deltaX) < minSwipeDistance) {
+    if (Math.abs(deltaX) < SWIPE_DISTANCE) {
       return;
     }
 
@@ -62,6 +179,20 @@ export default function DressGallery({ name, images }: Props) {
     }
   };
 
+  const handleDoubleTap = () => {
+    const now = Date.now();
+
+    if (now - lastTapTime.current < 300) {
+      if (zoom > MIN_ZOOM) {
+        resetZoom();
+      } else {
+        setZoom(2);
+      }
+    }
+
+    lastTapTime.current = now;
+  };
+
   useEffect(() => {
     if (!isOpen) {
       return;
@@ -69,36 +200,40 @@ export default function DressGallery({ name, images }: Props) {
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setIsOpen(false);
+        closeLightbox();
       }
 
-      if (event.key === "ArrowRight") {
+      if (event.key === "ArrowRight" && zoom === MIN_ZOOM) {
         nextImage();
       }
 
-      if (event.key === "ArrowLeft") {
+      if (event.key === "ArrowLeft" && zoom === MIN_ZOOM) {
         prevImage();
       }
     };
 
     document.body.style.overflow = "hidden";
+
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isOpen, nextImage, prevImage]);
+  }, [isOpen, zoom, closeLightbox, nextImage, prevImage]);
 
   return (
-    <div className={`${css.gallery} ${images.length <= 1 ? css.single : ""}`}>
+    <div className={css.gallery}>
       {images.length > 1 && (
         <div className={css.thumbnails}>
           {images.map((image, index) => (
             <button
               key={image}
               type="button"
-              onClick={() => setCurrentImage(index)}
+              onClick={() => {
+                setCurrentImage(index);
+                resetZoom();
+              }}
               className={`${css.thumbnail} ${
                 currentImage === index ? css.active : ""
               }`}
@@ -115,12 +250,7 @@ export default function DressGallery({ name, images }: Props) {
         </div>
       )}
 
-      <div
-        className={css.mainImage}
-        onClick={() => setIsOpen(true)}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
+      <div className={css.mainImage} onClick={() => setIsOpen(true)}>
         <Image
           src={images[currentImage]}
           alt={name}
@@ -134,20 +264,24 @@ export default function DressGallery({ name, images }: Props) {
       {isOpen && (
         <div
           className={css.lightbox}
-          onClick={() => setIsOpen(false)}
+          onClick={closeLightbox}
           onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
           <button
             type="button"
             className={css.close}
-            onClick={() => setIsOpen(false)}
+            onClick={(event) => {
+              event.stopPropagation();
+              closeLightbox();
+            }}
             aria-label="Закрити"
           >
             ✕
           </button>
 
-          {images.length > 1 && (
+          {images.length > 1 && zoom === MIN_ZOOM && (
             <button
               type="button"
               className={css.prev}
@@ -161,17 +295,28 @@ export default function DressGallery({ name, images }: Props) {
             </button>
           )}
 
-          <Image
-            src={images[currentImage]}
-            alt={`${name} ${currentImage + 1}`}
-            width={1200}
-            height={1600}
-            className={css.lightboxImage}
-            onClick={(event) => event.stopPropagation()}
-            priority
-          />
+          <div
+            className={css.imageContainer}
+            onClick={(event) => {
+              event.stopPropagation();
+              handleDoubleTap();
+            }}
+          >
+            <Image
+              src={images[currentImage]}
+              alt={`${name} ${currentImage + 1}`}
+              width={1200}
+              height={1600}
+              className={css.lightboxImage}
+              style={{
+                transform: `translate3d(${position.x}px, ${position.y}px, 0) scale(${zoom})`,
+              }}
+              priority
+              draggable={false}
+            />
+          </div>
 
-          {images.length > 1 && (
+          {images.length > 1 && zoom === MIN_ZOOM && (
             <button
               type="button"
               className={css.next}
@@ -189,6 +334,10 @@ export default function DressGallery({ name, images }: Props) {
             <div className={css.counter}>
               {currentImage + 1} / {images.length}
             </div>
+          )}
+
+          {zoom > MIN_ZOOM && (
+            <div className={css.zoomIndicator}>{Math.round(zoom * 100)}%</div>
           )}
         </div>
       )}
