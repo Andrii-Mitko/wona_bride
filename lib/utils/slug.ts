@@ -1,5 +1,3 @@
-// lib\utils\slug.ts
-
 const translitMap: Record<string, string> = {
   а: "a",
   б: "b",
