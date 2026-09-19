@@ -16,7 +16,7 @@ type Props = {
 };
 
 const MIN_ZOOM = 1;
-const MAX_ZOOM = 3;
+const MAX_ZOOM = 8;
 const SWIPE_DISTANCE = 50;
 
 export default function DressGallery({ name, images }: Props) {
