@@ -73,6 +73,7 @@
   display: block;
   width: 100%;
   height: auto;
+  object-fit: cover;
 }
 
 .thumbnails {
@@ -80,13 +81,24 @@
   flex-direction: row;
   width: 100%;
   max-width: 100%;
-  overflow-x: auto;
   gap: 10px;
   padding-bottom: 4px;
+  overflow-x: auto;
 }
-
 .thumbnail {
   flex: 0 0 90px;
+  width: 90px;
+  height: 120px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background-color: transparent;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.65;
+  transition:
+    border-color 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .thumbnail img {
@@ -95,9 +107,13 @@
   object-fit: cover;
 }
 
-.thumbnail:hover,
+.thumbnail:hover {
+  opacity: 0.9;
+}
+
 .active {
   border-color: #975052;
+  opacity: 1;
 }
 
 @media (min-width: 768px) {
@@ -111,6 +127,7 @@
   .thumbnails {
     flex-direction: column;
     width: auto;
+    max-width: none;
     overflow-x: visible;
   }
 
