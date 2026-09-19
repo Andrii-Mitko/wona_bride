@@ -176,21 +176,6 @@
   font-size: 14px;
 }
 
-.zoomIndicator {
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
-
-  padding: 6px 10px;
-
-  border-radius: 8px;
-
-  background-color: rgba(0, 0, 0, 0.6);
-  color: #fff;
-
-  font-size: 13px;
-}
-
 @media (min-width: 768px) {
   .gallery {
     display: grid;

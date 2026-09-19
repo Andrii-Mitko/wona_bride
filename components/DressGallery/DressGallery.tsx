@@ -464,10 +464,6 @@ export default function DressGallery({ name, images }: Props) {
               {currentImage + 1} / {images.length}
             </div>
           )}
-
-          {zoom > MIN_ZOOM && (
-            <div className={css.zoomIndicator}>{Math.round(zoom * 100)}%</div>
-          )}
         </div>
       )}
     </div>
