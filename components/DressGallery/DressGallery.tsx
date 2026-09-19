@@ -1,5 +1,3 @@
-// components/DressGallery/DressGallery.tsx
-
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -42,16 +40,17 @@ export default function DressGallery({ name, images }: Props) {
     const deltaX = touchEndX - touchStartX.current;
     const deltaY = touchEndY - touchStartY.current;
 
-    const minSwipeDistance = 50;
-
     touchStartX.current = null;
     touchStartY.current = null;
 
-    // Вертикальный свайп оставляем браузеру для прокрутки страницы.
+    const minSwipeDistance = 50;
+
+    // Не реагируем на вертикальный свайп.
     if (Math.abs(deltaY) > Math.abs(deltaX)) {
       return;
     }
 
+    // Слишком короткое движение — это не свайп.
     if (Math.abs(deltaX) < minSwipeDistance) {
       return;
     }
@@ -109,11 +108,7 @@ export default function DressGallery({ name, images }: Props) {
                 alt={`${name} ${index + 1}`}
                 width={90}
                 height={120}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
+                className={css.thumbnailImage}
               />
             </button>
           ))}
@@ -133,16 +128,16 @@ export default function DressGallery({ name, images }: Props) {
           height={950}
           className={css.image}
           priority
-          style={{
-            width: "100%",
-            height: "auto",
-            objectFit: "cover",
-          }}
         />
       </div>
 
       {isOpen && (
-        <div className={css.lightbox} onClick={() => setIsOpen(false)}>
+        <div
+          className={css.lightbox}
+          onClick={() => setIsOpen(false)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <button
             type="button"
             className={css.close}
@@ -152,38 +147,49 @@ export default function DressGallery({ name, images }: Props) {
             ✕
           </button>
 
-          <button
-            type="button"
-            className={css.prev}
-            onClick={(event) => {
-              event.stopPropagation();
-              prevImage();
-            }}
-            aria-label="Попереднє фото"
-          >
-            ‹
-          </button>
+          {images.length > 1 && (
+            <button
+              type="button"
+              className={css.prev}
+              onClick={(event) => {
+                event.stopPropagation();
+                prevImage();
+              }}
+              aria-label="Попередня фотографія"
+            >
+              ‹
+            </button>
+          )}
 
           <Image
             src={images[currentImage]}
-            alt={name}
-            width={900}
-            height={1200}
+            alt={`${name} ${currentImage + 1}`}
+            width={1200}
+            height={1600}
             className={css.lightboxImage}
             onClick={(event) => event.stopPropagation()}
+            priority
           />
 
-          <button
-            type="button"
-            className={css.next}
-            onClick={(event) => {
-              event.stopPropagation();
-              nextImage();
-            }}
-            aria-label="Наступне фото"
-          >
-            ›
-          </button>
+          {images.length > 1 && (
+            <button
+              type="button"
+              className={css.next}
+              onClick={(event) => {
+                event.stopPropagation();
+                nextImage();
+              }}
+              aria-label="Наступна фотографія"
+            >
+              ›
+            </button>
+          )}
+
+          {images.length > 1 && (
+            <div className={css.counter}>
+              {currentImage + 1} / {images.length}
+            </div>
+          )}
         </div>
       )}
     </div>
