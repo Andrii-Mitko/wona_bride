@@ -1,6 +1,8 @@
+// components/DressGallery/DressGallery.tsx
+
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import css from "./DressGallery.module.css";
 
@@ -11,8 +13,10 @@ type Props = {
 
 export default function DressGallery({ name, images }: Props) {
   const [currentImage, setCurrentImage] = useState(0);
-
   const [isOpen, setIsOpen] = useState(false);
+
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
 
   const nextImage = useCallback(() => {
     setCurrentImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
@@ -21,6 +25,43 @@ export default function DressGallery({ name, images }: Props) {
   const prevImage = useCallback(() => {
     setCurrentImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   }, [images.length]);
+
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    touchStartX.current = event.touches[0].clientX;
+    touchStartY.current = event.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartX.current === null || touchStartY.current === null) {
+      return;
+    }
+
+    const touchEndX = event.changedTouches[0].clientX;
+    const touchEndY = event.changedTouches[0].clientY;
+
+    const deltaX = touchEndX - touchStartX.current;
+    const deltaY = touchEndY - touchStartY.current;
+
+    const minSwipeDistance = 50;
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+
+    // Вертикальный свайп оставляем браузеру для прокрутки страницы.
+    if (Math.abs(deltaY) > Math.abs(deltaX)) {
+      return;
+    }
+
+    if (Math.abs(deltaX) < minSwipeDistance) {
+      return;
+    }
+
+    if (deltaX < 0) {
+      nextImage();
+    } else {
+      prevImage();
+    }
+  };
 
   useEffect(() => {
     if (!isOpen) {
@@ -79,7 +120,12 @@ export default function DressGallery({ name, images }: Props) {
         </div>
       )}
 
-      <div className={css.mainImage} onClick={() => setIsOpen(true)}>
+      <div
+        className={css.mainImage}
+        onClick={() => setIsOpen(true)}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <Image
           src={images[currentImage]}
           alt={name}
@@ -94,18 +140,26 @@ export default function DressGallery({ name, images }: Props) {
           }}
         />
       </div>
+
       {isOpen && (
         <div className={css.lightbox} onClick={() => setIsOpen(false)}>
-          <button className={css.close} onClick={() => setIsOpen(false)}>
+          <button
+            type="button"
+            className={css.close}
+            onClick={() => setIsOpen(false)}
+            aria-label="Закрити"
+          >
             ✕
           </button>
 
           <button
+            type="button"
             className={css.prev}
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={(event) => {
+              event.stopPropagation();
               prevImage();
             }}
+            aria-label="Попереднє фото"
           >
             ‹
           </button>
@@ -116,15 +170,17 @@ export default function DressGallery({ name, images }: Props) {
             width={900}
             height={1200}
             className={css.lightboxImage}
-            onClick={(e) => e.stopPropagation()}
+            onClick={(event) => event.stopPropagation()}
           />
 
           <button
+            type="button"
             className={css.next}
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={(event) => {
+              event.stopPropagation();
               nextImage();
             }}
+            aria-label="Наступне фото"
           >
             ›
           </button>

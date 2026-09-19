@@ -1,10 +1,9 @@
 .gallery {
-  display: grid;
-  grid-template-columns: 90px minmax(0, 1fr);
-  gap: 20px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   min-width: 0;
+  gap: 12px;
 }
 
 .single {
@@ -13,10 +12,11 @@
 
 .mainImage {
   width: 100%;
+  min-width: 0;
   border-radius: 12px;
   overflow: hidden;
   cursor: zoom-in;
-  min-width: 0;
+  touch-action: pan-y;
 }
 
 .lightbox {
@@ -77,20 +77,16 @@
 
 .thumbnails {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-direction: row;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  gap: 10px;
+  padding-bottom: 4px;
 }
 
 .thumbnail {
-  width: 90px;
-  height: 120px;
-  padding: 0;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  overflow: hidden;
-  background: transparent;
-  cursor: pointer;
-  transition: border-color 0.25s;
+  flex: 0 0 90px;
 }
 
 .thumbnail img {
@@ -104,24 +100,21 @@
   border-color: #975052;
 }
 
-@media (max-width: 767px) {
+@media (min-width: 768px) {
   .gallery {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+    display: grid;
+    grid-template-columns: 90px minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
   }
 
   .thumbnails {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: auto;
-    gap: 10px;
-    padding-bottom: 4px;
+    flex-direction: column;
+    width: auto;
+    overflow-x: visible;
   }
 
   .thumbnail {
-    flex: 0 0 90px;
+    flex: 0 0 auto;
   }
 }
