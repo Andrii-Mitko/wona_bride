@@ -42,6 +42,8 @@ export default function AdminHeader() {
           <Link href="/admin/feedback">
             Відгуки ⭐ <AdminBadge type="feedbacks" />
           </Link>
+
+          <Link href="/admin/analytics">📊 Аналітика</Link>
         </nav>
 
         <div className={css.actions}>
@@ -84,6 +86,10 @@ export default function AdminHeader() {
 
             <Link href="/admin/feedback" onClick={() => setOpen(false)}>
               Відгуки ⭐ <AdminBadge type="feedbacks" />
+            </Link>
+
+            <Link href="/admin/analytics" onClick={() => setOpen(false)}>
+              📊 Аналітика
             </Link>
 
             <Link href="/" onClick={() => setOpen(false)}>
