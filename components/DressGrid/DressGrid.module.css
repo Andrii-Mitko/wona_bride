@@ -1,6 +1,6 @@
 .grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 24px;
   padding: 0;
   margin-bottom: 16px;
@@ -9,6 +9,11 @@
 
 .grid li {
   list-style: none;
+  min-width: 0;
+}
+
+.grid li > div {
+  height: 100%;
 }
 
 .empty {
@@ -22,7 +27,7 @@
 /* Tablet: 2 колонки */
 @media screen and (min-width: 768px) {
   .grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 32px;
   }
 }
@@ -30,7 +35,7 @@
 /* Small desktop / великий планшет: 3 колонки */
 @media screen and (min-width: 992px) {
   .grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 28px;
   }
 }
@@ -38,7 +43,7 @@
 /* Desktop: 4 колонки */
 @media screen and (min-width: 1200px) {
   .grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 32px 24px;
   }
 }

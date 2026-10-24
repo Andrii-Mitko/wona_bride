@@ -1,5 +1,3 @@
-// lib\api\dresses.ts
-
 import "server-only";
 
 import { connectDB } from "@/lib/mongodb";

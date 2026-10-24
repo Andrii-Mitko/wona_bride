@@ -1,19 +1,20 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { verifyAdminSessionToken } from "@/lib/auth";
 
 export function proxy(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
+  const { pathname } = request.nextUrl;
 
-  // страницу входа не защищаем
   if (pathname === "/admin/login") {
     return NextResponse.next();
   }
 
-  const isAdminAuthenticated =
-    request.cookies.get("admin-auth")?.value === "true";
+  const sessionToken = request.cookies.get("admin-auth")?.value;
 
-  if (!isAdminAuthenticated && pathname.startsWith("/admin")) {
-    return NextResponse.redirect(new URL("/admin/login", request.url));
+  if (!verifyAdminSessionToken(sessionToken)) {
+    const loginUrl = new URL("/admin/login", request.url);
+
+    return NextResponse.redirect(loginUrl);
   }
 
   return NextResponse.next();

@@ -1,8 +1,7 @@
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { connectDB } from "@/lib/mongodb";
-
+import { isAdminAuthenticated } from "@/lib/auth";
 import DressModel from "@/models/DressModel";
 import Order from "@/models/Order";
 import Appointment from "@/models/Appointment";
@@ -11,11 +10,7 @@ import Feedback from "@/models/Feedback";
 import css from "./admin.module.css";
 
 export default async function AdminPage() {
-  const cookieStore = await cookies();
-
-  const adminAuth = cookieStore.get("admin-auth");
-
-  if (!adminAuth || adminAuth.value !== "true") {
+  if (!(await isAdminAuthenticated())) {
     redirect("/admin/login");
   }
 

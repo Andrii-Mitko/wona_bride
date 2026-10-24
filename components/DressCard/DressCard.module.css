@@ -1,6 +1,8 @@
 .card {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  height: 100%;
   overflow: hidden;
   border-radius: 16px;
   background-color: #ffffff;
@@ -39,10 +41,8 @@
   min-height: 2.4em;
 
   overflow: hidden;
-
+  overflow-wrap: anywhere;
   display: -webkit-box;
-  display: box;
-
   -webkit-box-orient: vertical;
 
   line-clamp: 2;
